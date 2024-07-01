@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.midget807.afmweapons.mixin.client",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ItemRendererAccessor",
+    "ItemRendererMixin",
+    "ModelLoaderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
