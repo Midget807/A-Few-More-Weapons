@@ -22,6 +22,10 @@ public abstract class PlayerEntityMixin {
 
     @Shadow public abstract void disableShield(boolean sprinting);
 
+    @Shadow public abstract Iterable<ItemStack> getHandItems();
+
+    @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
     protected void afmw$halberdDisableShield(LivingEntity attacker, CallbackInfo ci) {
         if (attacker.getMainHandStack().getItem() instanceof HalberdItem) {
