@@ -2,6 +2,7 @@ package net.midget807.afmweapons;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.midget807.afmweapons.item.ModItemGroups;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -19,5 +20,6 @@ public class AFMWMain implements ModInitializer {
 		LOGGER.info("wassup");
 
 		ModItems.registerModItems();
+		ModItemGroups.registerModItemGroups();
 	}
 }
