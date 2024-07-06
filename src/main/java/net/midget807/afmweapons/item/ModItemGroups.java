@@ -9,13 +9,16 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 
 public class ModItemGroups {
-    public static final ItemGroup AFMW_GROUP = Registry.register(Registries.ITEM_GROUP,
-            AFMWMain.id("main"),
-            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.afmweapons.main"))
-                    .icon(() -> new ItemStack(ModItems.HALBERD))
-                    .entries((displayContext, entries) -> {
-                        entries.add(ModItems.HALBERD);
-                    }).build());
+    public static final ItemGroup AFMW_GROUP = registerItemGroup("main", FabricItemGroup.builder()
+            .displayName(Text.translatable("itemgroup.afmweapons.main"))
+            .icon(() -> new ItemStack(ModItems.HALBERD))
+            .entries((displayContext, entries) -> {
+                entries.add(ModItems.HALBERD);
+                entries.add(ModItems.LONGSWORD);
+            }).build());
+    public static ItemGroup registerItemGroup(String name, ItemGroup group) {
+        return Registry.register(Registries.ITEM_GROUP, AFMWMain.id(name), group);
+    }
     public static void registerModItemGroups() {
         AFMWMain.LOGGER.info("Registering AFMW Item Groups");
     }
