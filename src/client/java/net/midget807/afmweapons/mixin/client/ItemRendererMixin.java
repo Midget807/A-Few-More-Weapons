@@ -17,8 +17,11 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class ItemRendererMixin {
     @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V", at = @At("HEAD"), argsOnly = true)
     public BakedModel useHalberdModels(BakedModel value, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumer, int light, int overlay, BakedModel model) {
-        if (stack.isOf(ModItems.HALBERD) && (renderMode != ModelTransformationMode.GUI || renderMode != ModelTransformationMode.GROUND)) {
-            return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "halberd", "inventory"));
+        if (stack.isOf(ModItems.NETHERITE_HALBERD) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND) {
+            return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_halberd_handheld", "inventory"));
+        }
+        if (stack.isOf(ModItems.NETHERITE_LONGSWORD) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND) {
+            return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_longsword_handheld", "inventory"));
         }
         return value;
     }

@@ -11,8 +11,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 public class ModItems {
-    public static final Item HALBERD = registerItem("halberd", new HalberdItem(ToolMaterials.NETHERITE, 5, -3.0f, new FabricItemSettings()));
-    public static final Item LONGSWORD = registerItem("longsword", new LongswordItem(ToolMaterials.NETHERITE, 3, -2.5f, new FabricItemSettings()));
+    public static final Item NETHERITE_HALBERD = registerItem("netherite_halberd", new HalberdItem(ToolMaterials.NETHERITE, 5, -3.0f, new FabricItemSettings()));
+    public static final Item NETHERITE_LONGSWORD = registerItem("netherite_longsword", new LongswordItem(ToolMaterials.NETHERITE, 3, -2.5f, new FabricItemSettings()));
 
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, AFMWMain.id(name), item);

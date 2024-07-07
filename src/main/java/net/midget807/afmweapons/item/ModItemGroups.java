@@ -11,10 +11,10 @@ import net.minecraft.text.Text;
 public class ModItemGroups {
     public static final ItemGroup AFMW_GROUP = registerItemGroup("main", FabricItemGroup.builder()
             .displayName(Text.translatable("itemgroup.afmweapons.main"))
-            .icon(() -> new ItemStack(ModItems.HALBERD))
+            .icon(() -> new ItemStack(ModItems.NETHERITE_HALBERD))
             .entries((displayContext, entries) -> {
-                entries.add(ModItems.HALBERD);
-                entries.add(ModItems.LONGSWORD);
+                entries.add(ModItems.NETHERITE_HALBERD);
+                entries.add(ModItems.NETHERITE_LONGSWORD);
             }).build());
     public static ItemGroup registerItemGroup(String name, ItemGroup group) {
         return Registry.register(Registries.ITEM_GROUP, AFMWMain.id(name), group);
