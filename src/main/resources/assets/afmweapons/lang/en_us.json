@@ -1,3 +1,7 @@
 {
-  "itemgroup.afmweapons.main": "A Few More Weapons"
+  "itemgroup.afmweapons.main": "A Few More Weapons",
+
+  "item.afmweapons.netherite_halberd" : "Netherite Halberd",
+  "item.afmweapons.netherite_longsword" : "Netherite Longsword",
+  "item.afmweapons.longsword.desc" : "Can block attacks"
 }
