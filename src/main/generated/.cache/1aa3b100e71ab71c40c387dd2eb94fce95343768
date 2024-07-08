@@ -1,1 +1,15 @@
-// 1.20.2	2024-07-08T15:47:27.3645928	A Few More Weapons/Recipes
+// 1.20.2	2024-07-08T16:39:21.4435162	A Few More Weapons/Recipes
+ba5b3d2cec7eeb31518e04fad11819bbd5299a61 data\afmweapons\recipes\diamond_longsword.json
+0e0591e224b640dee21bfeedd70226efdf01a13a data\afmweapons\advancements\recipes\combat\netherite_longsword.json
+fe86f9965da1ea61b4ece150291137afe6b8f886 data\afmweapons\recipes\iron_longsword.json
+7ef182dd4ed512c8205eae98e44423c17a467770 data\afmweapons\recipes\pole.json
+029462915fea02902e19c02c7b6d3356000ed19a data\afmweapons\recipes\golden_longsword.json
+953dac8df925281562a4055b9628290d1fd5e4c2 data\afmweapons\advancements\recipes\combat\wooden_longsword.json
+6d1d8521aacffb6140d6f7f466297dee7ca6a6cc data\afmweapons\recipes\wooden_longsword.json
+9bc15e69d031961449c427d95493d10b351b7def data\afmweapons\advancements\recipes\combat\golden_longsword.json
+bffd154871d532d86f75b1cc80ec931c44636e33 data\afmweapons\advancements\recipes\misc\pole.json
+84639b64d6183195f2e9a892ac963035b95bb0de data\afmweapons\advancements\recipes\combat\stone_longsword.json
+4fac61bcca7958ddaca93e7174ff1011b1c08753 data\afmweapons\advancements\recipes\combat\diamond_longsword.json
+12687763b3ded5314a84ae4fb1bfeb05dde7d999 data\afmweapons\recipes\netherite_longsword.json
+9c7d25188c6dfbe3fadb686aff2392e62ae9e831 data\afmweapons\recipes\stone_longsword.json
+0b272bb82454632f1c2fdc0312f69bc7c36d09ff data\afmweapons\advancements\recipes\combat\iron_longsword.json

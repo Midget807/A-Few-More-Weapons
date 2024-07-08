@@ -1,5 +1,5 @@
 {
-  "parent": "afmweapons:item/32x32generated",
+  "parent": "afmweapons:item/32x32generated_polearm",
   "textures": {
     "layer0": "afmweapons:item/netherite_halberd_handheld"
   }

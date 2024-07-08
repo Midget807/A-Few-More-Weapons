@@ -14,6 +14,11 @@ public class ModItemGroups {
             .icon(() -> new ItemStack(ModItems.NETHERITE_HALBERD))
             .entries((displayContext, entries) -> {
                 entries.add(ModItems.NETHERITE_HALBERD);
+                entries.add(ModItems.WOODEN_LONGSWORD);
+                entries.add(ModItems.STONE_LONGSWORD);
+                entries.add(ModItems.IRON_LONGSWORD);
+                entries.add(ModItems.GOLDEN_LONGSWORD);
+                entries.add(ModItems.DIAMOND_LONGSWORD);
                 entries.add(ModItems.NETHERITE_LONGSWORD);
             }).build());
     public static ItemGroup registerItemGroup(String name, ItemGroup group) {
