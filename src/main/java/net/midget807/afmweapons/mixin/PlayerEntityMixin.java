@@ -123,37 +123,4 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     }
 
-    //TODO make halberds never crit
-    /*
-    @Inject(
-            method = "attack",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/entity/player/PlayerEntity;isSprinting()Z",
-                    shift = At.Shift.AFTER
-            ),
-            slice = @Slice(
-                    from = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;hasVehicle()Z"),
-                    to = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I")
-            ))
-    public void afmw$halberdsNeverCrit(Entity target, CallbackInfo ci) {
-
-    }
-    */
-    @ModifyVariable(method = "attack",
-            at = @At(value = "STORE"),
-            ordinal = 3,
-            slice = @Slice(
-                    from = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;hasVehicle()Z"),
-                    to = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I")
-            )
-    )
-    private boolean afmw$halberdsNeverCrit(boolean value) {
-        return !this.getStackInHand(Hand.MAIN_HAND).isIn(ModItemTagProvider.HALBERDS);
-    }
-
-    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;addCritParticles(Lnet/minecraft/entity/Entity;)V"), cancellable = true)
-    private void afmw$debug$critOccurred(Entity target, CallbackInfo ci) {
-        this.sendMessage(Text.literal("Crit Attack"), true);
-    }
 }
