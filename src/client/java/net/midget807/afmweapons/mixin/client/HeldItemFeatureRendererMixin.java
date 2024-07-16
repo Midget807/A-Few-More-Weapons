@@ -36,10 +36,11 @@ public abstract class HeldItemFeatureRendererMixin<T extends LivingEntity, M ext
     protected void afmw$twoHandedHolding(LivingEntity entity, ItemStack stack, ModelTransformationMode transformationMode, Arm arm, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
         ItemStack main = entity.getMainHandStack();
         boolean mainArm = entity.getMainArm() == arm;
-        if ((main.isIn(ModItemTagProvider.LONGSWORDS) || main.isIn(ModItemTagProvider.HALBERDS)) && entity instanceof PlayerEntity) {
+        if ((main.isIn(ModItemTagProvider.LONGSWORDS) || main.isIn(ModItemTagProvider.HALBERDS)) && !mainArm) {
             matrices.push();
             ((ModelWithArms)this.getContextModel()).setArmAngle(arm, matrices);
             matrices.pop();
+            ci.cancel();
         } else {
             boolean leftArm = arm == Arm.LEFT;
         }

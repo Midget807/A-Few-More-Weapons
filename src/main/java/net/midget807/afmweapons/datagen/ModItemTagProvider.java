@@ -22,8 +22,18 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         this.getOrCreateTagBuilder(LONGSWORDS)
+                .add(ModItems.WOODEN_LONGSWORD)
+                .add(ModItems.STONE_LONGSWORD)
+                .add(ModItems.IRON_LONGSWORD)
+                .add(ModItems.GOLDEN_LONGSWORD)
+                .add(ModItems.DIAMOND_LONGSWORD)
                 .add(ModItems.NETHERITE_LONGSWORD);
         this.getOrCreateTagBuilder(HALBERDS)
+                .add(ModItems.WOODEN_HALBERD)
+                .add(ModItems.STONE_HALBERD)
+                .add(ModItems.IRON_HALBERD)
+                .add(ModItems.GOLD_HALBERD)
+                .add(ModItems.DIAMOND_HALBERD)
                 .add(ModItems.NETHERITE_HALBERD);
     }
 }

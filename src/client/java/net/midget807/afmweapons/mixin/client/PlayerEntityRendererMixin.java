@@ -46,4 +46,16 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     }
 
     // ================================
+
+    @Inject(method = "getArmPose", at = @At("HEAD"), cancellable = true)
+    private static void afmw$fryingPanPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if (itemStack.isOf(ModItems.FRYING_PAN)) {
+            if (player.isUsingItem()) {
+                cir.setReturnValue(BipedEntityModel.ArmPose.THROW_SPEAR);
+            } else {
+                cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
+            }
+        }
+    }
 }
