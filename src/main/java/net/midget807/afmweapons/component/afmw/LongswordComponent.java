@@ -10,6 +10,8 @@ import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.NotNull;
 
 public class LongswordComponent implements AutoSyncedComponent {
+
+    // === Credit: Methods From Amarite Mod ===
     private final PlayerEntity player;
     private boolean blocking = false;
 

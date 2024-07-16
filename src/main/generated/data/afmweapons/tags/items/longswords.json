@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
+    "afmweapons:wooden_longsword",
+    "afmweapons:stone_longsword",
+    "afmweapons:iron_longsword",
+    "afmweapons:golden_longsword",
+    "afmweapons:diamond_longsword",
     "afmweapons:netherite_longsword"
   ]
 }

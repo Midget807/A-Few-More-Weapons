@@ -26,10 +26,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class LongswordItem extends SwordItem implements Vanishable {
+
     // === Credit: Methods From Amarite Mod ===
+
     protected static final UUID ATTACK_REACH_MODIFIER_ID = UUID.fromString("66dbd500-02d6-46a9-b510-699af6ac0936");
     protected static final UUID REACH_MODIFIER_ID = UUID.fromString("e7509cce-5ee6-4bb2-97e7-39a01aa58913");
-    private Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+    private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
     public LongswordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
