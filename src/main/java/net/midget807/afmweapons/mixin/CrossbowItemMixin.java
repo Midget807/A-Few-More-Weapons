@@ -1,6 +1,8 @@
 package net.midget807.afmweapons.mixin;
 
 import net.midget807.afmweapons.enchantment.ModEnchantments;
+import net.midget807.afmweapons.item.afmw.client.TripleShotTooltipData;
+import net.minecraft.client.item.TooltipData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -20,6 +22,7 @@ import net.minecraft.util.ClickType;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -99,6 +102,37 @@ public abstract class CrossbowItemMixin extends Item {
             loadProjectile(user, crossbow, user.getProjectileType(crossbow), true, false);
             setCharged(crossbow,true);
             cir.setReturnValue(TypedActionResult.consume(crossbow));
+        }
+    }
+    @Override
+    public Optional<TooltipData> getTooltipData(ItemStack stack) {
+        DefaultedList<ItemStack> defaultedList = DefaultedList.of();
+        getInsertedStacks(stack).forEach(defaultedList::add);
+        return Optional.of(new TripleShotTooltipData(defaultedList, getCrossbowOccupancy(stack)));
+    }
+
+    @Unique
+    private static int getCrossbowOccupancy(ItemStack stack) {
+        return getInsertedStacks(stack).mapToInt(itemstack -> getItemOccupancy(itemstack) * itemstack.getCount()).sum();
+    }
+
+    @Unique
+    private static int getItemOccupancy(ItemStack itemstack) {
+        if (itemstack.isOf(Items.CROSSBOW)) {
+            return 4 + getCrossbowOccupancy(itemstack);
+        } else {
+            return 64 / itemstack.getMaxCount();
+        }
+    }
+
+    @Unique
+    private static Stream<ItemStack> getInsertedStacks(ItemStack stack) {
+        NbtCompound nbtCompound = stack.getNbt();
+        if (nbtCompound == null) {
+            return Stream.empty();
+        } else {
+            NbtList nbtList = nbtCompound.getList("TripleShotItems", NbtElement.COMPOUND_TYPE);
+            return nbtList.stream().map(NbtCompound.class::cast).map(ItemStack::fromNbt);
         }
     }
 

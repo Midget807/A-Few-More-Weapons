@@ -10,7 +10,8 @@
     "HeldItemRendererMixin",
     "ItemRendererAccessor",
     "ItemRendererMixin",
-    "ModelLoaderMixin"
+    "ModelLoaderMixin",
+    "TooltipComponentMixin"
   ],
   "injectors": {
     "defaultRequire": 1
