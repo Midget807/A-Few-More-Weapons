@@ -2,7 +2,6 @@ package net.midget807.afmweapons.gui;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.midget807.afmweapons.AFMWMain;
 import net.midget807.afmweapons.item.afmw.client.TripleShotTooltipData;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -13,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 @Environment(EnvType.CLIENT)
 public class TripleShotTooltipComponent implements TooltipComponent {
-    private static final Identifier BACKGROUND_TEXTURE = AFMWMain.id("container/triple_shot/background");
+    private static final Identifier BACKGROUND_TEXTURE = new Identifier("afmweapons","container/triple_shot/background");
     private static final int MARGIN_Y = 4;
     private static final int BORDER_WIDTH = 1;
     private static final int WIDTH_PER_COLUMN = 18;
@@ -35,7 +34,7 @@ public class TripleShotTooltipComponent implements TooltipComponent {
     }
 
     private int getRows() {
-        return (int) Math.ceil(((double) this.inventory.size() + 10) / (double) this.getColumns());
+        return (int)Math.ceil(((double) this.inventory.size() + 1.0) / (double)this.getColumns());
     }
 
     @Override
@@ -55,15 +54,14 @@ public class TripleShotTooltipComponent implements TooltipComponent {
     public void drawItems(TextRenderer textRenderer, int x, int y, DrawContext context) {
         int i = this.getColumns();
         int j = this.getRows();
-        context.drawGuiTexture(BACKGROUND_TEXTURE, x, y, this.getColumnsWidth(), this.getRowsHeight());
-        boolean bl = this.occupancy >= 192;
+        boolean bl = this.occupancy >= 64;
         int k = 0;
-        for (int l = 0; l < j; l++) {
-            for (int m = 0; m < i; m++) {
-                int n = x + m * WIDTH_PER_COLUMN + BORDER_WIDTH;
-                int o = y + l * HEIGHT_PER_ROW + BORDER_WIDTH;
-                this.drawSlot(n, o, k++, bl, context, textRenderer);
-            }
+        context.drawGuiTexture(BACKGROUND_TEXTURE, x, y, WIDTH_PER_COLUMN * 3 + 2, HEIGHT_PER_ROW);
+        for (int l = 0; l < 3; l++) {
+            int n = x + l * WIDTH_PER_COLUMN + BORDER_WIDTH;
+            int o = y + BORDER_WIDTH;
+            this.drawSlot(n, o, k++, bl, context, textRenderer);
+
         }
     }
 
@@ -87,8 +85,8 @@ public class TripleShotTooltipComponent implements TooltipComponent {
 
     @Environment(EnvType.CLIENT)
     static enum Sprite {
-        BLOCKED_SLOT(AFMWMain.id("container/triple_shot/blocked_slot"), 18, 20),
-        SLOT(AFMWMain.id("container/triple_shot/slot"), 18, 20);
+        BLOCKED_SLOT(new Identifier("afmweapons","container/triple_shot/blocked_slot"), 18, 20),
+        SLOT(new Identifier("afmweapons", "container/triple_shot/slot"), 18, 20);
         public final Identifier texture;
         public final int width;
         public final int height;
