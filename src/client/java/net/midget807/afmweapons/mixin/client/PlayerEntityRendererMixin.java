@@ -26,7 +26,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     }
 
     @Inject(method = "getArmPose", at = @At("HEAD"), cancellable = true)
-    private static void afmw$swordPoses(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
+    private static void afmw$customPoses(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         ItemStack main = player.getMainHandStack();
         LongswordComponent longswordComponent = LongswordComponent.get(player);
         if (main.isIn(ModItemTagProvider.LONGSWORDS) || main.isIn(ModItemTagProvider.HALBERDS)) {
@@ -49,13 +49,15 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 
     @Inject(method = "getArmPose", at = @At("HEAD"), cancellable = true)
     private static void afmw$fryingPanPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
-        ItemStack itemStack = player.getStackInHand(hand);
+        ItemStack itemStack = player.getMainHandStack();
         if (itemStack.isOf(ModItems.FRYING_PAN)) {
-            if (player.isUsingItem()) {
+            if (player.isUsingItem() && player.getActiveItem().isOf(ModItems.FRYING_PAN)) {
                 cir.setReturnValue(BipedEntityModel.ArmPose.THROW_SPEAR);
             } else {
-                cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
+                cir.setReturnValue(BipedEntityModel.ArmPose.ITEM);
             }
         }
     }
+
+
 }

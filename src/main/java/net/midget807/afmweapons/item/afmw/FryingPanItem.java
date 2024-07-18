@@ -43,6 +43,10 @@ public class FryingPanItem extends Item implements Vanishable {
         this.attributeModifiers = builder.build();
     }
 
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.NONE;
+    }
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
