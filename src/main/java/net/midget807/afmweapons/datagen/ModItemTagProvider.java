@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.midget807.afmweapons.AFMWMain;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
@@ -15,6 +16,7 @@ import java.util.concurrent.CompletableFuture;
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public static final TagKey<Item> LONGSWORDS = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("longswords"));
     public static final TagKey<Item> HALBERDS = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("halberds"));
+    public static final TagKey<Item> TRIPLE_SHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("halberds"));
     public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
     }
@@ -28,6 +30,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLDEN_LONGSWORD)
                 .add(ModItems.DIAMOND_LONGSWORD)
                 .add(ModItems.NETHERITE_LONGSWORD);
+
         this.getOrCreateTagBuilder(HALBERDS)
                 .add(ModItems.WOODEN_HALBERD)
                 .add(ModItems.STONE_HALBERD)

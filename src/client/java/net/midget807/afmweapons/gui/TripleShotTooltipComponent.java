@@ -54,7 +54,7 @@ public class TripleShotTooltipComponent implements TooltipComponent {
     public void drawItems(TextRenderer textRenderer, int x, int y, DrawContext context) {
         int i = this.getColumns();
         int j = this.getRows();
-        boolean bl = this.occupancy >= 64;
+        boolean bl = this.occupancy >= 192;
         int k = 0;
         context.drawGuiTexture(BACKGROUND_TEXTURE, x, y, WIDTH_PER_COLUMN * 3 + 2, HEIGHT_PER_ROW);
         for (int l = 0; l < 3; l++) {

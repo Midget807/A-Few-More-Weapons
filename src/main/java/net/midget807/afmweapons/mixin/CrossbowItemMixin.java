@@ -209,7 +209,7 @@ public abstract class CrossbowItemMixin extends Item {
                 this.playRemoveOneSound(player);
                 removeFirstStack(stack).ifPresent(removedStack -> addToCrossbow(stack, slot.insertStack(removedStack)));
             } else if (itemStack.getItem().canBeNested() && itemStack.isIn(ItemTags.ARROWS) && afmw$hasTripleShot(stack) && defaultedList.size() < 3) {
-                int i = (MAX_STORAGE - getCrossbowOccupancy(stack)) / getItemOccupancy(itemStack);
+                int i = getI(itemStack, defaultedList);
                 int j = addToCrossbow(stack, slot.takeStackRange(itemStack.getCount(), i, player));
                 if (j > 0) {
                     this.playInsertSound(player);
@@ -217,6 +217,25 @@ public abstract class CrossbowItemMixin extends Item {
             }
             return true;
         }
+    }
+
+    @Unique
+    private static int getI(ItemStack itemStack, DefaultedList<ItemStack> defaultedList) {
+        int i;
+        if (!defaultedList.isEmpty()) {
+            if (itemStack.isOf(defaultedList.get(0).getItem()) && itemStack.getName() == defaultedList.get(0).getName()) {
+                i = (64 - defaultedList.get(0).getCount());
+            } else if (defaultedList.size() > 1 && itemStack.isOf(defaultedList.get(1).getItem()) && itemStack.getName() == defaultedList.get(1).getName()) {
+                i = (64 - defaultedList.get(1).getCount());
+            } else if (defaultedList.size() > 2 && itemStack.isOf(defaultedList.get(2).getItem()) && itemStack.getName() == defaultedList.get(2).getName()) {
+                i = (64 - defaultedList.get(2).getCount());
+            } else {
+                i = itemStack.getCount();
+            }
+        } else {
+            i = itemStack.getCount();
+        }
+        return i;
     }
 
     @Override
@@ -268,7 +287,7 @@ public abstract class CrossbowItemMixin extends Item {
             }
             int i = getCrossbowOccupancy(crossbow);
             int j = getItemOccupancy(stack);
-            int k = Math.min(MAX_STORAGE, (64 - i) / j);
+            int k = getK(stack, defaultedList);
             if (k == 0) {
                 return 0;
             } else {
@@ -292,6 +311,25 @@ public abstract class CrossbowItemMixin extends Item {
         } else {
             return 0;
         }
+    }
+
+    @Unique
+    private static int getK(ItemStack stack, DefaultedList<ItemStack> defaultedList) {
+        int k;
+        if (!defaultedList.isEmpty()) {
+            if (stack.isOf(defaultedList.get(0).getItem()) && stack.getName() == defaultedList.get(0).getName()) {
+                k = Math.min((64 - defaultedList.get(0).getCount()), stack.getCount());
+            } else if (defaultedList.size() > 1 && stack.isOf(defaultedList.get(1).getItem()) && stack.getName() == defaultedList.get(1).getName()) {
+                k = Math.min((64 - defaultedList.get(1).getCount()), stack.getCount());
+            }  else if (defaultedList.size() > 2 && stack.isOf(defaultedList.get(2).getItem()) && stack.getName() == defaultedList.get(2).getName()) {
+                k = Math.min((64 - defaultedList.get(2).getCount()), stack.getCount());
+            } else {
+                k = stack.getCount();
+            }
+        } else {
+            k = stack.getCount();
+        }
+        return k;
     }
 
     @Unique
