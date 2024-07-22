@@ -13,6 +13,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.Hand;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -139,7 +141,7 @@ public class ItemRendererMixin {
         }
         if (stack.isOf(ModItems.FRYING_PAN) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND) {
             if (entity != null) {
-                if (entity.isUsingItem()) {
+                if (entity.isUsingItem() && entity.getStackInHand(Hand.OFF_HAND).isOf(Items.EGG)) {
                     return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "frying_pan_handheld_throwing", "inventory"));
                 } else {
                     return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "frying_pan_handheld", "inventory"));
