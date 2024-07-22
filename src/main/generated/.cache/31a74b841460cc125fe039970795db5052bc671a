@@ -1,4 +1,4 @@
-// 1.20.2	2024-07-15T23:24:43.1629697	A Few More Weapons/Model Definitions
+// 1.20.2	2024-07-22T23:52:56.3095276	A Few More Weapons/Model Definitions
 5ab81954fa93bb0b511a7b77184992976f4258bf assets\afmweapons\models\item\stone_halberd.json
 8b6009baa4fb894ff0af1ea2cd0a6556438ae8d8 assets\afmweapons\models\item\wooden_halberd.json
 9eb9b128519b132b9cd67b79ad9ce8ec2d61ed34 assets\afmweapons\models\item\diamond_halberd.json
@@ -10,6 +10,5 @@ ee520081d26441b974586f0a13861e2afb7b8d1f assets\afmweapons\models\item\netherite
 9a1547d556d3d906d8d238bbaa88e6e530b49020 assets\afmweapons\models\item\netherite_longsword.json
 1476cd66a578fa7654b7a2b0daec122897350e07 assets\afmweapons\models\item\diamond_longsword.json
 132961f33a4ac22b2dbd8b392a64302be557c367 assets\afmweapons\models\item\golden_longsword.json
-1fccc03f769c877310cfe9ebafe6b3804caa3dfa assets\afmweapons\models\item\frying_pan.json
 f2edfb977c08a630b13289cdcc9a3da92eec03eb assets\afmweapons\models\item\iron_halberd.json
 b6fb367ed2f82781bd7770f9e0d93ab7d708a7de assets\afmweapons\models\item\wooden_longsword.json
