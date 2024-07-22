@@ -13,12 +13,12 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.mob.DrownedEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -42,8 +42,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract void disableShield(boolean sprinting);
 
     @Shadow public abstract boolean isInvulnerableTo(DamageSource damageSource);
-
-    @Shadow public abstract void sendMessage(Text message, boolean overlay);
 
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
     protected void afmw$halberdDisableShield(LivingEntity attacker, CallbackInfo ci) {
@@ -123,4 +121,39 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     }
 
+    //May be implemented
+
+    /*@ModifyVariable(
+            method = "attack",
+            at = @At("STORE"),
+            slice = @Slice(
+                    from = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getKnockback(Lnet/minecraft/entity/LivingEntity;)I"),
+                    to = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isClimbing()Z")
+            ),
+            ordinal = 3
+    )
+    private boolean afmw$halberdIgnoresCrit(boolean value) {
+        if (getStackInHand(Hand.MAIN_HAND).isIn(ModItemTagProvider.HALBERDS) && value) {
+            return false;
+        } else {
+            return value;
+        }
+    }*/
+
+    /*@ModifyVariable(
+            method = "attack",
+            at = @At("STORE"),
+            slice = @Slice(
+                    from = @At(value = "FIELD", target = "Lnet/minecraft/entity/attribute/EntityAttributes;GENERIC_ATTACK_DAMAGE:Lnet/minecraft/entity/attribute/EntityAttribute;", shift = At.Shift.BY, by = 2),
+                    to = @At(value = "FIELD", target = "Lnet/minecraft/entity/EntityGroup;DEFAULT:Lnet/minecraft/entity/EntityGroup;")
+            ),
+            ordinal = 0
+    )
+    private float afmw$impaling(float value, Entity target) {
+        if (target instanceof DrownedEntity) {
+            return 2.5F;
+        } else {
+            return value;
+        }
+    }*/
 }
