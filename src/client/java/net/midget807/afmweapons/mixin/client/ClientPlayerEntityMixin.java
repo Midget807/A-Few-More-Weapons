@@ -17,4 +17,7 @@ public class ClientPlayerEntityMixin {
         return original.call(player) && !player.getActiveItem().isIn(ModItemTagProvider.LONGSWORDS);
     }
     // ================================
+
+    //Concussed Effect - Nausea
+
 }

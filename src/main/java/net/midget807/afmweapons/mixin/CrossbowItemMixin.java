@@ -173,11 +173,6 @@ public abstract class CrossbowItemMixin extends Item {
             if (!world.isClient) {
                 afmw$numberOfShots--;
             }
-            //Debug TODO debug
-            if (!world.isClient) {
-                user.sendMessage(Text.literal("Number of shots: " + afmw$numberOfShots));
-            }
-            //=====
             if (!user.isCreative()) {
                 if (!defaultedList.isEmpty()) {
                     removeAmountFromTripleShot(crossbow, 0);
