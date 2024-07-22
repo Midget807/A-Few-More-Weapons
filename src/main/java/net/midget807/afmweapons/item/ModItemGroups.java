@@ -25,6 +25,8 @@ public class ModItemGroups {
             .displayName(Text.translatable("itemgroup.afmweapons.main"))
             .icon(() -> new ItemStack(ModItems.NETHERITE_HALBERD))
             .entries((displayContext, entries) -> {
+                entries.add(ModItems.POLE);
+
                 entries.add(ModItems.WOODEN_HALBERD);
                 entries.add(ModItems.STONE_HALBERD);
                 entries.add(ModItems.IRON_HALBERD);
