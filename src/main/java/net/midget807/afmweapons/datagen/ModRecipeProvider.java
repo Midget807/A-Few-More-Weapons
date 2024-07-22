@@ -100,5 +100,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.DIAMOND_SWORD), conditionsFromItem(Items.DIAMOND_SWORD))
                 .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.NETHERITE_LONGSWORD)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.FRYING_PAN, 1)
+                .pattern(" I ")
+                .pattern("INI")
+                .pattern("WI ")
+                .input('N', Items.NETHERITE_INGOT)
+                .input('I', Items.IRON_INGOT)
+                .input('W', Items.STICK)
+                .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
+                .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.FRYING_PAN)));
     }
 }
