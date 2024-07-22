@@ -39,8 +39,8 @@ public class ConcussEnchantment extends Enchantment {
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
         if (target instanceof LivingEntity) {
-            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, (level * level) * 20 + 20, 0));
-            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, (level * level) * 20 + 20, 0));
+            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, (level * level) * 20 + 60, 0));
+            ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, (level * level) * 20 + 60, 0));
         }
         super.onTargetDamaged(user, target, level);
     }
