@@ -5,6 +5,7 @@ import net.midget807.afmweapons.AFMWMain;
 import net.midget807.afmweapons.item.afmw.FryingPanItem;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
 import net.midget807.afmweapons.item.afmw.LongswordItem;
+import net.midget807.afmweapons.item.afmw.arrow.FrostArrowItem;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
@@ -28,6 +29,7 @@ public class ModItems {
     public static final Item NETHERITE_LONGSWORD = registerItem("netherite_longsword", new LongswordItem(ToolMaterials.NETHERITE, 3, -2.7f, new FabricItemSettings().maxCount(1).fireproof()));
     public static final Item FRYING_PAN = registerItem("frying_pan", new FryingPanItem(ToolMaterials.IRON, 1, -3.1f, new FabricItemSettings().maxCount(1).maxDamage(250)));
     public static final Item FRIED_EGG = registerItem("fried_egg", new Item(new FabricItemSettings().maxCount(16).food(ModFoodComponents.FRIED_EGG)));
+    public static final Item FROST_ARROW = registerItem("frost_arrow", new FrostArrowItem(new FabricItemSettings(), 1));
 
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, AFMWMain.id(name), item);

@@ -4,5 +4,6 @@
 //TODO Add Textures for halberds
 //TODO fix frying pan GUI texture
 //TODO order triple shot removal correctly
-//TODO revamp fletching table -> makes custom arrows
+//TODO revamp fletching table -> makes custom arrows -> frost arrow (ice + empty = 1 lvl 1 || packed ice + empty = 1 lvl 2 || blue ic + empty = 1 lvl 3) freezes water (turns to frosted, ice or packed) & enemies (based on lvl); blast arrow (fire charge + empty = 1 || tnt + empty = 4) creates explosion on impact, does not destroy blocks; warp arrow (ender pearl + empty) teleports user to landing pos; ricochet arrow (slimeball + empty = 1 lvl 1 || slimeball + slimeball = 1 lvl 2) rebounds up to 2 times (based on lvl); echo arrow (spectral + echo shard + empty = 1); magic arrow (dragons breath + ender pearl) travels through blocks but flies slowly and only for a short distance; guided arrow (ricochet II + eye of ender + empty = 1) flies slowly and targets nearby enemy;
+//TODO add tag for Triple Shot loadable arrows
 //TODO make non-crit work for halberd
