@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier;
 import java.util.Optional;
 
 public class FletchingScreen extends HandledScreen<FletchingTableScreenHandler> {
-    private static final Identifier TEXTURE = AFMWMain.id("textures/gui/block/fletching_table");
+    private static final Identifier TEXTURE = new Identifier("afmweapons","textures/gui/block/fletching_table_gui");
     private FluidStackRenderer fluidStackRenderer;
     public FletchingScreen(FletchingTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
