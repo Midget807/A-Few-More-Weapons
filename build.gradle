@@ -21,10 +21,17 @@ repositories {
 			includeGroup "com.jamieswhiteshirt"
 		}
 	}
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
+
 }
 
 loom {
 	splitEnvironmentSourceSets()
+
+	accessWidenerPath = file("src/main/resources/afmweapons.accesswidener")
 
 	mods {
 		"afmweapons" {
@@ -60,6 +67,10 @@ dependencies {
 
 	//Reach Entity Attribute
 	include modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
+
+//	//EMI
+//	modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+//	modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
 }
 
 processResources {

@@ -6,7 +6,9 @@ import net.midget807.afmweapons.AFMWMain;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.SmithingTransformRecipeJsonBuilder;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
@@ -89,17 +91,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.DIAMOND_LONGSWORD)));
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD, 1)
-                .pattern("  I")
+        /*ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD, 1)
+                .pattern("  D")
                 .pattern("ID ")
                 .pattern("SI ")
                 .input('S',Items.STICK)
                 .input('D',Items.DIAMOND_SWORD)
-                .input('I',Items.NETHERITE_INGOT)
+                .input('I',Items.DIAMOND)
+                .input('N',Items.NETHERITE_INGOT)
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                 .criterion(hasItem(Items.DIAMOND_SWORD), conditionsFromItem(Items.DIAMOND_SWORD))
                 .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.NETHERITE_LONGSWORD)));
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.NETHERITE_LONGSWORD)));*/
+
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_LONGSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.FRYING_PAN, 1)
                 .pattern(" I ")

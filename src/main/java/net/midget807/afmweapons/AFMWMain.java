@@ -1,12 +1,15 @@
 package net.midget807.afmweapons;
 
 import net.fabricmc.api.ModInitializer;
+import net.midget807.afmweapons.block.ModBlocks;
+import net.midget807.afmweapons.block.entity.ModBlockEntities;
 import net.midget807.afmweapons.effect.ModEffects;
 import net.midget807.afmweapons.enchantment.ModEnchantments;
 import net.midget807.afmweapons.entity.ModDamageTypes;
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItemGroups;
 import net.midget807.afmweapons.item.ModItems;
+import net.midget807.afmweapons.screen.ModScreenHandlers;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,5 +31,8 @@ public class AFMWMain implements ModInitializer {
 		ModEffects.registerModEffects();
 		ModEntities.registerModEntities();
 		ModDamageTypes.registerModDamageTypes();
+		ModBlocks.registerModBlocks();
+		ModScreenHandlers.registerModScreenHandlers();
+		ModBlockEntities.registerModBlockEntities();
 	}
 }

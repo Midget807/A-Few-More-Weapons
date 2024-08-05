@@ -6,6 +6,7 @@
     "CrossbowItemMixin",
     "EggItemMixin",
     "EnchantmentHelperMixin",
+    "FletchingTableBlockMixin",
     "PlayerEntityMixin"
   ],
   "injectors": {

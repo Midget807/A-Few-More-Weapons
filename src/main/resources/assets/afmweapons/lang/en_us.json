@@ -3,5 +3,7 @@
 
   "item.afmweapons.netherite_halberd" : "Netherite Halberd",
   "item.afmweapons.netherite_longsword" : "Netherite Longsword",
-  "item.afmweapons.longsword.desc" : "Can block attacks"
+  "item.afmweapons.longsword.desc" : "Can block attacks",
+
+  "screen.afmweapons.fletching_table": "Fletching Table"
 }

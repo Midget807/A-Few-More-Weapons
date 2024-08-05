@@ -2,6 +2,9 @@ package net.midget807.afmweapons.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.midget807.afmweapons.component.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
@@ -123,22 +126,23 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     //May be implemented
 
-    /*@ModifyVariable(
+    @Inject(
             method = "attack",
-            at = @At("STORE"),
-            slice = @Slice(
-                    from = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getKnockback(Lnet/minecraft/entity/LivingEntity;)I"),
-                    to = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isClimbing()Z")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/PlayerEntity;isSprinting()Z",
+                    shift = At.Shift.AFTER
             ),
-            ordinal = 3
+            slice = @Slice(
+                    from = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerEntity;fallDistance:F"),
+                    to = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I")
+            )
     )
-    private boolean afmw$halberdIgnoresCrit(boolean value) {
-        if (getStackInHand(Hand.MAIN_HAND).isIn(ModItemTagProvider.HALBERDS) && value) {
-            return false;
-        } else {
-            return value;
+    private void afmw$halberdIgnoresCrit(Entity target, CallbackInfo ci, @Local(ordinal = 2) LocalBooleanRef bl3) {
+        if (this.getStackInHand(Hand.MAIN_HAND).isIn(ModItemTagProvider.HALBERDS)) {
+            bl3.set(true);
         }
-    }*/
+    }
 
     /*@ModifyVariable(
             method = "attack",
