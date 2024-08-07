@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.midget807.afmweapons.AFMWMain;
 import net.midget807.afmweapons.item.afmw.FryingPanItem;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
+import net.midget807.afmweapons.item.afmw.LanceItem;
 import net.midget807.afmweapons.item.afmw.LongswordItem;
 import net.midget807.afmweapons.item.afmw.arrow.FrostArrowItem;
 import net.minecraft.item.FoodComponents;
@@ -27,6 +28,7 @@ public class ModItems {
     public static final Item GOLDEN_LONGSWORD = registerItem("golden_longsword", new LongswordItem(ToolMaterials.GOLD, 3, -2.7f, new FabricItemSettings().maxCount(1)));
     public static final Item DIAMOND_LONGSWORD = registerItem("diamond_longsword", new LongswordItem(ToolMaterials.DIAMOND, 3, -2.7f, new FabricItemSettings().maxCount(1)));
     public static final Item NETHERITE_LONGSWORD = registerItem("netherite_longsword", new LongswordItem(ToolMaterials.NETHERITE, 3, -2.7f, new FabricItemSettings().maxCount(1).fireproof()));
+    public static final Item IRON_LANCE = registerItem("iron_lance", new LanceItem(ToolMaterials.IRON, 2, -2.0f, new FabricItemSettings().maxCount(1)));
     public static final Item FRYING_PAN = registerItem("frying_pan", new FryingPanItem(ToolMaterials.IRON, 1, -3.1f, new FabricItemSettings().maxCount(1).maxDamage(250)));
     public static final Item FRIED_EGG = registerItem("fried_egg", new Item(new FabricItemSettings().maxCount(16).food(ModFoodComponents.FRIED_EGG)));
     public static final Item FROST_ARROW = registerItem("frost_arrow", new FrostArrowItem(new FabricItemSettings(), 1));

@@ -4,11 +4,13 @@ import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -76,6 +78,23 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
             this.setPierceLevel((byte)0);
             this.setSound(SoundEvents.ENTITY_ARROW_HIT);
             this.setShotFromCrossbow(false);
+        }
+    }
+    @Override
+    public void setOwner(@Nullable Entity entity) {
+        super.setOwner(entity);
+        if (entity instanceof PlayerEntity) {
+            this.pickupType = ((PlayerEntity)entity).getAbilities().creativeMode ? PickupPermission.CREATIVE_ONLY : PickupPermission.ALLOWED;
+        }
+    }
+    @Override
+    public void onPlayerCollision(PlayerEntity player) {
+        if (this.getWorld().isClient || !this.inGround && !this.isNoClip() || this.shake > 0) {
+            return;
+        }
+        if (this.tryPickup(player)) {
+            player.sendPickup(this, 1);
+            this.discard();
         }
     }
 }

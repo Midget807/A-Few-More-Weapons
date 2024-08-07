@@ -16,7 +16,8 @@ import java.util.concurrent.CompletableFuture;
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public static final TagKey<Item> LONGSWORDS = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("longswords"));
     public static final TagKey<Item> HALBERDS = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("halberds"));
-    public static final TagKey<Item> TRIPLE_SHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("halberds"));
+    public static final TagKey<Item> LANCES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("lances"));
+    public static final TagKey<Item> TRIPLE_SHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("triple_shot_projectiles"));
     public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
     }
@@ -38,5 +39,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLD_HALBERD)
                 .add(ModItems.DIAMOND_HALBERD)
                 .add(ModItems.NETHERITE_HALBERD);
+
+        this.getOrCreateTagBuilder(LANCES)
     }
 }

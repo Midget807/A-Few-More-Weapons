@@ -1,9 +1,22 @@
 {
   "itemgroup.afmweapons.main": "A Few More Weapons",
 
+  "item.afmweapons.wooden_halberd" : "Wooden Halberd",
+  "item.afmweapons.stone_halberd" : "Stone Halberd",
+  "item.afmweapons.iron_halberd" : "Iron Halberd",
+  "item.afmweapons.golden_halberd" : "Golden Halberd",
+  "item.afmweapons.diamond_halberd" : "Diamond Halberd",
   "item.afmweapons.netherite_halberd" : "Netherite Halberd",
+
+  "item.afmweapons.wooden_longsword" : "Wooden Longsword",
+  "item.afmweapons.stone_longsword" : "Stone Longsword",
+  "item.afmweapons.iron_longsword" : "Iron Longsword",
+  "item.afmweapons.golden_longsword" : "Golden Longsword",
+  "item.afmweapons.diamond_longsword" : "Diamond Longsword",
   "item.afmweapons.netherite_longsword" : "Netherite Longsword",
   "item.afmweapons.longsword.desc" : "Can block attacks",
+
+  "item.afmweapons.custom_arrow_loadable": "Cannot load in Crossbow",
 
   "screen.afmweapons.fletching_table": "Fletching Table"
 }

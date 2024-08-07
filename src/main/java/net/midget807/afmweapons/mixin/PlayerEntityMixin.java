@@ -4,10 +4,12 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.midget807.afmweapons.component.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
+import net.midget807.afmweapons.item.afmw.LanceItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -17,7 +19,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.DrownedEntity;
+import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -160,4 +164,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             return value;
         }
     }*/
+
+
+    //=== Lance modifier ===
+    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/entity/attribute/EntityAttribute;)D"), cancellable = true)
+    private void afmw$modifyLanceDamage(Entity target, CallbackInfo ci) {
+        if (this.getMainHandStack().getItem() instanceof LanceItem lanceItem) {
+            if (this.getVehicle() instanceof HorseEntity) {
+                lanceItem.setAttackDamage((int) lanceItem.getAttackDamage() + 4);
+            }
+        }
+    }
 }
