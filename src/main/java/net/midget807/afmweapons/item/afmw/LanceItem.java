@@ -23,7 +23,7 @@ import java.util.UUID;
 public class LanceItem extends ToolItem implements Vanishable {
     protected static final UUID ATTACK_REACH_MODIFIER_ID = UUID.fromString("92360ea7-f4eb-417d-8605-c442cb705829");
     protected static final UUID REACH_MODIFIER_ID = UUID.fromString("f5503a0e-83aa-4e8d-948e-dd97481833cc");
-    private float attackDamage;
+    public float attackDamage;
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
     public LanceItem(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
         super(material, settings);
@@ -36,7 +36,7 @@ public class LanceItem extends ToolItem implements Vanishable {
         this.attributeModifiers = builder.build();
     }
     public void setAttackDamage(int amount) {
-        this.attackDamage = amount;
+        this.attackDamage = this.attackDamage + amount;
     }
 
     public float getAttackDamage() {
@@ -66,6 +66,7 @@ public class LanceItem extends ToolItem implements Vanishable {
         }
         return true;
     }
+
 
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
