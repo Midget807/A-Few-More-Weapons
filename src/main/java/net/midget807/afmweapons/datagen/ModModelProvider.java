@@ -34,6 +34,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.NETHERITE_LONGSWORD, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.FRIED_EGG, Models.GENERATED);
+        itemModelGenerator.register(ModItems.FROST_ARROW, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WARP_ARROW, Models.GENERATED);
 
     }
 }

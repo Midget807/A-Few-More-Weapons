@@ -11,7 +11,7 @@ import net.minecraft.screen.ScreenHandlerType;
 public class ModScreenHandlers {
     public static final ScreenHandlerType<FletchingTableScreenHandler> FLETCHING_TABLE_SCREEN_HANDLER =
             Registry.register(Registries.SCREEN_HANDLER, AFMWMain.id("fletching_table_screen_handler"),
-                    new ExtendedScreenHandlerType<>(FletchingTableScreenHandler::new));
+                    new ScreenHandlerType<>(FletchingTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES));
     public static void registerModScreenHandlers() {
         AFMWMain.LOGGER.info("Registering AFMW Screen Handlers");
     }

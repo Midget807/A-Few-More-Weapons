@@ -1,84 +1,70 @@
 package net.midget807.afmweapons.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
-import net.midget807.afmweapons.AFMWMain;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.midget807.afmweapons.screen.afmw.FletchingTableScreenHandler;
-import net.midget807.afmweapons.screen.renderer.FluidStackRenderer;
-import net.midget807.afmweapons.util.MouseUtil;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.gui.screen.ingame.ForgingScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
 
-public class FletchingScreen extends HandledScreen<FletchingTableScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier("afmweapons","textures/gui/block/fletching_table_gui");
-    private FluidStackRenderer fluidStackRenderer;
-    public FletchingScreen(FletchingTableScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
-    }
+@Environment(EnvType.CLIENT)
+public class FletchingScreen extends ForgingScreen<FletchingTableScreenHandler> {
+    private static final Identifier ERROR_TEXTURE = new Identifier("container/smithing/error");
+    private static final Identifier TEXTURE = new Identifier("afmweapons", "textures/gui/container/fletching_table_gui.png");
+    private static final Text MISSING_ARROW_TOOLTIP = Text.translatable("container.afmweapons.fletching.missing_arrow_tooltip");
+    private static final Text ERROR_TOOLTIP = Text.translatable("container.afmweapons.fletching.error_tooltip");
+    private static final Text ADD_ADDITION_TOOLTIP = Text.translatable("container.afmweapons.fletching.add_addition_tooltip");
 
-    @Override
-    protected void init() {
-        super.init();
-        titleY = 1000;
-        playerInventoryTitleY = 1000;
-        assignFluidStackRenderer();
+    public FletchingScreen(FletchingTableScreenHandler handler, PlayerInventory playerInventory, Text title) {
+        super(handler, playerInventory, title, TEXTURE);
+        this.titleX = 44;
+        this.titleY = 15;
     }
-
-    private void assignFluidStackRenderer() {
-        fluidStackRenderer = new FluidStackRenderer((FluidConstants.BOTTLE / 27) * 64, true, 16, 39);
-    }
-    private void renderFluidTooltip(DrawContext context, int mouseX, int mouseY, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
-        if(isMouseAboveArea(mouseX, mouseY, x, y, offsetX, offsetY, renderer)) {
-            context.drawTooltip(Screens.getTextRenderer(this), renderer.getTooltip(handler.blockEntity.fluidStorage1, TooltipContext.Default.BASIC),
-                    Optional.empty(), mouseX - x, mouseY - y);
-        }
-    }
-
-
-    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
-        return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, renderer.getWidth(), renderer.getHeight());
-    }
-
-    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
-        return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
-    }
-
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
-        drawMouseoverTooltip(context, mouseX, mouseY);
+        this.renderSlotTooltip(context, mouseX, mouseY);
+    }
+
+    private void renderSlotTooltip(DrawContext context, int mouseX, int mouseY) {
+        Optional<Text> optional = Optional.empty();
+        if (this.hasInvalidRecipe() && this.isPointWithinBounds(65, 46, 28, 21, mouseX, mouseY)) {
+            optional = Optional.of(ERROR_TOOLTIP);
+        }
+        if (this.focusedSlot != null) {
+            ItemStack itemStack = this.handler.getSlot(0).getStack();
+            ItemStack itemStack2 = this.focusedSlot.getStack();
+            if (itemStack.isEmpty()) {
+                if (this.focusedSlot.id == 0) {
+                    optional = Optional.of(MISSING_ARROW_TOOLTIP);
+                }
+            } else if ((itemStack.isOf(Items.ARROW) || itemStack.isOf(Items.SPECTRAL_ARROW)) && itemStack2.isEmpty()) {
+                if (this.focusedSlot.id == 1 || this.focusedSlot.id == 2) {
+                    optional = Optional.of(ADD_ADDITION_TOOLTIP);
+                }
+            }
+        }
+        optional.ifPresent(text -> context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(text, 115), mouseX, mouseY));
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
-
-        context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
-
-
-        fluidStackRenderer.drawFluid(context, handler.blockEntity.fluidStorage1, x + 26, y + 11, 16, 39,
-                (FluidConstants.BOTTLE / 27) * 64);
+    protected void drawInvalidRecipeArrow(DrawContext context, int x, int y) {
+        if (this.hasInvalidRecipe()) {
+            context.drawGuiTexture(ERROR_TEXTURE, x + 65, y + 66, 28, 21);
+        }
     }
 
-    @Override
-    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
-
-        renderFluidTooltip(context, mouseX, mouseY, x, y, 26, 11, fluidStackRenderer);
+    private boolean hasInvalidRecipe() {
+        return this.handler.getSlot(0).hasStack()
+                && this.handler.getSlot(1).hasStack()
+                && this.handler.getSlot(2).hasStack()
+                && !this.handler.getSlot(this.handler.getResultSlotIndex()).hasStack();
     }
 }

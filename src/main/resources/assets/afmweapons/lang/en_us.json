@@ -18,5 +18,8 @@
 
   "item.afmweapons.custom_arrow_loadable": "Cannot load in Crossbow",
 
-  "screen.afmweapons.fletching_table": "Fletching Table"
+  "screen.afmweapons.fletching_table": "Craft Arrows",
+  "container.afmweapons.fletching.missing_arrow_tooltip": "Add Arrow",
+  "container.afmweapons.fletching.error_tooltip": "Arrow can't be crafted this way",
+  "container.afmweapons.fletching.add_addition_tooltip": "Add Item"
 }

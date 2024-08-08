@@ -26,6 +26,7 @@ import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -49,6 +50,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract void disableShield(boolean sprinting);
 
     @Shadow public abstract boolean isInvulnerableTo(DamageSource damageSource);
+
+    @Shadow public abstract void sendMessage(Text message, boolean overlay);
 
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
     protected void afmw$halberdDisableShield(LivingEntity attacker, CallbackInfo ci) {
@@ -82,7 +85,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                         var13 = this.getEntityWorld();
                         if (var13 instanceof ServerWorld) {
                             serverWorld = ((ServerWorld) var13);
-                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.HOSTILE, 0.5F /*TODO add longsword block sound and adjust volume*/, 1.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.HOSTILE, 0.5F /*TODO add longsword container sound and adjust volume*/, 1.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
                         }
                         return base / 2.0F;
                     }
@@ -94,7 +97,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                         var13 = this.getEntityWorld();
                         if (var13 instanceof ServerWorld) {
                             serverWorld = ((ServerWorld) var13);
-                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.HOSTILE, 0.5F /*TODO add longsword block sound and adjust volume*/, 1.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.HOSTILE, 0.5F /*TODO add longsword container sound and adjust volume*/, 1.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
                         }
                         return base / 0.6F;
                     }
@@ -170,9 +173,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/entity/attribute/EntityAttribute;)D"), cancellable = true)
     private void afmw$modifyLanceDamage(Entity target, CallbackInfo ci) {
         if (this.getMainHandStack().getItem() instanceof LanceItem lanceItem) {
-            if (this.getVehicle() instanceof HorseEntity) {
-                lanceItem.setAttackDamage((int) lanceItem.getAttackDamage() + 4);
+            if (this.getControllingVehicle() instanceof HorseEntity) {
+
+                // TODO: 7/08/2024 Debug
+                this.sendMessage(Text.literal("Riding Horse"));
+                // ===
+
             }
+        }
+    }
+    @Inject(method = "tickRiding", at = @At("HEAD"), cancellable = true)
+    private void afmw$modifyLance(CallbackInfo ci) {
+        if (this.getMainHandStack().getItem() instanceof LanceItem lanceItem) {
+            lanceItem.setAttackDamage(4);
         }
     }
 }

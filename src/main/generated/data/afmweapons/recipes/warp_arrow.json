@@ -1,0 +1,13 @@
+{
+  "type": "afmweapons:fletching_transform",
+  "addition1": {
+    "item": "minecraft:ender_pearl"
+  },
+  "addition2": [],
+  "arrow": {
+    "item": "minecraft:arrow"
+  },
+  "result": {
+    "item": "afmweapons:warp_arrow"
+  }
+}

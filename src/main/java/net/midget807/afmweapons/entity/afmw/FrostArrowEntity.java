@@ -1,28 +1,34 @@
 package net.midget807.afmweapons.entity.afmw;
 
+import net.midget807.afmweapons.effect.ModEffects;
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class FrostArrowEntity extends PersistentProjectileEntity {
-    private static final String LEVEL_KEY = "Level";
+    private int duration = 240;
     private int level = 1;
     public FrostArrowEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
@@ -33,27 +39,6 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
     public FrostArrowEntity(World world, LivingEntity owner) {
         super(ModEntities.FROST_ARROW_ENTITY_TYPE, owner, world);
     }
-    public void initFromStack(ItemStack stack) {
-        this.level = getItemLevel(stack);
-    }
-
-    public int getItemLevel(ItemStack stack) {
-        return getLevel(stack.getNbt());
-    }
-
-    private int getLevel(@Nullable NbtCompound compound) {
-        if (compound == null) {
-            return 0;
-        }
-        return compound.getInt(LEVEL_KEY);
-    }
-    public void setLevel(ItemStack stack, int level) {
-        if (level == 0 || level > 3) {
-            stack.removeSubNbt(LEVEL_KEY);
-        } else {
-            stack.getOrCreateNbt().putInt(LEVEL_KEY, level);
-        }
-    }
 
     @Override
     protected ItemStack asItemStack() {
@@ -61,40 +46,52 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        super.onBlockHit(blockHitResult);
+    public void tick() {
         if (this.isTouchingWater()) {
-            this.getWorld().setBlockState(this.getBlockPos(), Blocks.FROSTED_ICE.getDefaultState());
-            this.kill();
-        } else {
-            Vec3d vec3d = blockHitResult.getPos().subtract(this.getX(), this.getY(), this.getZ());
-            this.setVelocity(vec3d);
-            Vec3d vec3d2 = vec3d.normalize().multiply(0.05f);
-            this.setPos(this.getX() - vec3d2.x, this.getY() - vec3d2.y, this.getZ() - vec3d2.z);
-            this.playSound(this.getSound(), 1.0f, 1.2f / (this.random.nextFloat() * 0.2f + 0.9f));
-            this.inGround = true;
-            this.shake = 7;
-            this.setCritical(false);
-            this.setPierceLevel((byte)0);
-            this.setSound(SoundEvents.ENTITY_ARROW_HIT);
-            this.setShotFromCrossbow(false);
-        }
-    }
-    @Override
-    public void setOwner(@Nullable Entity entity) {
-        super.setOwner(entity);
-        if (entity instanceof PlayerEntity) {
-            this.pickupType = ((PlayerEntity)entity).getAbilities().creativeMode ? PickupPermission.CREATIVE_ONLY : PickupPermission.ALLOWED;
-        }
-    }
-    @Override
-    public void onPlayerCollision(PlayerEntity player) {
-        if (this.getWorld().isClient || !this.inGround && !this.isNoClip() || this.shake > 0) {
-            return;
-        }
-        if (this.tryPickup(player)) {
-            player.sendPickup(this, 1);
+            freezeWater(this, this.getWorld(), this.getBlockPos(), level);
             this.discard();
+        } else {
+            super.tick();
         }
+    }
+
+    public void freezeWater(Entity entity, World world, BlockPos blockPos, int level) {
+        BlockState blockState = Blocks.FROSTED_ICE.getDefaultState();
+        int spreadOffset = Math.min(16, level);
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        for (BlockPos blockPos2 : BlockPos.iterate(blockPos.add(-spreadOffset, 0, -spreadOffset), blockPos.add(spreadOffset, 0, spreadOffset))) {
+            BlockState blockState3 = world.getBlockState(blockPos2);
+            mutable.set(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
+            BlockState blockState2 = world.getBlockState(mutable);
+            if (!blockState2.isAir() || (blockState3 != FrostedIceBlock.getMeltedState() || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent())))continue;
+            world.setBlockState(blockPos2, blockState);
+            world.scheduleBlockTick(blockPos2, Blocks.FROSTED_ICE, MathHelper.nextInt(entity.getEntityWorld().random, 60, 120));
+        }
+    }
+
+    @Override
+    protected void onHit(LivingEntity target) {
+        super.onHit(target);
+        if (target.canFreeze()) {
+            target.setFrozenTicks(duration);
+        }
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        if (nbt.contains("FreezeDuration")) {
+            this.duration = nbt.getInt("FreezeDuration");
+        }
+        if (nbt.contains("Level")) {
+            this.duration = nbt.getInt("Level");
+        }
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("FreezeDuration", this.duration);
+        nbt.putInt("Level", this.level);
     }
 }
