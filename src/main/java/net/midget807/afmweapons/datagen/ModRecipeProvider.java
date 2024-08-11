@@ -2,14 +2,11 @@ package net.midget807.afmweapons.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.midget807.afmweapons.AFMWMain;
 import net.midget807.afmweapons.datagen.json_builder.FletchingTransformRecipeJsonBuilder;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.item.afmw.arrow.util.ArrowUtil;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.SmithingTransformRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -123,6 +120,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.FRYING_PAN)));
 
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.GLOWSTONE_DUST, RecipeCategory.COMBAT, Items.SPECTRAL_ARROW);
+        //offerFrostArrowRecipe(exporter, Items.ICE, RecipeCategory.COMBAT); // TODO: 11/08/2024  make complex recipe for this but for now just make 1 level of frost arrow
+        offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.ICE, RecipeCategory.COMBAT, ModItems.FROST_ARROW);
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.FIRE_CHARGE, RecipeCategory.COMBAT, ModItems.EXPLOSIVE_ARROW);
         offerTwoAdditionFletchingRecipe(exporter, Items.ARROW, Items.SLIME_BALL, Items.SLIME_BALL, RecipeCategory.COMBAT, ModItems.RICOCHET_ARROW);
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.ENDER_PEARL, RecipeCategory.COMBAT, ModItems.WARP_ARROW);
@@ -141,5 +140,31 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(addition1), conditionsFromItem(addition1))
                 .criterion(hasItem(addition2), conditionsFromItem(addition2))
                 .offerTo(exporter, getRecipeName(result));
+    }
+    public static void offerFrostArrowRecipe(RecipeExporter exporter, Item iceType, RecipeCategory category) {
+        FletchingTransformRecipeJsonBuilder.createWithOneAddition(Ingredient.ofItems(Items.ARROW), Ingredient.ofItems(iceType), category, ArrowUtil.setFrostArrow(ModItems.FROST_ARROW.getDefaultStack(), getLevel(iceType), getDuration(iceType)).getItem())
+                .criterion(hasItem(Items.ARROW), conditionsFromItem(Items.ARROW))
+                .criterion(hasItem(iceType), conditionsFromItem(iceType))
+                .offerTo(exporter, getRecipeName(ModItems.FROST_ARROW) + "_" + getLevel(iceType));
+    }
+
+    private static int getLevel(Item iceType) {
+        if (iceType == Items.PACKED_ICE) {
+            return 2;
+        } else if (iceType == Items.BLUE_ICE) {
+            return 3;
+        } else {
+            return 1;
+        }
+    }
+
+    private static int getDuration(Item iceType) {
+        if (iceType == Items.PACKED_ICE) {
+            return 360;
+        } else if (iceType == Items.BLUE_ICE) {
+            return 480;
+        } else {
+            return 240;
+        }
     }
 }

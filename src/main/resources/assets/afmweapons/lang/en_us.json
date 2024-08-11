@@ -17,6 +17,13 @@
   "item.afmweapons.longsword.desc" : "Can block attacks",
 
   "item.afmweapons.custom_arrow_loadable": "Cannot load in Crossbow",
+  "item.afmweapons.frost_arrow.desc": "Freezes water and slows enemies temporarily",
+  "item.afmweapons.explosive_arrow.desc": "Explodes on impact",
+  "item.afmweapons.ricochet_arrow.desc": "Bounces off blocks twice before landing",
+  "item.afmweapons.warp_arrow.desc": "Teleports the player on landing",
+  "item.afmweapons.magic_arrow.desc": "Flies slowly, ignoring blocks and gravity for a short period of time",
+  "item.afmweapons.echo_arrow.desc": "Sticks to a block, revealing nearby entities in a certain radius",
+  "item.afmweapons.guided_arrow.desc": "Flies slowly, seeking out any nearby entity",
 
   "screen.afmweapons.fletching_table": "Craft Arrows",
   "container.afmweapons.fletching.missing_arrow_tooltip": "Add Arrow",

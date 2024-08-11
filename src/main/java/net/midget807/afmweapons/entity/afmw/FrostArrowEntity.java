@@ -80,7 +80,7 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
 
     private void spawnParticles(int amount) {
         for (int i = 0; i < amount; ++i) {
-            this.getWorld().addParticle(ParticleTypes.SNOWFLAKE, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleX(0.5), 1, 1,1);
+            this.getWorld().addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), MathHelper.nextBetween(random, -1.0f, 1.0f) * 0.083333336f, 0.05f, MathHelper.nextBetween(random, -1.0f, 1.0f) * 0.083333336f);
         }
     }
 

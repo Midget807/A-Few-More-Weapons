@@ -11,5 +11,6 @@ public class ModRecipes {
                 FletchingTransformRecipe.Serializer.INSTANCE);
         Registry.register(Registries.RECIPE_TYPE, AFMWMain.id(FletchingTransformRecipe.Type.ID),
                 FletchingTransformRecipe.Type.INSTANCE);
+
     }
 }
