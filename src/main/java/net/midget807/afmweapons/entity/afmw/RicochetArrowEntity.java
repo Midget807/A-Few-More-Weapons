@@ -69,7 +69,9 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
             super.onBlockHit(blockHitResult);
         }
     }
-
+    public void spawnParticles() {
+        // TODO: 12/08/2024 make the arrow spawn particles when it bounces - take tick for like 10 ticks and crit particles and shit
+    }
 
     public Entity setBounces(int bounces) {
         this.bounces = bounces;
