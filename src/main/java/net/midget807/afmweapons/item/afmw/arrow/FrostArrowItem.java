@@ -1,6 +1,7 @@
 package net.midget807.afmweapons.item.afmw.arrow;
 
 import net.midget807.afmweapons.entity.afmw.FrostArrowEntity;
+import net.midget807.afmweapons.item.afmw.arrow.util.ArrowUtil;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -19,11 +20,20 @@ public class FrostArrowItem extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter) {
-        return new FrostArrowEntity(world, shooter);
+         FrostArrowEntity frostArrowEntity = new FrostArrowEntity(world, shooter);
+         frostArrowEntity.initFromStack(stack);
+         return frostArrowEntity;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.translatable("item.afmweapons.custom_arrow_loadable"));
+        tooltip.add(Text.literal("Level: " + ArrowUtil.getFrostArrowLevel(stack)));
+        tooltip.add(Text.literal("Duration: " + ArrowUtil.getFrostArrowDuration(stack)));
+    }
+
+    @Override
+    public ItemStack getDefaultStack() {
+        return ArrowUtil.setFrostArrow(super.getDefaultStack(), 1, 240);
     }
 }

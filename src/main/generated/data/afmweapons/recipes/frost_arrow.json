@@ -1,0 +1,13 @@
+{
+  "type": "afmweapons:fletching_transform",
+  "addition1": {
+    "item": "minecraft:ice"
+  },
+  "addition2": [],
+  "arrow": {
+    "item": "minecraft:arrow"
+  },
+  "result": {
+    "item": "afmweapons:frost_arrow"
+  }
+}

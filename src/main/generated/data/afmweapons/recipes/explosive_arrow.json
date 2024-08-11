@@ -1,0 +1,13 @@
+{
+  "type": "afmweapons:fletching_transform",
+  "addition1": {
+    "item": "minecraft:fire_charge"
+  },
+  "addition2": [],
+  "arrow": {
+    "item": "minecraft:arrow"
+  },
+  "result": {
+    "item": "afmweapons:explosive_arrow"
+  }
+}

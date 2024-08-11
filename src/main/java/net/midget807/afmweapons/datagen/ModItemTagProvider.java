@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.midget807.afmweapons.AFMWMain;
 import net.midget807.afmweapons.item.ModItems;
+import net.minecraft.data.server.tag.vanilla.VanillaItemTagProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
@@ -50,14 +51,20 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.NETHERITE_LANCE);
 
         this.getOrCreateTagBuilder(TRIPLE_SHOT_PROJECTILES)
-                .addTag(ItemTags.ARROWS);
+                .add(Items.ARROW)
+                .add(Items.TIPPED_ARROW)
+                .add(Items.SPECTRAL_ARROW);
 
         this.getOrCreateTagBuilder(AFMW_ARROWS)
                 .add(ModItems.FROST_ARROW)
+                .add(ModItems.EXPLOSIVE_ARROW)
+                .add(ModItems.RICOCHET_ARROW)
                 .add(ModItems.WARP_ARROW);
 
         this.getOrCreateTagBuilder(AFMW_BOW_PROJECTILES)
-                .addTag(ItemTags.ARROWS)
+                .add(Items.ARROW)
+                .add(Items.TIPPED_ARROW)
+                .add(Items.SPECTRAL_ARROW)
                 .addTag(AFMW_ARROWS);
     }
 }

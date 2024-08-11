@@ -11,8 +11,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -34,22 +36,45 @@ public class WarpArrowEntity extends PersistentProjectileEntity {
     protected ItemStack asItemStack() {
         return new ItemStack(ModItems.WARP_ARROW);
     }
-    @Override
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
-        entityHitResult.getEntity().damage(this.getDamageSources().thrown(this, this.getOwner()), 0.0f);
-    }
 
     @Override
-    protected void onCollision(HitResult hitResult) {
-        super.onCollision(hitResult);
+    protected void onHit(LivingEntity target) {
+        super.onHit(target);
+        if (target != this.getOwner()) {
+            for (int i = 0; i < 32; ++i) {
+                this.getWorld().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0, this.getZ(), this.random.nextGaussian(), 0.0, this.random.nextGaussian());
+            }
+            if (!this.getWorld().isClient && !this.isRemoved()) {
+                Entity entity = this.getOwner();
+                if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
+                    if (serverPlayerEntity.networkHandler.isConnectionOpen() && serverPlayerEntity.getWorld() == this.getWorld() && !serverPlayerEntity.isSleeping()) {
+                        if (entity.hasVehicle()) {
+                            serverPlayerEntity.requestTeleportAndDismount(this.getX(), this.getY(), this.getZ());
+                        } else {
+                            entity.requestTeleport(this.getX(), this.getY(), this.getZ());
+                        }
+                        entity.onLanding();
+                    }
+                } else if (entity != null) {
+                    entity.requestTeleport(this.getX(), this.getY(), this.getZ());
+                    entity.onLanding();
+                }
+                this.discard();
+            }
+        }
+    }
+
+
+
+    @Override
+    protected void onBlockHit(BlockHitResult blockHitResult) {
+        super.onBlockHit(blockHitResult);
         for (int i = 0; i < 32; ++i) {
             this.getWorld().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0, this.getZ(), this.random.nextGaussian(), 0.0, this.random.nextGaussian());
         }
         if (!this.getWorld().isClient && !this.isRemoved()) {
             Entity entity = this.getOwner();
-            if (entity instanceof ServerPlayerEntity) {
-                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)entity;
+            if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
                 if (serverPlayerEntity.networkHandler.isConnectionOpen() && serverPlayerEntity.getWorld() == this.getWorld() && !serverPlayerEntity.isSleeping()) {
                     if (entity.hasVehicle()) {
                         serverPlayerEntity.requestTeleportAndDismount(this.getX(), this.getY(), this.getZ());
@@ -57,7 +82,6 @@ public class WarpArrowEntity extends PersistentProjectileEntity {
                         entity.requestTeleport(this.getX(), this.getY(), this.getZ());
                     }
                     entity.onLanding();
-                    entity.damage(this.getDamageSources().fall(), 5.0f);
                 }
             } else if (entity != null) {
                 entity.requestTeleport(this.getX(), this.getY(), this.getZ());

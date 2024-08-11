@@ -3,6 +3,7 @@ package net.midget807.afmweapons.entity.afmw;
 import net.midget807.afmweapons.effect.ModEffects;
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
+import net.midget807.afmweapons.item.afmw.arrow.util.ArrowUtil;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,6 +19,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
@@ -27,9 +29,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class FrostArrowEntity extends PersistentProjectileEntity {
-    private int duration = 240;
-    private int level = 1;
+    private int duration;
+    private int level;
     public FrostArrowEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -39,16 +43,22 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
     public FrostArrowEntity(World world, LivingEntity owner) {
         super(ModEntities.FROST_ARROW_ENTITY_TYPE, owner, world);
     }
+    public void initFromStack(ItemStack stack) {
+        this.level = ArrowUtil.getFrostArrowLevel(stack);
+        this.duration = ArrowUtil.getFrostArrowDuration(stack);
+    }
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(ModItems.FROST_ARROW);
+        ItemStack itemStack = new ItemStack(ModItems.FROST_ARROW);
+        ArrowUtil.setFrostArrow(itemStack, level, duration);
+        return itemStack;
     }
 
     @Override
     public void tick() {
         if (this.isTouchingWater()) {
-            freezeWater(this, this.getWorld(), this.getBlockPos(), level);
+            freezeWater(this, this.getWorld(), this.getBlockPos(), this.level);
             this.discard();
         } else {
             super.tick();
@@ -56,17 +66,20 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
     }
 
     public void freezeWater(Entity entity, World world, BlockPos blockPos, int level) {
-        BlockState blockState = Blocks.FROSTED_ICE.getDefaultState();
-        int spreadOffset = Math.min(16, level);
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (BlockPos blockPos2 : BlockPos.iterate(blockPos.add(-spreadOffset, 0, -spreadOffset), blockPos.add(spreadOffset, 0, spreadOffset))) {
-            BlockState blockState3 = world.getBlockState(blockPos2);
-            mutable.set(blockPos2.getX(), blockPos2.getY(), blockPos2.getZ());
-            BlockState blockState2 = world.getBlockState(mutable);
-            if (!blockState2.isAir() || (blockState3 != FrostedIceBlock.getMeltedState() || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent())))continue;
-            world.setBlockState(blockPos2, blockState);
-            world.scheduleBlockTick(blockPos2, Blocks.FROSTED_ICE, MathHelper.nextInt(entity.getEntityWorld().random, 60, 120));
+        List<BlockState> list = List.of(Blocks.FROSTED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState());
+        BlockPos blockPos2 = world.getBlockState(blockPos.add(0, 1, 0)) == Blocks.WATER.getDefaultState() ? blockPos.add(0, 1, 0) : blockPos;
+        switch (level) {
+            case 2:
+                world.setBlockState(blockPos2, list.get(1));
+                break;
+            case 3:
+                world.setBlockState(blockPos2, list.get(2));
+                break;
+            default:
+                world.setBlockState(blockPos2, list.get(0));
+                world.scheduleBlockTick(blockPos2, Blocks.FROSTED_ICE, MathHelper.nextInt(entity.getWorld().getRandom(), 60, 120));
         }
+
     }
 
     @Override
@@ -77,21 +90,34 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
         }
     }
 
+
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        if (nbt.contains("FreezeDuration")) {
-            this.duration = nbt.getInt("FreezeDuration");
+        if (nbt.contains("FreezeDuration", NbtElement.NUMBER_TYPE)) {
+            this.duration = ArrowUtil.getFrostArrowDurationNbt(nbt);
         }
-        if (nbt.contains("Level")) {
-            this.duration = nbt.getInt("Level");
+        if (nbt.contains("Level", NbtElement.NUMBER_TYPE)) {
+            this.level = ArrowUtil.getFrostArrowLevelNbt(nbt);
         }
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        nbt.putInt("FreezeDuration", this.duration);
-        nbt.putInt("Level", this.level);
+        if (this.level != 0) {
+            nbt.putInt("Level", level);
+        }
+        if (this.duration != 0) {
+            nbt.putInt("FreezeDuration", duration);
+        }
     }
 }

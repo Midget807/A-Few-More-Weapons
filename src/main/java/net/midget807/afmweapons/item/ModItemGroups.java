@@ -51,6 +51,7 @@ public class ModItemGroups {
                 */
                 entries.add(EnchantedBookItem.forEnchantment(new EnchantmentLevelEntry(ModEnchantments.TRIPLE_SHOT, 1)));
                 entries.add(EnchantedBookItem.forEnchantment(new EnchantmentLevelEntry(ModEnchantments.CONCUSS, 3)));
+                entries.add(ModItems.FROST_ARROW.getDefaultStack());
             }).build());
 
     private static void addAFMWEnchantedBooks(ItemGroup.Entries entries, RegistryWrapper.Impl<Enchantment> wrapper, Set<EnchantmentTarget> set, ItemGroup.StackVisibility stackVisibility) {

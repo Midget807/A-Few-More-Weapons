@@ -6,7 +6,9 @@ import net.midget807.afmweapons.item.afmw.FryingPanItem;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
 import net.midget807.afmweapons.item.afmw.LanceItem;
 import net.midget807.afmweapons.item.afmw.LongswordItem;
+import net.midget807.afmweapons.item.afmw.arrow.ExplosiveArrow;
 import net.midget807.afmweapons.item.afmw.arrow.FrostArrowItem;
+import net.midget807.afmweapons.item.afmw.arrow.RicochetArrow;
 import net.midget807.afmweapons.item.afmw.arrow.WarpArrowItem;
 import net.midget807.afmweapons.item.afmw.debug.DebugItem;
 import net.minecraft.item.Item;
@@ -38,6 +40,8 @@ public class ModItems {
     public static final Item FRYING_PAN = registerItem("frying_pan", new FryingPanItem(ToolMaterials.IRON, 1, -3.1f, new FabricItemSettings().maxCount(1).maxDamage(250)));
     public static final Item FRIED_EGG = registerItem("fried_egg", new Item(new FabricItemSettings().maxCount(16).food(ModFoodComponents.FRIED_EGG)));
     public static final Item FROST_ARROW = registerItem("frost_arrow", new FrostArrowItem(new FabricItemSettings()));
+    public static final Item EXPLOSIVE_ARROW = registerItem("explosive_arrow", new ExplosiveArrow(new FabricItemSettings()));
+    public static final Item RICOCHET_ARROW = registerItem("ricochet_arrow", new RicochetArrow(new FabricItemSettings()));
     public static final Item WARP_ARROW = registerItem("warp_arrow", new WarpArrowItem(new FabricItemSettings()));
 
     public static Item registerItem(String name, Item item) {
