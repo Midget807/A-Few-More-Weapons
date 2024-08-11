@@ -3,8 +3,10 @@ package net.midget807.afmweapons.entity.afmw;
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.item.afmw.arrow.util.ArrowUtil;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -16,7 +18,6 @@ import net.minecraft.world.World;
 
 public class RicochetArrowEntity extends PersistentProjectileEntity {
     public int bounces;
-    public static final Direction[] DIRECTIONS = Direction.values();
     public RicochetArrowEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -66,6 +67,23 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
             }
         } else {
             super.onBlockHit(blockHitResult);
+        }
+    }
+
+
+    public Entity setBounces(int bounces) {
+        this.bounces = bounces;
+        return this;
+    }
+
+    @Override
+    public void onPlayerCollision(PlayerEntity player) {
+        if (this.getWorld().isClient || !this.inGround && !this.isNoClip() || this.shake > 0) {
+            return;
+        }
+        if (this.tryPickup(player)) {
+            player.sendPickup(setBounces(2), 1); // TODO: 12/08/2024 GP test to see if this shit works
+            this.discard();
         }
     }
 
