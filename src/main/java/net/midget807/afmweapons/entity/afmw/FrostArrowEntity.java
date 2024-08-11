@@ -20,6 +20,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
@@ -57,11 +58,29 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
 
     @Override
     public void tick() {
+        super.tick();
+        if (this.getWorld().isClient) {
+            if (this.inGround) {
+                if (this.inGroundTime % 5 == 0) {
+                    this.spawnParticles(1);
+                }
+            } else {
+                this.spawnParticles(2);
+            }
+        } else if (this.inGround && this.inGroundTime != 0 && this.inGroundTime >= 600) {
+            this.getWorld().sendEntityStatus(this, (byte) 0);
+        }
         if (this.isTouchingWater()) {
             freezeWater(this, this.getWorld(), this.getBlockPos(), this.level);
             this.discard();
-        } else {
+        }/* else {
             super.tick();
+        }*/
+    }
+
+    private void spawnParticles(int amount) {
+        for (int i = 0; i < amount; ++i) {
+            this.getWorld().addParticle(ParticleTypes.SNOWFLAKE, this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleX(0.5), 1, 1,1);
         }
     }
 
