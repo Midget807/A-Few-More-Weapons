@@ -23,6 +23,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -87,17 +88,20 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
     public void freezeWater(Entity entity, World world, BlockPos blockPos, int level) {
         List<BlockState> list = List.of(Blocks.FROSTED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState());
         BlockPos blockPos2 = world.getBlockState(blockPos.add(0, 1, 0)) == Blocks.WATER.getDefaultState() ? blockPos.add(0, 1, 0) : blockPos;
-        switch (level) {
-            case 2:
-                world.setBlockState(blockPos2, list.get(1));
-                break;
-            case 3:
-                world.setBlockState(blockPos2, list.get(2));
-                break;
-            default:
-                world.setBlockState(blockPos2, list.get(0));
-                world.scheduleBlockTick(blockPos2, Blocks.FROSTED_ICE, MathHelper.nextInt(entity.getWorld().getRandom(), 60, 120));
-        }
+        boolean isWaterFlowing = this.getWorld().getBlockState(blockPos2).get(Properties.LEVEL_8) == 0;
+        if (isWaterFlowing) {
+            switch (level) {
+                case 2:
+                    world.setBlockState(blockPos2, list.get(1));
+                    break;
+                case 3:
+                    world.setBlockState(blockPos2, list.get(2));
+                    break;
+                default:
+                    world.setBlockState(blockPos2, list.get(0));
+                    world.scheduleBlockTick(blockPos2, Blocks.FROSTED_ICE, MathHelper.nextInt(entity.getWorld().getRandom(), 60, 120));
+            }
+        } // TODO: 12/08/2024 test
 
     }
 
