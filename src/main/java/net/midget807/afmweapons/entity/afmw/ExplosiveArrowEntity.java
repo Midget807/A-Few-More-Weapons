@@ -31,7 +31,7 @@ public class ExplosiveArrowEntity extends PersistentProjectileEntity {
         super.onHit(target);
         if (target != this.getOwner()) {
             if (!this.getWorld().isClient) {
-                this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, false, World.ExplosionSourceType.NONE);
+                this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 1, false, World.ExplosionSourceType.NONE);
             }
             this.discard();
         }
@@ -41,7 +41,7 @@ public class ExplosiveArrowEntity extends PersistentProjectileEntity {
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
         if (!this.getWorld().isClient) {
-            this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 2, false, World.ExplosionSourceType.NONE);
+            this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 1, false, World.ExplosionSourceType.NONE);
         }
         this.discard();
 
