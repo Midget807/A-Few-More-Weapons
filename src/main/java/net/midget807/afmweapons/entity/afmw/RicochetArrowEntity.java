@@ -11,6 +11,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -18,6 +19,8 @@ import net.minecraft.world.World;
 
 public class RicochetArrowEntity extends PersistentProjectileEntity {
     public int bounces;
+    private boolean shouldSpawnParticle;
+    private int ticksSinceBounce;
     public RicochetArrowEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -46,6 +49,13 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
         if (this.inGround && this.inGroundTime != 0 && this.inGroundTime >= 600) {
             this.getWorld().sendEntityStatus(this, (byte) 0);
         }
+        if (!this.getWorld().isClient && this.shouldSpawnParticle) {
+            spawnParticles(2);
+            this.ticksSinceBounce++;
+        } else {
+            this.shouldSpawnParticle = false;
+            this.ticksSinceBounce = 0;
+        }
     }
 
     @Override
@@ -54,28 +64,29 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
         Vec3d vec3d = this.getVelocity();
         if (bounces > 0) {
             if (direction == Direction.UP || direction == Direction.DOWN) {
-                this.setVelocity(vec3d.x, -vec3d.y, vec3d.z);
+                this.setVelocity(vec3d.x * 0.8, -vec3d.y * 0.8, vec3d.z * 0.8);
                 this.bounces--;
+                this.shouldSpawnParticle = true;
             }
             if (direction == Direction.EAST || direction == Direction.WEST) {
-                this.setVelocity(-vec3d.x, vec3d.y, vec3d.z);
+                this.setVelocity(-vec3d.x * 0.8, vec3d.y * 0.8, vec3d.z * 0.8);
                 this.bounces--;
+                this.shouldSpawnParticle = true;
             }
             if (direction == Direction.NORTH || direction == Direction.SOUTH) {
-                this.setVelocity(vec3d.x, vec3d.y, -vec3d.z);
+                this.setVelocity(vec3d.x * 0.8, vec3d.y * 0.8, -vec3d.z * 0.8);
                 this.bounces--;
+                this.shouldSpawnParticle = true;
             }
         } else {
             super.onBlockHit(blockHitResult);
+            this.bounces = 2;
         }
     }
-    public void spawnParticles() {
-        // TODO: 12/08/2024 make the arrow spawn particles when it bounces - take tick for like 10 ticks and crit particles and shit
-    }
-
-    public Entity setBounces(int bounces) {
-        this.bounces = bounces;
-        return this;
+    public void spawnParticles(int amount) {
+        for (int i = 0; i < amount; ++i) {
+            this.getWorld().addParticle(ParticleTypes.CRIT, this.getX(), this.getY(), this.getZ(), 0.05, 0.05, 0.05);
+        } // TODO: 12/08/2024 fix particle spawning
     }
 
     @Override
@@ -84,10 +95,18 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
             return;
         }
         if (this.tryPickup(player)) {
-            player.sendPickup(setBounces(2), 1); // TODO: 12/08/2024 GP test to see if this shit works
+            if (!player.isCreative()) {
+                player.sendPickup(this, 1);
+            } // TODO: 12/08/2024 Fix item pickup
             this.discard();
         }
+
     }
+
+    public int setBounces(int bounces) {
+        return this.bounces = bounces;
+    }
+
 
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
