@@ -8,7 +8,8 @@
 //TODO make non-crit work for halberd
 //TODO finish lances
 //TODO make spears
-//TODO add patchouli book maybe
+//TODO make echo arrow have changing model based on pulse -> copy tipped arrow color methods
+//TODO fix frozen and ricochet arrow pickup method
 
 
 === Version Desc for Alpha Dev 1.20.2 ===
