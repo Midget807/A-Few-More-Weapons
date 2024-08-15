@@ -172,7 +172,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     //=== Lance modifier ===
     @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/entity/attribute/EntityAttribute;)D"), cancellable = true)
     private void afmw$modifyLanceDamage(Entity target, CallbackInfo ci) {
-        if (this.getMainHandStack().getItem() instanceof LanceItem lanceItem) {
+        if (this.getMainHandStack().getItem() instanceof LanceItem lanceItem && !this.getWorld().isClient) {
+            // TODO: 7/08/2024 Debug
+            this.sendMessage(Text.literal("Lance Item"));
+            // ===
+
             if (this.getControllingVehicle() instanceof HorseEntity) {
 
                 // TODO: 7/08/2024 Debug
