@@ -1,4 +1,4 @@
-package net.midget807.afmweapons.item.afmw.arrow.util;
+package net.midget807.afmweapons.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -9,7 +9,6 @@ import java.util.List;
 public class ArrowUtil {
     public static final String FROST_ARROW_LEVEL_KEY = "Level";
     public static final String FROST_ARROW_DURATION_KEY = "FreezeDuration";
-    public static final String RICOCHET_ARROW_BOUNCE_KEY = "Bounces";
 
     public static int getFrostArrowLevel(ItemStack frostArrowStack) {
         return getFrostArrowLevelNbt(frostArrowStack.getNbt());
@@ -43,6 +42,8 @@ public class ArrowUtil {
         }
         return stack;
     }
+
+    public static final String RICOCHET_ARROW_BOUNCE_KEY = "Bounces";
     public static int getRicochetArrowBounces(ItemStack stack) {
         return getRicochetArrowBouncesNbt(stack.getNbt());
     }
@@ -58,6 +59,26 @@ public class ArrowUtil {
             stack.removeSubNbt(RICOCHET_ARROW_BOUNCE_KEY);
         } else {
             stack.getOrCreateNbt().putInt(RICOCHET_ARROW_BOUNCE_KEY, bounces);
+        }
+        return stack;
+    }
+
+    public static final String MAGIC_ARROW_FLIGHT_TIME_KEY = "FlightTime";
+    public static int getMagicArrowFlightTime(ItemStack stack) {
+        return getMagicArrowFlightTimeNbt(stack.getNbt());
+    }
+
+    public static int getMagicArrowFlightTimeNbt(NbtCompound nbtCompound) {
+        if (nbtCompound == null) {
+            return 0;
+        }
+        return nbtCompound.getInt(MAGIC_ARROW_FLIGHT_TIME_KEY);
+    }
+    public static ItemStack setMagicArrow(ItemStack stack, int flightTime) {
+        if (flightTime == 0) {
+            stack.removeSubNbt(MAGIC_ARROW_FLIGHT_TIME_KEY);
+        } else {
+            stack.getOrCreateNbt().putInt(MAGIC_ARROW_FLIGHT_TIME_KEY, flightTime);
         }
         return stack;
     }

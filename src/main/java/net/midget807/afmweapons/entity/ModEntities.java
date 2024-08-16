@@ -41,6 +41,12 @@ public class ModEntities {
                             .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
                             .trackRangeBlocks(4).trackedUpdateRate(10)
                             .build());
+    public static final EntityType<MagicArrowEntity> MAGIC_ARROW_ENTITY_TYPE =
+            Registry.register(Registries.ENTITY_TYPE, AFMWMain.id("magic_arrow"),
+                    FabricEntityTypeBuilder.<MagicArrowEntity>create(SpawnGroup.MISC, MagicArrowEntity::new)
+                            .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
+                            .trackRangeBlocks(4).trackedUpdateRate(10)
+                            .build());
     public static void registerModEntities() {
         AFMWMain.LOGGER.info("Registering AFMW Entities");
     }

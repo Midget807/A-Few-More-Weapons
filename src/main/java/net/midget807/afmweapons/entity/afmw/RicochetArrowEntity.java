@@ -2,8 +2,7 @@ package net.midget807.afmweapons.entity.afmw;
 
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
-import net.midget807.afmweapons.item.afmw.arrow.util.ArrowUtil;
-import net.minecraft.entity.Entity;
+import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

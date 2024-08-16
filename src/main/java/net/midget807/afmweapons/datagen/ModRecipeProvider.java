@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.midget807.afmweapons.datagen.json_builder.FletchingTransformRecipeJsonBuilder;
 import net.midget807.afmweapons.item.ModItems;
-import net.midget807.afmweapons.item.afmw.arrow.util.ArrowUtil;
+import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Item;

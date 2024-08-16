@@ -1,7 +1,7 @@
 package net.midget807.afmweapons.item.afmw.arrow;
 
 import net.midget807.afmweapons.entity.afmw.RicochetArrowEntity;
-import net.midget807.afmweapons.item.afmw.arrow.util.ArrowUtil;
+import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;

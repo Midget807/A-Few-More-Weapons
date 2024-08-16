@@ -6,10 +6,7 @@ import net.midget807.afmweapons.item.afmw.FryingPanItem;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
 import net.midget807.afmweapons.item.afmw.LanceItem;
 import net.midget807.afmweapons.item.afmw.LongswordItem;
-import net.midget807.afmweapons.item.afmw.arrow.ExplosiveArrowItem;
-import net.midget807.afmweapons.item.afmw.arrow.FrostArrowItem;
-import net.midget807.afmweapons.item.afmw.arrow.RicochetArrowItem;
-import net.midget807.afmweapons.item.afmw.arrow.WarpArrowItem;
+import net.midget807.afmweapons.item.afmw.arrow.*;
 import net.midget807.afmweapons.item.afmw.debug.DebugItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterials;
@@ -43,6 +40,7 @@ public class ModItems {
     public static final Item EXPLOSIVE_ARROW = registerItem("explosive_arrow", new ExplosiveArrowItem(new FabricItemSettings()));
     public static final Item RICOCHET_ARROW = registerItem("ricochet_arrow", new RicochetArrowItem(new FabricItemSettings()));
     public static final Item WARP_ARROW = registerItem("warp_arrow", new WarpArrowItem(new FabricItemSettings()));
+    public static final Item MAGIC_ARROW = registerItem("magic_arrow", new MagicArrowItem(new FabricItemSettings()));
 
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, AFMWMain.id(name), item);

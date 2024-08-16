@@ -1,6 +1,6 @@
 package net.midget807.afmweapons.item.afmw.arrow;
 
-import net.midget807.afmweapons.entity.afmw.FrostArrowEntity;
+import net.midget807.afmweapons.entity.afmw.MagicArrowEntity;
 import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -15,29 +15,27 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FrostArrowItem extends ArrowItem {
-    public FrostArrowItem(Settings settings) {
+public class MagicArrowItem extends ArrowItem {
+    public MagicArrowItem(Settings settings) {
         super(settings);
     }
 
     @Override
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter) {
-         FrostArrowEntity frostArrowEntity = new FrostArrowEntity(world, shooter);
-         frostArrowEntity.initFromStack(stack);
-         return frostArrowEntity;
+        MagicArrowEntity magicArrowEntity = new MagicArrowEntity(world, shooter);
+        magicArrowEntity.initFromStack(stack);
+        return magicArrowEntity;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.afmweapons.frost_arrow.desc").formatted(Formatting.DARK_GRAY));
+        tooltip.add(Text.translatable("item.afmweapons.magic_arrow.desc").formatted(Formatting.DARK_GRAY));
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("item.afmweapons.custom_arrow_loadable").formatted(Formatting.DARK_GRAY));
-        /*tooltip.add(Text.literal("Level: " + ArrowUtil.getFrostArrowLevel(stack)));
-        tooltip.add(Text.literal("Duration: " + ArrowUtil.getFrostArrowDuration(stack)));*/
     }
 
     @Override
     public ItemStack getDefaultStack() {
-        return ArrowUtil.setFrostArrow(super.getDefaultStack(), 1, 240);
+        return ArrowUtil.setMagicArrow(super.getDefaultStack(), (int) 2.5 * 20);
     }
 }
