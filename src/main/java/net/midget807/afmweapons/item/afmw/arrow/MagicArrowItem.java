@@ -30,9 +30,9 @@ public class MagicArrowItem extends ArrowItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.afmweapons.magic_arrow.desc").formatted(Formatting.DARK_GRAY));
+        tooltip.add(Text.translatable("item.afmweapons.magic_arrow.desc").formatted(Formatting.GRAY));
         tooltip.add(ScreenTexts.EMPTY);
-        tooltip.add(Text.translatable("item.afmweapons.custom_arrow_loadable").formatted(Formatting.DARK_GRAY));
+        tooltip.add(Text.translatable("item.afmweapons.custom_arrow_loadable").formatted(Formatting.GRAY));
     }
 
     @Override

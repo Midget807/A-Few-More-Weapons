@@ -90,7 +90,7 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
                     world.setBlockState(blockPos2, list.get(0));
                     world.scheduleBlockTick(blockPos2, Blocks.FROSTED_ICE, MathHelper.nextInt(entity.getWorld().getRandom(), 60, 120));
             }
-        } // TODO: 12/08/2024 test
+        }
 
     }
 

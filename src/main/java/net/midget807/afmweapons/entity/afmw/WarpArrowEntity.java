@@ -69,8 +69,10 @@ public class WarpArrowEntity extends PersistentProjectileEntity {
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
-        for (int i = 0; i < 32; ++i) {
-            this.getWorld().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0, this.getZ(), this.random.nextGaussian(), 0.0, this.random.nextGaussian());
+        if (this.getWorld().isClient) {
+            for (int i = 0; i < 32; ++i) {
+                this.getWorld().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0, this.getZ(), this.random.nextGaussian(), 0.0, this.random.nextGaussian());
+            }
         }
         if (!this.getWorld().isClient && !this.isRemoved()) {
             Entity entity = this.getOwner();

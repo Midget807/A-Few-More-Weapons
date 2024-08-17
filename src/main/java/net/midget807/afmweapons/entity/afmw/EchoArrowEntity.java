@@ -90,6 +90,7 @@ public class EchoArrowEntity extends PersistentProjectileEntity {
         }
     }
 
+    // TODO: 17/08/2024 MAKE THIS SHIT WORK + THE PARTICLES 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
         if (!this.canPulse) {

@@ -137,17 +137,16 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             method = "attack",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/player/PlayerEntity;isSprinting()Z",
-                    shift = At.Shift.AFTER
+                    target = "Lnet/minecraft/entity/player/PlayerEntity;isSprinting()Z"
             ),
             slice = @Slice(
-                    from = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerEntity;fallDistance:F"),
+                    from = @At(value = "FIELD", target = "Lnet/minecraft/sound/SoundEvents;ENTITY_PLAYER_ATTACK_KNOCKBACK:Lnet/minecraft/sound/SoundEvent;"),
                     to = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I")
             )
     )
     private void afmw$halberdIgnoresCrit(Entity target, CallbackInfo ci, @Local(ordinal = 2) LocalBooleanRef bl3) {
         if (this.getStackInHand(Hand.MAIN_HAND).isIn(ModItemTagProvider.HALBERDS)) {
-            bl3.set(true);
+            bl3.set(false);
         }
     }
 
