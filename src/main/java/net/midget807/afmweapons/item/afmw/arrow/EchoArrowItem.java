@@ -1,6 +1,6 @@
 package net.midget807.afmweapons.item.afmw.arrow;
 
-import net.midget807.afmweapons.entity.afmw.MagicArrowEntity;
+import net.midget807.afmweapons.entity.afmw.EchoArrowEntity;
 import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -15,28 +15,27 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class MagicArrowItem extends ArrowItem {
-    public MagicArrowItem(Settings settings) {
+public class EchoArrowItem extends ArrowItem {
+    public EchoArrowItem(Settings settings) {
         super(settings);
     }
 
     @Override
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter) {
-        MagicArrowEntity magicArrowEntity = new MagicArrowEntity(world, shooter);
-        magicArrowEntity.initFromStack(stack);
-        magicArrowEntity.setPierceLevel((byte) 1000);
-        return magicArrowEntity;
+        EchoArrowEntity echoArrowEntity = new EchoArrowEntity(world, shooter);
+        echoArrowEntity.initFromStack(stack);
+        return echoArrowEntity;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.afmweapons.magic_arrow.desc").formatted(Formatting.DARK_GRAY));
+        tooltip.add(Text.translatable("item.afmweapons.echo_arrow.desc").formatted(Formatting.DARK_GRAY));
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("item.afmweapons.custom_arrow_loadable").formatted(Formatting.DARK_GRAY));
     }
 
     @Override
     public ItemStack getDefaultStack() {
-        return ArrowUtil.setMagicArrow(super.getDefaultStack(), 20);
+        return ArrowUtil.setEchoArrow(super.getDefaultStack(), 12 * 20, false);
     }
 }

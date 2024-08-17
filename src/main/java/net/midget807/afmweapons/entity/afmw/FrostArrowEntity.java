@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -57,7 +58,7 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
         } else if (this.inGround && this.inGroundTime != 0 && this.inGroundTime >= 600) {
             this.getWorld().sendEntityStatus(this, (byte) 0);
         }
-        if (this.isTouchingWater()) {
+        if (this.isTouchingWater() && isStillWater(this.getBlockPos())) {
             freezeWater(this, this.getWorld(), this.getBlockPos(), this.level);
             this.discard();
         }/* else {
@@ -70,12 +71,14 @@ public class FrostArrowEntity extends PersistentProjectileEntity {
             this.getWorld().addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), MathHelper.nextBetween(random, -1.0f, 1.0f) * 0.083333336f, 0.05f, MathHelper.nextBetween(random, -1.0f, 1.0f) * 0.083333336f);
         }
     }
+    public boolean isStillWater(BlockPos blockPos) {
+        return this.getWorld().getBlockState(blockPos).getFluidState().isOf(Fluids.WATER) && this.getWorld().getBlockState(blockPos).getFluidState().isStill();
 
+    }
     public void freezeWater(Entity entity, World world, BlockPos blockPos, int level) {
         List<BlockState> list = List.of(Blocks.FROSTED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState());
-        BlockPos blockPos2 = world.getBlockState(blockPos.add(0, 1, 0)) == Blocks.WATER.getDefaultState() ? blockPos.add(0, 1, 0) : blockPos;
-        boolean isWaterFlowing = this.getWorld().getBlockState(blockPos2).get(Properties.LEVEL_8) == 0;
-        if (isWaterFlowing) {
+        BlockPos blockPos2 = world.getBlockState(blockPos.add(0, 1, 0)).getFluidState().isOf(Fluids.WATER) ? blockPos.add(0, 1, 0) : blockPos;
+        if (isStillWater(blockPos2)) {
             switch (level) {
                 case 2:
                     world.setBlockState(blockPos2, list.get(1));

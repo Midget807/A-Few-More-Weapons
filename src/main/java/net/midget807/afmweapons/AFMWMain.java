@@ -9,6 +9,7 @@ import net.midget807.afmweapons.entity.ModDamageTypes;
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItemGroups;
 import net.midget807.afmweapons.item.ModItems;
+import net.midget807.afmweapons.particle.ModParticles;
 import net.midget807.afmweapons.recipe.ModRecipes;
 import net.midget807.afmweapons.screen.ModScreenHandlers;
 import net.minecraft.util.Identifier;
@@ -36,5 +37,6 @@ public class AFMWMain implements ModInitializer {
 		ModScreenHandlers.registerModScreenHandlers();
 		ModBlockEntities.registerModBlockEntities();
 		ModRecipes.registerRecipes();
+		ModParticles.registerModParticles();
 	}
 }

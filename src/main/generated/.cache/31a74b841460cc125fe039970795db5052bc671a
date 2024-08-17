@@ -1,16 +1,16 @@
-// 1.20.2	2024-08-11T17:08:05.9473556	A Few More Weapons/Model Definitions
-dcb79a709427c78ba7ea6cd2b436ecbd0dd295f0 assets\afmweapons\models\item\fried_egg.json
+// 1.20.2	2024-08-16T22:56:04.5314	A Few More Weapons/Model Definitions
 5ab81954fa93bb0b511a7b77184992976f4258bf assets\afmweapons\models\item\stone_halberd.json
-8f71f56b3e78d2de561d8ef959abe6372a4c2a79 assets\afmweapons\models\item\iron_longsword.json
 8b6009baa4fb894ff0af1ea2cd0a6556438ae8d8 assets\afmweapons\models\item\wooden_halberd.json
 9eb9b128519b132b9cd67b79ad9ce8ec2d61ed34 assets\afmweapons\models\item\diamond_halberd.json
+2cc88d75d574b21790d6c1307d0bd53652c2d28c assets\afmweapons\models\item\warp_arrow.json
+dcb79a709427c78ba7ea6cd2b436ecbd0dd295f0 assets\afmweapons\models\item\fried_egg.json
+8f71f56b3e78d2de561d8ef959abe6372a4c2a79 assets\afmweapons\models\item\iron_longsword.json
 00fbed02ee7dfca9cfcc63e507987a26cf23d61a assets\afmweapons\models\item\golden_halberd.json
 ad46b327198b3639a84904f9d460cfdc5534e14f assets\afmweapons\models\item\stone_longsword.json
 ee520081d26441b974586f0a13861e2afb7b8d1f assets\afmweapons\models\item\netherite_halberd.json
-1476cd66a578fa7654b7a2b0daec122897350e07 assets\afmweapons\models\item\diamond_longsword.json
 9a1547d556d3d906d8d238bbaa88e6e530b49020 assets\afmweapons\models\item\netherite_longsword.json
+1476cd66a578fa7654b7a2b0daec122897350e07 assets\afmweapons\models\item\diamond_longsword.json
 132961f33a4ac22b2dbd8b392a64302be557c367 assets\afmweapons\models\item\golden_longsword.json
-2cc88d75d574b21790d6c1307d0bd53652c2d28c assets\afmweapons\models\item\warp_arrow.json
 f2edfb977c08a630b13289cdcc9a3da92eec03eb assets\afmweapons\models\item\iron_halberd.json
 b6fb367ed2f82781bd7770f9e0d93ab7d708a7de assets\afmweapons\models\item\wooden_longsword.json
 567d7a618f49db921e0714a9e10da8955f3410de assets\afmweapons\models\item\frost_arrow.json

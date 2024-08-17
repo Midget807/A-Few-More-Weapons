@@ -4,7 +4,7 @@
 //TODO Add Textures for halberds
 //TODO fix frying pan GUI texture
 //TODO order triple shot removal correctly
-//TODO revamp fletching table -> makes custom arrows -> echo arrow (spectral + echo shard + empty = 1); magic arrow (spectral + lapis + ender pearl) travels through blocks but flies slowly and only for a short distance; guided arrow (magic + eye of ender + empty = 1) flies slowly and targets nearby enemy;
+//TODO revamp fletching table -> makes custom arrows -> guided arrow (magic + eye of ender + empty = 1) flies slowly and targets nearby enemy;
 //TODO make non-crit work for halberd
 //TODO finish lances
 //TODO make spears

@@ -3,13 +3,19 @@ package net.midget807.afmweapons.entity.afmw;
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.util.ArrowUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -30,10 +36,7 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
 
     public void initFromStack(ItemStack stack) {
         this.flightDuration = ArrowUtil.getMagicArrowFlightTime(stack);
-        this.setPierceLevel((byte) (10 * (10 ^ 200)));
-        this.setNoClip(true);
-        Vec3d vec3d = this.getVelocity();
-        this.setVelocity(vec3d.x * 0.5, vec3d.y * 0.5, vec3d.x * 0.5);
+        this.setVelocity(this.getVelocity().multiply(0.5));
     }
     @Override
     protected ItemStack asItemStack() {
@@ -47,10 +50,10 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
         super.tick();
         if (!this.getWorld().isClient) {
             //server shit
-            if (this.getFlightDuration() == 0) {
+            if (this.flightDuration == 0) {
                 this.discardMagicArrow();
             } else {
-                this.flightDuration--;
+                --this.flightDuration;
             }
         }
         if (this.getWorld().isClient) {
@@ -58,6 +61,7 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
             this.spawnParticles(2);
         }
     }
+
 
     private void discardMagicArrow() {
         if (this.getWorld().isClient) {
@@ -68,17 +72,47 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
 
     private void spawnDiscardParticles(int amount) {
         for (int i = 0; i < amount; ++i) {
-            this.getWorld().addParticle(ParticleTypes.GLOW, this.getX(), this.getY(), this.getZ(), 1, 1, 1);
+            this.getWorld().addParticle(ParticleTypes.GLOW, this.getX(), this.getY(), this.getZ(), 0.05, 0.05, 0.05);
         }
     }
 
-    private int getFlightDuration() {
-        return this.flightDuration;
-    }
 
     private void spawnParticles(int amount) {
         for (int i = 0; i < amount; ++i) {
             this.getWorld().addParticle(ParticleTypes.GLOW, this.getX(), this.getY(), this.getZ(), MathHelper.nextBetween(random, -1.0f, 1.0f) * 0.083333336f, 0.05f, MathHelper.nextBetween(random, -1.0f, 1.0f) * 0.083333336f);
+        }
+    }
+
+    @Override
+    protected void onCollision(HitResult hitResult) {
+        if (hitResult.getType() == HitResult.Type.ENTITY) {
+            EntityHitResult entityHitResult = ((EntityHitResult) hitResult);
+            this.onEntityHit(entityHitResult);
+        }
+    }
+
+    @Override
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        entityHitResult.getEntity().damage(this.getDamageSources().arrow(this, this.getOwner()), (float) this.getDamage() * 4);
+        this.setVelocity(this.getVelocity().multiply(1.0));
+    }
+
+    @Override
+    protected void onBlockHit(BlockHitResult blockHitResult) {
+    }
+
+    @Override
+    protected void tryCheckBlockCollision() {
+    }
+
+    @Override
+    public void onPlayerCollision(PlayerEntity player) {
+        if (this.getWorld().isClient || !this.inGround && !this.isNoClip() || this.shake > 0) {
+            return;
+        }
+        if (this.tryPickup(player) && flightDuration == 0) {
+            player.sendPickup(this, 1);
+            this.discard();
         }
     }
 

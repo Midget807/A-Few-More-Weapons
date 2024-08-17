@@ -125,6 +125,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.FIRE_CHARGE, RecipeCategory.COMBAT, ModItems.EXPLOSIVE_ARROW);
         offerTwoAdditionFletchingRecipe(exporter, Items.ARROW, Items.SLIME_BALL, Items.SLIME_BALL, RecipeCategory.COMBAT, ModItems.RICOCHET_ARROW);
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.ENDER_PEARL, RecipeCategory.COMBAT, ModItems.WARP_ARROW);
+        offerTwoAdditionFletchingRecipe(exporter, Items.SPECTRAL_ARROW, Items.LAPIS_LAZULI, Items.ENDER_PEARL, RecipeCategory.COMBAT, ModItems.MAGIC_ARROW);
+        offerOneAdditionFletchingRecipe(exporter, Items.SPECTRAL_ARROW, Items.ECHO_SHARD, RecipeCategory.COMBAT, ModItems.ECHO_ARROW);
 
     }
 

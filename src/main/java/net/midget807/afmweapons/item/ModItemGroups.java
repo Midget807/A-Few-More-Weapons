@@ -55,6 +55,8 @@ public class ModItemGroups {
                 entries.add(ModItems.EXPLOSIVE_ARROW);
                 entries.add(ModItems.RICOCHET_ARROW.getDefaultStack());
                 entries.add(ModItems.WARP_ARROW);
+                entries.add(ModItems.MAGIC_ARROW.getDefaultStack());
+                entries.add(ModItems.ECHO_ARROW.getDefaultStack());
             }).build());
 
     private static void addAFMWEnchantedBooks(ItemGroup.Entries entries, RegistryWrapper.Impl<Enchantment> wrapper, Set<EnchantmentTarget> set, ItemGroup.StackVisibility stackVisibility) {

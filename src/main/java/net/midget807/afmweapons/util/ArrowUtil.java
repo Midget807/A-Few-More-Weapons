@@ -63,7 +63,7 @@ public class ArrowUtil {
         return stack;
     }
 
-    public static final String MAGIC_ARROW_FLIGHT_TIME_KEY = "FlightTime";
+    public static final String MAGIC_ARROW_FLIGHT_TIME_KEY = "FlightDuration";
     public static int getMagicArrowFlightTime(ItemStack stack) {
         return getMagicArrowFlightTimeNbt(stack.getNbt());
     }
@@ -83,4 +83,36 @@ public class ArrowUtil {
         return stack;
     }
 
+    public static final String ECHO_ARROW_AGE_KEY = "GroundAge";
+    public static final String ECHO_ARROW_PULSING_KEY = "Pulsing";
+    public static int getEchoArrowAge(ItemStack stack) {
+        return getEchoArrowAgeNbt(stack.getNbt());
+    }
+
+    public static int getEchoArrowAgeNbt(NbtCompound nbtCompound) {
+        if (nbtCompound == null) {
+            return 0;
+        }
+        return nbtCompound.getInt(ECHO_ARROW_AGE_KEY);
+    }
+
+    public static boolean getEchoArrowShouldPulse(ItemStack stack) {
+        return getEchoArrowShouldPulseNbt(stack.getNbt());
+    }
+
+    public static boolean getEchoArrowShouldPulseNbt(NbtCompound nbtCompound) {
+        if (nbtCompound == null) {
+            return false;
+        }
+        return nbtCompound.getBoolean(ECHO_ARROW_PULSING_KEY);
+    }
+    public static ItemStack setEchoArrow(ItemStack stack, int age, boolean pulsing) {
+        if (age == 0) {
+            stack.removeSubNbt(ECHO_ARROW_AGE_KEY);
+        } else {
+            stack.getOrCreateNbt().putInt(ECHO_ARROW_AGE_KEY, age);
+        }
+        stack.getOrCreateNbt().putBoolean(ECHO_ARROW_PULSING_KEY, pulsing);
+        return stack;
+    }
 }

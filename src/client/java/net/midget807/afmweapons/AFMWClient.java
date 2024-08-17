@@ -1,12 +1,12 @@
 package net.midget807.afmweapons;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.midget807.afmweapons.entity.ModEntities;
-import net.midget807.afmweapons.rendering.ExplosiveArrowEntityRenderer;
-import net.midget807.afmweapons.rendering.FrostArrowEntityRenderer;
-import net.midget807.afmweapons.rendering.RicochetArrowEntityRenderer;
-import net.midget807.afmweapons.rendering.WarpArrowEntityRenderer;
+import net.midget807.afmweapons.particle.EchoArrowPulseParticle;
+import net.midget807.afmweapons.particle.ModParticles;
+import net.midget807.afmweapons.rendering.*;
 import net.midget807.afmweapons.screen.FletchingScreen;
 import net.midget807.afmweapons.screen.ModScreenHandlers;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -24,8 +24,11 @@ public class AFMWClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntities.EXPLOSIVE_ARROW_ENTITY_TYPE, ExplosiveArrowEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntities.RICOCHET_ARROW_ENTITY_TYPE, RicochetArrowEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntities.WARP_ARROW_ENTITY_TYPE, WarpArrowEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntities.MAGIC_ARROW_ENTITY_TYPE, MagicArrowEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntities.ECHO_ARROW_ENTITY_TYPE, EchoArrowEntityRenderer::new);
 		ModModelPredicateProviderRegistry.registerModModelPredicatesProviders();
 		HandledScreens.register(ModScreenHandlers.FLETCHING_TABLE_SCREEN_HANDLER, FletchingScreen::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticles.ECHO_ARROW_PULSE_PARTICLE_TYPE, EchoArrowPulseParticle.Factory::new);
 	}
 
 
