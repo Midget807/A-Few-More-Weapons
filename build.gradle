@@ -68,9 +68,9 @@ dependencies {
 	//Reach Entity Attribute
 	include modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
 
-//	//EMI
-//	modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
-//	modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+	//EMI
+	modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+	modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
 }
 
 processResources {

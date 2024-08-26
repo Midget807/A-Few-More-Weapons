@@ -29,26 +29,26 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         this.getOrCreateTagBuilder(LONGSWORDS)
+                .add(ModItems.NETHERITE_LONGSWORD)
                 .add(ModItems.WOODEN_LONGSWORD)
                 .add(ModItems.STONE_LONGSWORD)
                 .add(ModItems.IRON_LONGSWORD)
                 .add(ModItems.GOLDEN_LONGSWORD)
-                .add(ModItems.DIAMOND_LONGSWORD)
-                .add(ModItems.NETHERITE_LONGSWORD);
+                .add(ModItems.DIAMOND_LONGSWORD);
 
         this.getOrCreateTagBuilder(HALBERDS)
+                .add(ModItems.NETHERITE_HALBERD)
                 .add(ModItems.WOODEN_HALBERD)
                 .add(ModItems.STONE_HALBERD)
                 .add(ModItems.IRON_HALBERD)
                 .add(ModItems.GOLD_HALBERD)
-                .add(ModItems.DIAMOND_HALBERD)
-                .add(ModItems.NETHERITE_HALBERD);
+                .add(ModItems.DIAMOND_HALBERD);
 
         this.getOrCreateTagBuilder(LANCES)
+                .add(ModItems.NETHERITE_LANCE)
                 .add(ModItems.IRON_LANCE)
                 .add(ModItems.GOLDEN_LANCE)
-                .add(ModItems.DIAMOND_LANCE)
-                .add(ModItems.NETHERITE_LANCE);
+                .add(ModItems.DIAMOND_LANCE);
 
         this.getOrCreateTagBuilder(TRIPLE_SHOT_PROJECTILES)
                 .add(Items.ARROW)
