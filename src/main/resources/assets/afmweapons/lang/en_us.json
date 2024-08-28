@@ -7,6 +7,7 @@
   "tag.item.afmweapons.triple_shot_projectiles": "Triple Shot Projectiles",
   "tag.item.afmweapons.bow_projectiles": "AFMW Bow Projectiles",
   "tag.item.afmweapons.afmw_arrows": "AFMW Arrows",
+  "emi.category.afmweapons.fletching_station": "Fletching",
 
   "item.afmweapons.wooden_halberd" : "Wooden Halberd",
   "item.afmweapons.stone_halberd" : "Stone Halberd",
@@ -24,12 +25,19 @@
   "item.afmweapons.longsword.desc" : "Can block attacks",
 
   "item.afmweapons.custom_arrow_loadable": "Cannot load in Crossbow",
+  "item.afmweapons.frost_arrow": "Frost Arrow",
   "item.afmweapons.frost_arrow.desc": "Freezes water and slows enemies temporarily",
+  "item.afmweapons.explosive_arrow": "Explosive Arrow",
   "item.afmweapons.explosive_arrow.desc": "Explodes on impact",
+  "item.afmweapons.ricochet_arrow": "Ricochet Arrow",
   "item.afmweapons.ricochet_arrow.desc": "Bounces off blocks twice before landing",
+  "item.afmweapons.warp_arrow": "Warp Arrow",
   "item.afmweapons.warp_arrow.desc": "Teleports the player upon landing",
+  "item.afmweapons.magic_arrow": "Magic Arrow",
   "item.afmweapons.magic_arrow.desc": "Flies through blocks for a short period of time. Ignores gravity and pierces mobs",
+  "item.afmweapons.echo_arrow": "Echo Arrow",
   "item.afmweapons.echo_arrow.desc": "Pulses in a block periodically, revealing nearby entities in a 16 block radius",
+  "item.afmweapons.guided_arrow": "Guided Arrow",
   "item.afmweapons.guided_arrow.desc": "Flies slowly, seeking out any nearby entity",
 
   "screen.afmweapons.fletching_table": "Craft Arrows",

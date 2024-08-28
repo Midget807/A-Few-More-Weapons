@@ -48,7 +48,7 @@ public class FletchingRecipeEmiRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 112;
+        return 127;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class FletchingRecipeEmiRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, 62, 1);
+        widgets.addTexture(EmiTexture.EMPTY_ARROW, 75, 1);
         widgets.addSlot(arrow, 0, 0);
         widgets.addSlot(addition1, 28, 0);
         widgets.addSlot(addition2, 56, 0);
