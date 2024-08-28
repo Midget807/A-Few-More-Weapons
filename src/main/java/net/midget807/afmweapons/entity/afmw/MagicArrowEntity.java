@@ -58,28 +58,28 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
         }
         if (this.getWorld().isClient) {
             // client shit
-            this.spawnParticles(2);
+            this.spawnParticles(4);
         }
     }
 
 
     private void discardMagicArrow() {
         if (this.getWorld().isClient) {
-            this.spawnDiscardParticles(10);
+            this.spawnDiscardParticles(15);
         }
         this.discard();
     }
 
     private void spawnDiscardParticles(int amount) {
         for (int i = 0; i < amount; ++i) {
-            this.getWorld().addParticle(ParticleTypes.GLOW, this.getX(), this.getY(), this.getZ(), 0.05, 0.05, 0.05);
+            this.getWorld().addParticle(ParticleTypes.GLOW, this.getX(), this.getY(), this.getZ(), 0.1, 0.05, 0.1);
         }
     }
 
 
     private void spawnParticles(int amount) {
         for (int i = 0; i < amount; ++i) {
-            this.getWorld().addParticle(ParticleTypes.GLOW, this.getX(), this.getY(), this.getZ(), MathHelper.nextBetween(random, -1.0f, 1.0f) * 0.083333336f * 0.5, 0.05f, MathHelper.nextBetween(random, -1.0f, 1.0f) * 0.083333336f * 0.5);
+            this.getWorld().addParticle(ParticleTypes.GLOW, this.getX(), this.getY(), this.getZ(), MathHelper.nextBetween(random, -0.5f, 0.5f) * 0.083333336f * 0.05, 0.05f, MathHelper.nextBetween(random, -0.5f, 0.5f) * 0.083333336f * 0.05);
         }
     }
 
@@ -107,13 +107,7 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
-        if (this.getWorld().isClient || !this.inGround && !this.isNoClip() || this.shake > 0) {
-            return;
-        }
-        if (this.tryPickup(player) && flightDuration == 0) {
-            player.sendPickup(this, 1);
-            this.discard();
-        }
+
     }
 
     @Override
