@@ -1,7 +1,7 @@
-// 1.20.2	2024-08-16T22:56:04.5283967	A Few More Weapons/Tags for minecraft:item
-e396fc601867ab2bb008f31d1aef13d7fd5796fc data\afmweapons\tags\items\longswords.json
-efb8f9e6c69a6ef1d646713f30c49637dd724211 data\afmweapons\tags\items\halberds.json
+// 1.20.2	2024-08-29T10:13:31.2688385	A Few More Weapons/Tags for minecraft:item
+0d2cebee92f8eb5dda3cd3c8b2df1728afc53548 data\afmweapons\tags\items\longswords.json
+30e7dca49b1109431027206098a843db0db625f3 data\afmweapons\tags\items\halberds.json
 be8dd226addde735fefe90b4fb7060b0ee17817c data\afmweapons\tags\items\triple_shot_projectiles.json
-aedf157b7f812ee7701be1513e363db1142aa089 data\afmweapons\tags\items\lances.json
+b6e6a268d9625e424a531b6e529d6199c7a32f81 data\afmweapons\tags\items\lances.json
 604457b22319dabec1e91e57a371191798dec5a7 data\afmweapons\tags\items\afmw_arrows.json
 64905801a8b5623c1dcab813dbeac5938f270b57 data\afmweapons\tags\items\bow_projectiles.json

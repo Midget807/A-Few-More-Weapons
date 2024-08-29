@@ -1,10 +1,10 @@
-// 1.20.2	2024-08-16T22:56:04.5293999	A Few More Weapons/Recipes
+// 1.20.2	2024-08-29T10:13:31.2698381	A Few More Weapons/Recipes
 525db1ec1dba416894665259e7c7168c18a14f3c data\afmweapons\recipes\spectral_arrow.json
 fe86f9965da1ea61b4ece150291137afe6b8f886 data\afmweapons\recipes\iron_longsword.json
 7ef182dd4ed512c8205eae98e44423c17a467770 data\afmweapons\recipes\pole.json
 2093792a926852723a6529bd21dae0b7b0102362 data\afmweapons\recipes\frying_pan.json
-6d1d8521aacffb6140d6f7f466297dee7ca6a6cc data\afmweapons\recipes\wooden_longsword.json
 953dac8df925281562a4055b9628290d1fd5e4c2 data\afmweapons\advancements\recipes\combat\wooden_longsword.json
+6d1d8521aacffb6140d6f7f466297dee7ca6a6cc data\afmweapons\recipes\wooden_longsword.json
 9bc15e69d031961449c427d95493d10b351b7def data\afmweapons\advancements\recipes\combat\golden_longsword.json
 bffd154871d532d86f75b1cc80ec931c44636e33 data\afmweapons\advancements\recipes\misc\pole.json
 25636211a2326a2dff49c0d2b7e6779fcdca7c49 data\afmweapons\advancements\recipes\combat\frost_arrow.json
@@ -12,8 +12,8 @@ cce5edb90d130ba865174f81478dee8052552774 data\afmweapons\recipes\explosive_arrow
 a0b136fc7fb4be5e2a91484b24df3648b4651bc7 data\afmweapons\recipes\ricochet_arrow.json
 9c7d25188c6dfbe3fadb686aff2392e62ae9e831 data\afmweapons\recipes\stone_longsword.json
 66c8085fbebc13c3f4971ab0c91cee6b37ee71b5 data\afmweapons\advancements\recipes\combat\magic_arrow.json
-b6ef99084ec4ee88fc6a2ae275396b13a4b53098 data\afmweapons\advancements\recipes\combat\spectral_arrow.json
 10a9aba11d25e3113ff3aa0594c8cf140ef64349 data\afmweapons\advancements\recipes\combat\ricochet_arrow.json
+b6ef99084ec4ee88fc6a2ae275396b13a4b53098 data\afmweapons\advancements\recipes\combat\spectral_arrow.json
 0b272bb82454632f1c2fdc0312f69bc7c36d09ff data\afmweapons\advancements\recipes\combat\iron_longsword.json
 538553937e4b97ec108a974dfc7de6e3fe0d780c data\afmweapons\recipes\echo_arrow.json
 21aec7046b8edef7f3b4e06d3d766b47a6b2119e data\afmweapons\recipes\warp_arrow.json
