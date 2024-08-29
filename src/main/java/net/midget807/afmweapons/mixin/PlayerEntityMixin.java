@@ -13,6 +13,7 @@ import net.midget807.afmweapons.item.afmw.HalberdItem;
 import net.midget807.afmweapons.item.afmw.LanceItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -30,6 +31,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -62,6 +64,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract boolean isPlayer();
 
     @Shadow @Final public PlayerScreenHandler playerScreenHandler;
+
+    @Shadow public abstract ActionResult interact(Entity entity, Hand hand);
 
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
     protected void afmw$halberdDisableShield(LivingEntity attacker, CallbackInfo ci) {
@@ -160,29 +164,18 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    /*@ModifyVariable(
-            method = "attack",
-            at = @At("STORE"),
-            slice = @Slice(
-                    from = @At(value = "FIELD", target = "Lnet/minecraft/entity/attribute/EntityAttributes;GENERIC_ATTACK_DAMAGE:Lnet/minecraft/entity/attribute/EntityAttribute;", shift = At.Shift.BY, by = 2),
-                    to = @At(value = "FIELD", target = "Lnet/minecraft/entity/EntityGroup;DEFAULT:Lnet/minecraft/entity/EntityGroup;")
-            ),
-            ordinal = 0
-    )
-    private float afmw$impaling(float value, Entity target) {
-        if (target instanceof DrownedEntity) {
-            return 2.5F;
-        } else {
-            return value;
-        }
-    }*/
-
 
     //=== Lance modifier ===
-    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/entity/attribute/EntityAttribute;)D"), cancellable = true)
-    private void afmw$modifyLanceDamage(Entity target, CallbackInfo ci) {
-
+    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isClimbing()Z"), cancellable = true)
+    private void afmw$modifyLanceDamage(Entity target, CallbackInfo ci, @Local(ordinal = 0) LocalFloatRef f) {
+        PlayerEntity player = ((PlayerEntity) (Object) this);
+        if (this.getVehicle() instanceof HorseEntity && LanceComponent.get(player).isRidingHorse()) {
+            f.set(f.get() + 4);
+            this.sendMessage(Text.literal("f set to 4"));
+        }
     }
+
+
     @Inject(method = "tickRiding", at = @At("HEAD"))
     private void afmw$modifyLance(CallbackInfo ci) {
         if (this.getVehicle() instanceof HorseEntity horseEntity) {
