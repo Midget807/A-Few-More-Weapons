@@ -43,6 +43,26 @@ public class ArrowUtil {
         return stack;
     }
 
+    public static final String EXPLOSIVE_ARROW_POWER_KEY = "ExplosionPower";
+    public static int getExplosiveArrowExplosionPower(ItemStack stack) {
+        return getExplosiveArrowExplosionPowerNbt(stack.getNbt());
+    }
+
+    public static int getExplosiveArrowExplosionPowerNbt(NbtCompound nbtCompound) {
+        if (nbtCompound == null) {
+            return 0;
+        }
+        return nbtCompound.getInt(EXPLOSIVE_ARROW_POWER_KEY);
+    }
+    public static ItemStack setExplosiveArrow(ItemStack stack, int explosionPower) {
+        if (explosionPower == 0) {
+            stack.removeSubNbt(EXPLOSIVE_ARROW_POWER_KEY);
+        } else {
+            stack.getOrCreateNbt().putInt(EXPLOSIVE_ARROW_POWER_KEY, explosionPower);
+        }
+        return stack;
+    }
+
     public static final String RICOCHET_ARROW_BOUNCE_KEY = "Bounces";
     public static int getRicochetArrowBounces(ItemStack stack) {
         return getRicochetArrowBouncesNbt(stack.getNbt());

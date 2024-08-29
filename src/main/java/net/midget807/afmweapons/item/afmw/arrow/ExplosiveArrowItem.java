@@ -1,6 +1,7 @@
 package net.midget807.afmweapons.item.afmw.arrow;
 
 import net.midget807.afmweapons.entity.afmw.ExplosiveArrowEntity;
+import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -21,7 +22,9 @@ public class ExplosiveArrowItem extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter) {
-        return new ExplosiveArrowEntity(world, shooter);
+        ExplosiveArrowEntity explosiveArrowEntity = new ExplosiveArrowEntity(world, shooter);
+        explosiveArrowEntity.initFromStack(stack);
+        return explosiveArrowEntity;
     }
 
     @Override
@@ -29,5 +32,10 @@ public class ExplosiveArrowItem extends ArrowItem {
         tooltip.add(Text.translatable("item.afmweapons.explosive_arrow.desc").formatted(Formatting.GRAY));
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("item.afmweapons.custom_arrow_loadable").formatted(Formatting.GRAY));
+    }
+
+    @Override
+    public ItemStack getDefaultStack() {
+        return ArrowUtil.setExplosiveArrow(super.getDefaultStack(), 1);
     }
 }
