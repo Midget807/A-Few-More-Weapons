@@ -41,7 +41,8 @@
 	],
 	"custom": {
 		"cardinal-components": [
-			"afmweapons:longsword_component"
+			"afmweapons:longsword_component",
+			"afmweapons:lance_component"
 		]
 	},
 	"depends": {

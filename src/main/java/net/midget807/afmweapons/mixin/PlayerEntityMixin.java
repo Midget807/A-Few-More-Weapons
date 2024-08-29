@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.midget807.afmweapons.component.afmw.LanceComponent;
 import net.midget807.afmweapons.component.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
@@ -15,6 +16,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
@@ -23,6 +25,7 @@ import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -31,6 +34,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,6 +43,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.UUID;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -52,6 +58,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract boolean isInvulnerableTo(DamageSource damageSource);
 
     @Shadow public abstract void sendMessage(Text message, boolean overlay);
+
+    @Shadow public abstract boolean isPlayer();
+
+    @Shadow @Final public PlayerScreenHandler playerScreenHandler;
 
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
     protected void afmw$halberdDisableShield(LivingEntity attacker, CallbackInfo ci) {
@@ -171,24 +181,23 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     //=== Lance modifier ===
     @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/entity/attribute/EntityAttribute;)D"), cancellable = true)
     private void afmw$modifyLanceDamage(Entity target, CallbackInfo ci) {
-        if (this.getMainHandStack().getItem() instanceof LanceItem lanceItem && !this.getWorld().isClient) {
-            // TODO: 7/08/2024 Debug
-            this.sendMessage(Text.literal("Lance Item"));
-            // ===
 
-            if (this.getControllingVehicle() instanceof HorseEntity) {
-
-                // TODO: 7/08/2024 Debug
-                this.sendMessage(Text.literal("Riding Horse"));
-                // ===
-
-            }
-        }
     }
-    @Inject(method = "tickRiding", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "tickRiding", at = @At("HEAD"))
     private void afmw$modifyLance(CallbackInfo ci) {
-        if (this.getMainHandStack().getItem() instanceof LanceItem lanceItem) {
-            lanceItem.setAttackDamage(4);
+        if (this.getVehicle() instanceof HorseEntity horseEntity) {
+            if (horseEntity.getFirstPassenger().isPlayer()) {
+                PlayerEntity player = (PlayerEntity) horseEntity.getFirstPassenger();
+                if (LanceComponent.get(player).isRidingHorse()) {
+                    LanceComponent.get(player).setRidingHorse(true);
+                    LanceItem lanceItem = (LanceItem) player.getMainHandStack().getItem();
+                    lanceItem.setAttackDamage(10);
+                    this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).addTemporaryModifier(new EntityAttributeModifier(UUID.fromString("06fb6fae-d848-4048-ae69-e842db1169de"), "Weapon Modifier", 5, EntityAttributeModifier.Operation.ADDITION));
+                    this.sendMessage(Text.literal("Riding Horse"), true);
+                } else {
+                    LanceComponent.get(player).setRidingHorse(false);
+                }
+            }
         }
     }
 }

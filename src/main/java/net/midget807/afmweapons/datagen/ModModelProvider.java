@@ -32,10 +32,16 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.GOLDEN_LONGSWORD, Models.GENERATED);
         itemModelGenerator.register(ModItems.DIAMOND_LONGSWORD, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_LONGSWORD, Models.GENERATED);
+        
+        itemModelGenerator.register(ModItems.FRYING_PAN, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.FRIED_EGG, Models.GENERATED);
         itemModelGenerator.register(ModItems.FROST_ARROW, Models.GENERATED);
+        itemModelGenerator.register(ModItems.EXPLOSIVE_ARROW, Models.GENERATED);
         itemModelGenerator.register(ModItems.WARP_ARROW, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MAGIC_ARROW, Models.GENERATED);
+        itemModelGenerator.register(ModItems.RICOCHET_ARROW, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ECHO_ARROW, Models.GENERATED);
 
     }
 }
