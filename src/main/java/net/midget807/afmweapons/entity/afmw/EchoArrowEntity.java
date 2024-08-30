@@ -62,6 +62,7 @@ public class EchoArrowEntity extends PersistentProjectileEntity {
         }
         if (!this.getWorld().isClient) {
             //server shit
+            this.groundAge++; // test
             if (this.canPulse) {
                 runPulse();
             }
@@ -75,10 +76,10 @@ public class EchoArrowEntity extends PersistentProjectileEntity {
     }
 
     private void runPulse() {
-        if (groundAge % (4 * 20) == 0) {
+        if (this.groundAge % (4 * 20) == 0) {
             this.isPulsing = true;
         }
-        if (isPulsing) {
+        if (this.isPulsing) {
             List<LivingEntity> entities = this.getWorld().getEntitiesByClass(LivingEntity.class, new Box(this.getBlockPos().add(16, 16, 16)), EntityPredicates.VALID_ENTITY);
             for (LivingEntity livingEntity : entities) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 2));
