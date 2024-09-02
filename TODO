@@ -7,9 +7,9 @@
 //TODO revamp fletching table -> makes custom arrows -> guided arrow (magic + eye of ender + empty = 1) flies slowly and targets nearby enemy;
 //TODO make non-crit work for halberd
 //TODO finish lances
-//TODO make spears
+//TODO texture entity renderers for arrows
 //TODO make echo arrow have changing model based on pulse -> copy tipped arrow color methods
-//TODO fix frozen and ricochet arrow pickup method
+//TODO make magic arrow less buggy
 
 
 === Version Desc for Alpha Dev 1.20.2 ===
