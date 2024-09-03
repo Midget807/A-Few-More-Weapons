@@ -16,6 +16,12 @@ public class ModEntities {
                             .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
                             .trackRangeBlocks(4).trackedUpdateRate(10)
                             .build());
+    public static final EntityType<DragonEggEntity> DRAGON_EGG_ENTITY_TYPE =
+            Registry.register(Registries.ENTITY_TYPE, AFMWMain.id("fried_dragon_egg"),
+                    FabricEntityTypeBuilder.<DragonEggEntity>create(SpawnGroup.MISC, DragonEggEntity::new)
+                            .dimensions(EntityDimensions.fixed(1.0f, 1.0f))
+                            .trackRangeBlocks(4).trackedUpdateRate(5)
+                            .build());
 
     public static final EntityType<FrostArrowEntity> FROST_ARROW_ENTITY_TYPE =
             Registry.register(Registries.ENTITY_TYPE, AFMWMain.id("frost_arrow"),

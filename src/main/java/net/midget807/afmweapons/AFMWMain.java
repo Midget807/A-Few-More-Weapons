@@ -7,11 +7,13 @@ import net.midget807.afmweapons.effect.ModEffects;
 import net.midget807.afmweapons.enchantment.ModEnchantments;
 import net.midget807.afmweapons.entity.ModDamageTypes;
 import net.midget807.afmweapons.entity.ModEntities;
+import net.midget807.afmweapons.event.ModEvents;
 import net.midget807.afmweapons.item.ModItemGroups;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.particle.ModParticles;
 import net.midget807.afmweapons.recipe.ModRecipes;
 import net.midget807.afmweapons.screen.ModScreenHandlers;
+import net.midget807.afmweapons.sound.ModSoundEvents;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,5 +40,7 @@ public class AFMWMain implements ModInitializer {
 		ModBlockEntities.registerModBlockEntities();
 		ModRecipes.registerRecipes();
 		ModParticles.registerModParticles();
+		ModEvents.registerModEvents();
+		ModSoundEvents.registerModSoundEvents();
 	}
 }

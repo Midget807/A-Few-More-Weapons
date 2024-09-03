@@ -26,7 +26,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     }
 
     @Inject(method = "getArmPose", at = @At("HEAD"), cancellable = true)
-    private static void afmw$customPoses(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
+    private static void amarite$customPoses(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         ItemStack main = player.getMainHandStack();
         LongswordComponent longswordComponent = LongswordComponent.get(player);
         if (main.isIn(ModItemTagProvider.LONGSWORDS) || main.isIn(ModItemTagProvider.HALBERDS)) {

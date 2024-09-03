@@ -16,7 +16,7 @@ public class CrossbowPosingMixin {
 
     // === Credit: From Amarite Mod ===
     @Inject(method = "charge", at = @At("HEAD"), cancellable = true)
-    private static void afmw$swordsDontChargeLikeCrossbows(ModelPart holdingArm, ModelPart pullingArm, LivingEntity actor, boolean rightArmed, CallbackInfo ci) {
+    private static void amarite$swordsDontChargeLikeCrossbows(ModelPart holdingArm, ModelPart pullingArm, LivingEntity actor, boolean rightArmed, CallbackInfo ci) {
         ItemStack stack = actor.getMainHandStack();
         if (stack.isIn(ModItemTagProvider.LONGSWORDS) && actor.getMainArm() == (!rightArmed ? Arm.RIGHT : Arm.LEFT)) {
             ModelPart modelPart = rightArmed ? holdingArm : pullingArm;

@@ -35,6 +35,7 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
     }
 
     public void initFromStack(ItemStack stack) {
+        this.setNoClip(true);
         this.flightDuration = ArrowUtil.getMagicArrowFlightTime(stack);
         this.setVelocity(this.getVelocity().multiply(0.5));
     }
@@ -96,14 +97,15 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
         entityHitResult.getEntity().damage(this.getDamageSources().arrow(this, this.getOwner()), (float) this.getDamage() * 4);
         this.setVelocity(this.getVelocity().multiply(1.0));
     }
-
+    // TODO: 2/09/2024 Test the no clip again
+    /*
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
     }
 
     @Override
     protected void tryCheckBlockCollision() {
-    }
+    }*/
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {

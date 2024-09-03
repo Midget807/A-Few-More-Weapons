@@ -32,11 +32,11 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
     @Shadow @Final public ModelPart body;
 
     @WrapOperation(method = "setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;isUsingItem()Z", ordinal = 0))
-    public boolean afmw$dualBlock(LivingEntity livingEntity, Operation<Boolean> original) {
+    public boolean amarite$dualBlock(LivingEntity livingEntity, Operation<Boolean> original) {
         return livingEntity.getActiveItem().isIn(ModItemTagProvider.LONGSWORDS) ? false : (Boolean) original.call(livingEntity);
     }
     @Inject(method = "animateArms", at = @At("TAIL"), cancellable = true)
-    protected void afmw$twoHandedHolding(T entity, float animationProgress, CallbackInfo ci) {
+    protected void amarite$twoHandedHolding(T entity, float animationProgress, CallbackInfo ci) {
         ItemStack stack = entity.getMainHandStack();
         if ((stack.isIn(ModItemTagProvider.LONGSWORDS) || stack.isIn(ModItemTagProvider.HALBERDS)) && !(this.handSwingProgress <= 0.0F)) {
             Arm arm = this.getPreferredArm(entity) == Arm.RIGHT ? Arm.LEFT : Arm.RIGHT;

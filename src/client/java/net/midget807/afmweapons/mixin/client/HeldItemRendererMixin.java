@@ -29,13 +29,13 @@ public class HeldItemRendererMixin {
 
 
     @WrapOperation(method = "renderItem(FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/network/ClientPlayerEntity;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderFirstPersonItem(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/util/Hand;FLnet/minecraft/item/ItemStack;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"))
-    public void afmw$renderItems(HeldItemRenderer instance, AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Operation<Void> original) {
+    public void amarite$renderItems(HeldItemRenderer instance, AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Operation<Void> original) {
         ItemStack stack = player.getStackInHand(hand);
         original.call(instance, player, tickDelta, pitch, hand, swingProgress, stack, equipProgress, matrices, vertexConsumers, light);
     }
 
     @Inject(method = "resetEquipProgress", at = @At("HEAD"), cancellable = true)
-    private void afmw$longswordPickup(Hand hand, CallbackInfo ci) {
+    private void amarite$longswordPickup(Hand hand, CallbackInfo ci) {
         if (MinecraftClient.getInstance().player != null) {
             ItemStack stack = MinecraftClient.getInstance().player.getStackInHand(hand);
             if (stack.isIn(ModItemTagProvider.LONGSWORDS) || stack.isIn(ModItemTagProvider.HALBERDS)) {

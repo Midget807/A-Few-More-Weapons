@@ -21,7 +21,7 @@ public abstract class EnchantmentHelperMixin {
 
     // === Credit: From Amarite Mod ===
     @Inject(method = "getSweepingMultiplier", at = @At("HEAD"), cancellable = true)
-    private static void afmw$longswordFreeSweeping(LivingEntity entity, CallbackInfoReturnable<Float> cir) {
+    private static void amarite$longswordFreeSweeping(LivingEntity entity, CallbackInfoReturnable<Float> cir) {
         if (entity.getMainHandStack().getItem() instanceof LongswordItem) {
             cir.setReturnValue(1.0F - (1.0F / 3));
         }

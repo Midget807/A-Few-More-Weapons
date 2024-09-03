@@ -2,6 +2,7 @@ package net.midget807.afmweapons.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.midget807.afmweapons.block.ModBlocks;
 import net.midget807.afmweapons.datagen.json_builder.FletchingTransformRecipeJsonBuilder;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.util.ArrowUtil;
@@ -14,6 +15,8 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 
+import java.util.List;
+
 public class ModRecipeProvider extends FabricRecipeProvider {
     public ModRecipeProvider(FabricDataOutput output) {
         super(output);
@@ -21,6 +24,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter exporter) {
+        offerBlasting(exporter, List.of(Items.DRAGON_EGG), RecipeCategory.MISC, ModBlocks.TOASTED_DRAGON_EGG.asItem(), 0.0f, 72000, "dragon_egg");
+        offerBlasting(exporter, List.of(ModBlocks.TOASTED_DRAGON_EGG.asItem()), RecipeCategory.MISC, ModBlocks.BAKED_DRAGON_EGG.asItem(), 0.0f, 72000, "dragon_egg");
+
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.POLE, 1)
                 .pattern("  S")

@@ -2,6 +2,7 @@ package net.midget807.afmweapons.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.midget807.afmweapons.block.ModBlocks;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
@@ -14,7 +15,8 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-
+        blockStateModelGenerator.registerSimpleState(ModBlocks.TOASTED_DRAGON_EGG);
+        blockStateModelGenerator.registerSimpleState(ModBlocks.BAKED_DRAGON_EGG);
     }
 
     @Override

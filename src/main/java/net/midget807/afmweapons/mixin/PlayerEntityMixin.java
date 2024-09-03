@@ -11,6 +11,7 @@ import net.midget807.afmweapons.component.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
 import net.midget807.afmweapons.item.afmw.LanceItem;
+import net.midget807.afmweapons.sound.ModSoundEvents;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
@@ -76,7 +77,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     // === Credit: From Amarite mod ===
     @WrapOperation(method = "applyDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;modifyAppliedDamage(Lnet/minecraft/entity/damage/DamageSource;F)F"))
-    private float afmw$longswordBlock(PlayerEntity entity, DamageSource source, float amount, Operation<Float> original) {
+    private float amarite$longswordBlock(PlayerEntity entity, DamageSource source, float amount, Operation<Float> original) {
         float base = (Float)original.call(entity, source, amount);
         LongswordComponent longswordComponent = LongswordComponent.get(entity);
         if (!source.isIn(DamageTypeTags.BYPASSES_EFFECTS)) {
@@ -99,7 +100,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                         var13 = this.getEntityWorld();
                         if (var13 instanceof ServerWorld) {
                             serverWorld = ((ServerWorld) var13);
-                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.HOSTILE, 0.5F /*TODO add longsword container sound and adjust volume*/, 1.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK, SoundCategory.HOSTILE, 1.0F, 0.5F + this.getEntityWorld().random.nextFloat() * 0.4F);
                         }
                         return base / 2.0F;
                     }
@@ -111,7 +112,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                         var13 = this.getEntityWorld();
                         if (var13 instanceof ServerWorld) {
                             serverWorld = ((ServerWorld) var13);
-                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, SoundEvents.BLOCK_ANVIL_PLACE, SoundCategory.HOSTILE, 0.5F /*TODO add longsword container sound and adjust volume*/, 1.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK, SoundCategory.HOSTILE, 1.0F , 0.5F + this.getEntityWorld().random.nextFloat() * 0.4F);
                         }
                         return base / 0.6F;
                     }
@@ -145,52 +146,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     }
 
-    //May be implemented
-
-    @Inject(
-            method = "attack",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/entity/player/PlayerEntity;isSprinting()Z"
-            ),
-            slice = @Slice(
-                    from = @At(value = "FIELD", target = "Lnet/minecraft/sound/SoundEvents;ENTITY_PLAYER_ATTACK_KNOCKBACK:Lnet/minecraft/sound/SoundEvent;"),
-                    to = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I")
-            )
-    )
-    private void afmw$halberdIgnoresCrit(Entity target, CallbackInfo ci, @Local(ordinal = 2) LocalBooleanRef bl3) {
-        if (this.getStackInHand(Hand.MAIN_HAND).isIn(ModItemTagProvider.HALBERDS)) {
-            bl3.set(false);
-        }
-    }
 
 
-    //=== Lance modifier ===
-    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;isClimbing()Z"), cancellable = true)
-    private void afmw$modifyLanceDamage(Entity target, CallbackInfo ci, @Local(ordinal = 0) LocalFloatRef f) {
-        PlayerEntity player = ((PlayerEntity) (Object) this);
-        if (this.getVehicle() instanceof HorseEntity && LanceComponent.get(player).isRidingHorse()) {
-            f.set(f.get() + 4);
-            this.sendMessage(Text.literal("f set to 4"));
-        }
-    }
-
-
-    @Inject(method = "tickRiding", at = @At("HEAD"))
-    private void afmw$modifyLance(CallbackInfo ci) {
-        if (this.getVehicle() instanceof HorseEntity horseEntity) {
-            if (horseEntity.getFirstPassenger().isPlayer()) {
-                PlayerEntity player = (PlayerEntity) horseEntity.getFirstPassenger();
-                if (LanceComponent.get(player).isRidingHorse()) {
-                    LanceComponent.get(player).setRidingHorse(true);
-                    LanceItem lanceItem = (LanceItem) player.getMainHandStack().getItem();
-                    lanceItem.setAttackDamage(10);
-                    this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).addTemporaryModifier(new EntityAttributeModifier(UUID.fromString("06fb6fae-d848-4048-ae69-e842db1169de"), "Weapon Modifier", 5, EntityAttributeModifier.Operation.ADDITION));
-                    this.sendMessage(Text.literal("Riding Horse"), true);
-                } else {
-                    LanceComponent.get(player).setRidingHorse(false);
-                }
-            }
-        }
-    }
 }

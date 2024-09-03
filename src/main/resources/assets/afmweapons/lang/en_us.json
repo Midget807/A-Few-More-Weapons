@@ -43,5 +43,7 @@
   "screen.afmweapons.fletching_table": "Craft Arrows",
   "container.afmweapons.fletching.missing_arrow_tooltip": "Add Arrow",
   "container.afmweapons.fletching.error_tooltip": "Arrow can't be crafted this way",
-  "container.afmweapons.fletching.add_addition_tooltip": "Add Item"
+  "container.afmweapons.fletching.add_addition_tooltip": "Add Item",
+  "sound.afmweapons.sad_trombone": "Womp Womp",
+  "sound.afmweapons.longsword_block": "Longsword Blocks"
 }

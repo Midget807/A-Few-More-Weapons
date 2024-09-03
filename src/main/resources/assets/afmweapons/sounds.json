@@ -1,0 +1,14 @@
+{
+  "sad_trombone": {
+    "subtitle": "sound.afmweapons.sad_trombone",
+    "sounds": [
+      "afmweapons:sad_trombone"
+    ]
+  },
+  "longsword_block": {
+    "subtitle": "sound.afmweapons.longsword_block",
+    "sounds": [
+      "afmweapons:amarite_sword_block"
+    ]
+  }
+}
