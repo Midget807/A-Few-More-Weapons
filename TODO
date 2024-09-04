@@ -2,6 +2,7 @@
 //TODO revamp fletching table -> makes custom arrows -> guided arrow (magic + eye of ender + empty = 1) flies slowly and targets nearby enemy;
 //TODO finish lances
 //TODO make echo arrow work and have changing model based on pulse -> copy tipped arrow color methods
+//TODO make better sword blocking sounds -> dont use amarite -> wooden swords to clang like metal lmao
 
 
 RELEASE 1.0.0:
