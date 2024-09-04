@@ -1,17 +1,13 @@
 //TODO Merge Nausea and Darkness client effects to custom Concussed Effect - Nausea complete
-//TODO Add Sprites to Concussed Effect
 //TODO revamp fletching table -> makes custom arrows -> guided arrow (magic + eye of ender + empty = 1) flies slowly and targets nearby enemy;
 //TODO finish lances
 //TODO make echo arrow work and have changing model based on pulse -> copy tipped arrow color methods
-//TODO fix frozen and ricochet arrow pickup method
 
 
 RELEASE 1.0.0:
-//TODO Check en_us.lang for longswords, halberds, current arrows, tags, containers
 //TODO Add Textures for halberds
 //TODO fix frying pan GUI texture
-//TODO order triple shot removal correctly
-//TODO Add Sprites to Sizzling Effect
+//TODO Texture custom arrow renders
 
 no lance
 no echo || guided arrow

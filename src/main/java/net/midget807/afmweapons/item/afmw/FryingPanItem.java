@@ -7,6 +7,7 @@ import net.midget807.afmweapons.enchantment.ModEnchantments;
 import net.midget807.afmweapons.entity.afmw.FriedEggEntity;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -19,12 +20,16 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
 public class FryingPanItem extends Item implements Vanishable {
@@ -124,5 +129,12 @@ public class FryingPanItem extends Item implements Vanishable {
     @Override
     public int getEnchantability() {
         return 1;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.translatable("item.afmweapons.frying_pan.desc").formatted(Formatting.GRAY));
+        super.appendTooltip(stack, world, tooltip, context);
+
     }
 }

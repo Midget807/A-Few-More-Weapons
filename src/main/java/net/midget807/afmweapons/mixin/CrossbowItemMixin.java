@@ -117,11 +117,7 @@ public abstract class CrossbowItemMixin extends Item {
     private void afmw$loadNumberOfShots(ItemStack stack, World world, LivingEntity user, int remainingUseTicks, CallbackInfo ci) {
         if(afmw$hasTripleShot(stack)) {
             afmw$numberOfShots = 3;
-            //Debug
-            if (!world.isClient) {
-                user.sendMessage(Text.literal("Number of shots: " + afmw$numberOfShots));
-            }
-            //=====
+            removeAmountFromTripleShot(stack, 0);
         }
     }
 
@@ -175,7 +171,11 @@ public abstract class CrossbowItemMixin extends Item {
             }
             if (!user.isCreative()) {
                 if (!defaultedList.isEmpty()) {
-                    removeAmountFromTripleShot(crossbow, 0);
+                    if (afmw$numberOfShots == 2 && !defaultedList.get(1).isEmpty()) {
+                        removeAmountFromTripleShot(crossbow, 1);
+                    } else if (afmw$numberOfShots == 1 && !defaultedList.get(2).isEmpty()) {
+                        removeAmountFromTripleShot(crossbow, 2);
+                    }
                 } else {
                     projectile.split(1);
                     if (projectile.isEmpty() && user instanceof PlayerEntity) {

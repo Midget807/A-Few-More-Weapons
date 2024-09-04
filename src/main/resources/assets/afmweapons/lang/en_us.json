@@ -9,6 +9,20 @@
   "tag.item.afmweapons.afmw_arrows": "AFMW Arrows",
   "emi.category.afmweapons.fletching_station": "Fletching",
 
+  "effect.afmweapons.sizzle" : "Sizzle",
+  "effect.afmweapons.concuss" : "Concuss",
+
+  "enchantment.afmweapons.triple_shot" : "Triple Shot",
+  "enchantment.afmweapons.triple_shot.desc" : "Load up to 3 arrows and shoot them in succession before reloading",
+  "enchantment.afmweapons.concuss" : "Concuss",
+  "enchantment.afmweapons.concuss.desc" : "Concusses enemies",
+
+  "item.afmweapons.pole" : "Pole",
+  "item.afmweapons.fried_egg" : "Fried Egg",
+
+  "item.afmweapons.frying_pan" : "Frying Pan",
+  "item.afmweapons.frying_pan.desc" : "Can fry and sling eggs",
+
   "item.afmweapons.wooden_halberd" : "Wooden Halberd",
   "item.afmweapons.stone_halberd" : "Stone Halberd",
   "item.afmweapons.iron_halberd" : "Iron Halberd",
@@ -45,5 +59,5 @@
   "container.afmweapons.fletching.error_tooltip": "Arrow can't be crafted this way",
   "container.afmweapons.fletching.add_addition_tooltip": "Add Item",
   "sound.afmweapons.sad_trombone": "Womp Womp",
-  "sound.afmweapons.longsword_block": "Longsword Blocks"
+  "sound.afmweapons.longsword_block": "Longsword blocks"
 }
