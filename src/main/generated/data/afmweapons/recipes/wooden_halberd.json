@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:wooden_axe"
+    },
+    "I": {
+      "tag": "minecraft:planks"
+    },
+    "P": {
+      "item": "afmweapons:pole"
+    }
+  },
+  "pattern": [
+    "II",
+    "IA",
+    "P "
+  ],
+  "result": {
+    "item": "afmweapons:wooden_halberd"
+  },
+  "show_notification": true
+}

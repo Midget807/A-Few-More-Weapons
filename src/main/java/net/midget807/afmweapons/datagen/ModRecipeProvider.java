@@ -98,35 +98,83 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.DIAMOND_LONGSWORD)));
 
-        /*ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD, 1)
-                .pattern("  D")
-                .pattern("ID ")
-                .pattern("SI ")
-                .input('S',Items.STICK)
-                .input('D',Items.DIAMOND_SWORD)
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.WOODEN_HALBERD, 1)
+                .pattern("II")
+                .pattern("IA")
+                .pattern("P ")
+                .input('P',ModItems.POLE)
+                .input('A',Items.WOODEN_AXE)
+                .input('I', ItemTags.PLANKS)
+                .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
+                .criterion(hasItem(Items.WOODEN_AXE), conditionsFromItem(Items.WOODEN_AXE))
+                .criterion("has_planks", conditionsFromTag(ItemTags.PLANKS))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.WOODEN_HALBERD)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.STONE_HALBERD, 1)
+                .pattern("II")
+                .pattern("IA")
+                .pattern("P ")
+                .input('P',ModItems.POLE)
+                .input('A',Items.STONE_AXE)
+                .input('I',ItemTags.STONE_TOOL_MATERIALS)
+                .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
+                .criterion(hasItem(Items.STONE_AXE), conditionsFromItem(Items.STONE_AXE))
+                .criterion("has_cobblestone", conditionsFromTag(ItemTags.STONE_TOOL_MATERIALS))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.STONE_HALBERD)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.IRON_HALBERD, 1)
+                .pattern("II")
+                .pattern("IA")
+                .pattern("P ")
+                .input('P',ModItems.POLE)
+                .input('A',Items.IRON_AXE)
+                .input('I',Items.IRON_INGOT)
+                .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
+                .criterion(hasItem(Items.IRON_AXE), conditionsFromItem(Items.IRON_AXE))
+                .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.IRON_HALBERD)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.GOLDEN_HALBERD, 1)
+                .pattern("II")
+                .pattern("IA")
+                .pattern("P ")
+                .input('P',ModItems.POLE)
+                .input('A',Items.GOLDEN_AXE)
+                .input('I',Items.GOLD_INGOT)
+                .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
+                .criterion(hasItem(Items.GOLDEN_AXE), conditionsFromItem(Items.GOLDEN_AXE))
+                .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.GOLDEN_HALBERD)));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.DIAMOND_HALBERD, 1)
+                .pattern("II")
+                .pattern("IA")
+                .pattern("P ")
+                .input('P',ModItems.POLE)
+                .input('A',Items.DIAMOND_AXE)
                 .input('I',Items.DIAMOND)
-                .input('N',Items.NETHERITE_INGOT)
-                .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                .criterion(hasItem(Items.DIAMOND_SWORD), conditionsFromItem(Items.DIAMOND_SWORD))
-                .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.NETHERITE_LONGSWORD)));*/
+                .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
+                .criterion(hasItem(Items.DIAMOND_AXE), conditionsFromItem(Items.DIAMOND_AXE))
+                .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
+                .offerTo(exporter, new Identifier(getRecipeName(ModItems.DIAMOND_HALBERD)));
 
         offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_LONGSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD);
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_HALBERD, RecipeCategory.COMBAT, ModItems.NETHERITE_HALBERD);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.FRYING_PAN, 1)
                 .pattern(" I ")
-                .pattern("INI")
+                .pattern("IBI")
                 .pattern("WI ")
-                .input('N', Items.NETHERITE_INGOT)
+                .input('B', Items.IRON_BLOCK)
                 .input('I', Items.IRON_INGOT)
                 .input('W', Items.STICK)
-                .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
+                .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
                 .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                 .offerTo(exporter, new Identifier(getRecipeName(ModItems.FRYING_PAN)));
 
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.GLOWSTONE_DUST, RecipeCategory.COMBAT, Items.SPECTRAL_ARROW);
-        //offerFrostArrowRecipe(exporter, Items.ICE, RecipeCategory.COMBAT); // TODO: 11/08/2024  make complex recipe for this but for now just make 1 level of frost arrow
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.ICE, RecipeCategory.COMBAT, ModItems.FROST_ARROW);
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.FIRE_CHARGE, RecipeCategory.COMBAT, ModItems.EXPLOSIVE_ARROW);
         offerTwoAdditionFletchingRecipe(exporter, Items.ARROW, Items.SLIME_BALL, Items.SLIME_BALL, RecipeCategory.COMBAT, ModItems.RICOCHET_ARROW);
@@ -148,31 +196,5 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(addition1), conditionsFromItem(addition1))
                 .criterion(hasItem(addition2), conditionsFromItem(addition2))
                 .offerTo(exporter, getRecipeName(result));
-    }
-    public static void offerFrostArrowRecipe(RecipeExporter exporter, Item iceType, RecipeCategory category) {
-        FletchingTransformRecipeJsonBuilder.createWithOneAddition(Ingredient.ofItems(Items.ARROW), Ingredient.ofItems(iceType), category, ArrowUtil.setFrostArrow(ModItems.FROST_ARROW.getDefaultStack(), getLevel(iceType), getDuration(iceType)).getItem())
-                .criterion(hasItem(Items.ARROW), conditionsFromItem(Items.ARROW))
-                .criterion(hasItem(iceType), conditionsFromItem(iceType))
-                .offerTo(exporter, getRecipeName(ModItems.FROST_ARROW) + "_" + getLevel(iceType));
-    }
-
-    private static int getLevel(Item iceType) {
-        if (iceType == Items.PACKED_ICE) {
-            return 2;
-        } else if (iceType == Items.BLUE_ICE) {
-            return 3;
-        } else {
-            return 1;
-        }
-    }
-
-    private static int getDuration(Item iceType) {
-        if (iceType == Items.PACKED_ICE) {
-            return 360;
-        } else if (iceType == Items.BLUE_ICE) {
-            return 480;
-        } else {
-            return 240;
-        }
     }
 }

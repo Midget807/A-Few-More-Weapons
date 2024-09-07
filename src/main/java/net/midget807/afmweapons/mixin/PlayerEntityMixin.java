@@ -9,6 +9,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.midget807.afmweapons.component.afmw.LanceComponent;
 import net.midget807.afmweapons.component.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
+import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.item.afmw.HalberdItem;
 import net.midget807.afmweapons.item.afmw.LanceItem;
 import net.midget807.afmweapons.sound.ModSoundEvents;
@@ -100,7 +101,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                         var13 = this.getEntityWorld();
                         if (var13 instanceof ServerWorld) {
                             serverWorld = ((ServerWorld) var13);
-                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK, SoundCategory.HOSTILE, 1.0F, 0.5F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            if (entity.getMainHandStack().isOf(ModItems.WOODEN_LONGSWORD)) {
+                                serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NORMAL, SoundCategory.HOSTILE, 1.0F, 1.5F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            } else if (entity.getMainHandStack().isOf(ModItems.NETHERITE_LONGSWORD)) {
+                                serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NETHERITE, SoundCategory.HOSTILE, 0.5F, 0.5F + this.getEntityWorld().random.nextFloat() * 0.2F);
+                            } else {
+                                serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NORMAL, SoundCategory.HOSTILE, 1.0F, 3.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            }
                         }
                         return base / 2.0F;
                     }
@@ -112,7 +119,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                         var13 = this.getEntityWorld();
                         if (var13 instanceof ServerWorld) {
                             serverWorld = ((ServerWorld) var13);
-                            serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK, SoundCategory.HOSTILE, 1.0F , 0.5F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            if (entity.getMainHandStack().isOf(ModItems.WOODEN_LONGSWORD)) {
+                                serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NORMAL, SoundCategory.HOSTILE, 1.0F, 1.5F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            } else if (entity.getMainHandStack().isOf(ModItems.NETHERITE_LONGSWORD)) {
+                                serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NETHERITE, SoundCategory.HOSTILE, 0.5F, 0.5F + this.getEntityWorld().random.nextFloat() * 0.2F);
+                            } else {
+                                serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NORMAL, SoundCategory.HOSTILE, 1.0F, 3.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
+                            }
                         }
                         return base / 0.6F;
                     }

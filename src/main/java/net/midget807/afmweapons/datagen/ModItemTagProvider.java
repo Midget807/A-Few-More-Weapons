@@ -41,7 +41,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.WOODEN_HALBERD)
                 .add(ModItems.STONE_HALBERD)
                 .add(ModItems.IRON_HALBERD)
-                .add(ModItems.GOLD_HALBERD)
+                .add(ModItems.GOLDEN_HALBERD)
                 .add(ModItems.DIAMOND_HALBERD);
 
         this.getOrCreateTagBuilder(LANCES)

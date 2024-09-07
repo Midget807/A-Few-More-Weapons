@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -45,7 +46,6 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
 
     @Override
     public void tick() {
-        super.tick();
         if (this.inGround && this.inGroundTime != 0 && this.inGroundTime >= 600) {
             this.getWorld().sendEntityStatus(this, (byte) 0);
         }
@@ -55,19 +55,24 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
             }
             this.ticksSinceBounce++;
         }
+        super.tick();
     }
 
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
+        if (this.bounces == 2) {
+            this.shouldSpawnParticle = true;
+        }
         Direction direction = blockHitResult.getSide();
         Vec3d vec3d = this.getVelocity();
+        this.sendMessage(Text.literal("Bounces: " + bounces));
         if (bounces == 0) {
             this.shouldSpawnParticle = false;
             super.onBlockHit(blockHitResult);
             this.bounces = 2;
         } else {
-            this.ticksSinceBounce = 0;
             this.shouldSpawnParticle = true;
+            this.ticksSinceBounce = 0;
             if (direction == Direction.UP || direction == Direction.DOWN) {
                 this.setVelocity(vec3d.x * VELOCITY_MODIFIER, -vec3d.y * VELOCITY_MODIFIER, vec3d.z * VELOCITY_MODIFIER);
                 this.bounces--;
@@ -80,7 +85,7 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
                 this.setVelocity(vec3d.x * VELOCITY_MODIFIER, vec3d.y * VELOCITY_MODIFIER, -vec3d.z * VELOCITY_MODIFIER);
                 this.bounces--;
             }
-        } // TODO: 17/08/2024 try fixing the particle spawning so it spawns the particles on the first bounce too
+        } // TODO: 7/09/2024 revise particle spawning
     }
     public void spawnParticles(int amount) {
         for (int i = 0; i < amount; ++i) {

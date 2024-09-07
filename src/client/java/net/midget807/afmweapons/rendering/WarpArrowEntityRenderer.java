@@ -12,6 +12,6 @@ public class WarpArrowEntityRenderer extends ProjectileEntityRenderer<WarpArrowE
 
     @Override
     public Identifier getTexture(WarpArrowEntity entity) {
-        return new Identifier("textures/entity/projectiles/arrow.png");
+        return new Identifier("afmweapons:textures/entity/projectiles/warp_arrow.png");
     }
 }

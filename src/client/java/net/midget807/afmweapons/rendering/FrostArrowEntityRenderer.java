@@ -12,6 +12,6 @@ public class FrostArrowEntityRenderer extends ProjectileEntityRenderer<FrostArro
 
     @Override
     public Identifier getTexture(FrostArrowEntity entity) {
-        return new Identifier("textures/entity/projectiles/arrow.png");
+        return new Identifier("afmweapons:textures/entity/projectiles/frost_arrow.png");
     }
 }

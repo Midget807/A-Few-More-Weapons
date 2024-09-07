@@ -4,6 +4,7 @@ import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,12 +14,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class MagicArrowEntity extends PersistentProjectileEntity {
     private int flightDuration;
@@ -35,7 +40,7 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
     }
 
     public void initFromStack(ItemStack stack) {
-        this.setNoClip(true);
+        //this.setNoClip(true);
         this.flightDuration = ArrowUtil.getMagicArrowFlightTime(stack);
         this.setVelocity(this.getVelocity().multiply(0.5));
     }
@@ -94,10 +99,15 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        entityHitResult.getEntity().damage(this.getDamageSources().arrow(this, this.getOwner()), (float) this.getDamage() * 4);
+        Entity entity = entityHitResult.getEntity();
+        float f = (float)this.getVelocity().length();
+        int i = MathHelper.ceil(MathHelper.clamp((double)f * this.getDamage(), 0.0, 2.147483647E9));
+        List<LivingEntity> livingEntities = entity.getEntityWorld().getEntitiesByClass(LivingEntity.class, new Box(entity.getBlockPos()), EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR);
+        for (LivingEntity livingEntity : livingEntities) {
+            livingEntity.damage(this.getDamageSources().arrow(this, this.getOwner()), i);
+        }
         this.setVelocity(this.getVelocity().multiply(1.0));
     }
-    // TODO: 2/09/2024 Test the no clip again
     /*
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {

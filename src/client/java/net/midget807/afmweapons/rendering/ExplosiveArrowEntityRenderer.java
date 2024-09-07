@@ -12,7 +12,7 @@ public class ExplosiveArrowEntityRenderer extends ProjectileEntityRenderer<Explo
 
     @Override
     public Identifier getTexture(ExplosiveArrowEntity entity) {
-        return new Identifier("textures/entity/projectiles/arrow.png");
+        return new Identifier("afmweapons:textures/entity/projectiles/explosive_arrow.png");
     }
 
 }

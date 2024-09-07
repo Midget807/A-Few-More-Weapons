@@ -21,10 +21,12 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+        itemModelGenerator.register(ModItems.POLE, Models.GENERATED);
+
         itemModelGenerator.register(ModItems.WOODEN_HALBERD, Models.GENERATED);
         itemModelGenerator.register(ModItems.STONE_HALBERD, Models.GENERATED);
         itemModelGenerator.register(ModItems.IRON_HALBERD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLD_HALBERD, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLDEN_HALBERD, Models.GENERATED);
         itemModelGenerator.register(ModItems.DIAMOND_HALBERD, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_HALBERD, Models.GENERATED);
 

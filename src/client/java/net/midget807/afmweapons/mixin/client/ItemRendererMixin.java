@@ -54,7 +54,7 @@ public class ItemRendererMixin {
         if (stack.isOf(ModItems.IRON_HALBERD) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND) {
             return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "iron_halberd_handheld", "inventory"));
         }
-        if (stack.isOf(ModItems.GOLD_HALBERD) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND) {
+        if (stack.isOf(ModItems.GOLDEN_HALBERD) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND) {
             return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "golden_halberd_handheld", "inventory"));
         }
         if (stack.isOf(ModItems.DIAMOND_HALBERD) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND) {

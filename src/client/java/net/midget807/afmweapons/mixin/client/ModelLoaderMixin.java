@@ -30,6 +30,7 @@ public abstract class ModelLoaderMixin {
         this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "iron_halberd_handheld", "inventory"));
         this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "golden_halberd_handheld", "inventory"));
         this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "diamond_halberd_handheld", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_halberd_handheld", "inventory"));
         //Longswords
         this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "wooden_longsword_blocking", "inventory"));
         this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "wooden_longsword_handheld", "inventory"));

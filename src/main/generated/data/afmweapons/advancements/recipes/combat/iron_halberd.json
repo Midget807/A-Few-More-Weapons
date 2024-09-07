@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_block": {
+    "has_iron_axe": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:iron_block"
+              "minecraft:iron_axe"
             ]
           }
         ]
@@ -25,12 +25,12 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_stick": {
+    "has_pole": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:stick"
+              "afmweapons:pole"
             ]
           }
         ]
@@ -39,7 +39,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:frying_pan"
+        "recipe": "minecraft:iron_halberd"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -47,14 +47,14 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_block",
-      "has_iron_ingot",
-      "has_stick"
+      "has_pole",
+      "has_iron_axe",
+      "has_iron_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:frying_pan"
+      "minecraft:iron_halberd"
     ]
   },
   "sends_telemetry_event": false

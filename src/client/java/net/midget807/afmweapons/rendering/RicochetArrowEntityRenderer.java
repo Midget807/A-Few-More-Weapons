@@ -13,6 +13,6 @@ public class RicochetArrowEntityRenderer extends ProjectileEntityRenderer<Ricoch
 
     @Override
     public Identifier getTexture(RicochetArrowEntity entity) {
-        return new Identifier("textures/entity/projectiles/arrow.png");
+        return new Identifier("afmweapons:textures/entity/projectiles/ricochet_arrow.png");
     }
 }

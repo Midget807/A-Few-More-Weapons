@@ -2,23 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "item": "minecraft:iron_block"
+    "A": {
+      "item": "minecraft:iron_axe"
     },
     "I": {
       "item": "minecraft:iron_ingot"
     },
-    "W": {
-      "item": "minecraft:stick"
+    "P": {
+      "item": "afmweapons:pole"
     }
   },
   "pattern": [
-    " I ",
-    "IBI",
-    "WI "
+    "II",
+    "IA",
+    "P "
   ],
   "result": {
-    "item": "afmweapons:frying_pan"
+    "item": "afmweapons:iron_halberd"
   },
   "show_notification": true
 }

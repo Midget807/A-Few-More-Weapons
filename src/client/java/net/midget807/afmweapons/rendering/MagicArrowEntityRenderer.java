@@ -13,6 +13,6 @@ public class MagicArrowEntityRenderer extends ProjectileEntityRenderer<MagicArro
 
     @Override
     public Identifier getTexture(MagicArrowEntity entity) {
-        return new Identifier("textures/entity/projectiles/arrow.png");
+        return new Identifier("afmweapons:textures/entity/projectiles/magic_arrow.png");
     }
 }

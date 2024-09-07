@@ -30,7 +30,7 @@ public class ModItemGroups {
                 entries.add(ModItems.WOODEN_HALBERD);
                 entries.add(ModItems.STONE_HALBERD);
                 entries.add(ModItems.IRON_HALBERD);
-                entries.add(ModItems.GOLD_HALBERD);
+                entries.add(ModItems.GOLDEN_HALBERD);
                 entries.add(ModItems.DIAMOND_HALBERD);
                 entries.add(ModItems.NETHERITE_HALBERD);
 

@@ -21,7 +21,7 @@ public class ModItems {
     public static final Item WOODEN_HALBERD = registerItem("wooden_halberd", new HalberdItem(ToolMaterials.WOOD, 6, -3.2f, new FabricItemSettings().maxCount(1)));
     public static final Item STONE_HALBERD = registerItem("stone_halberd", new HalberdItem(ToolMaterials.STONE, 7, -3.2f, new FabricItemSettings().maxCount(1)));
     public static final Item IRON_HALBERD = registerItem("iron_halberd", new HalberdItem(ToolMaterials.IRON, 6, -3.1f, new FabricItemSettings().maxCount(1)));
-    public static final Item GOLD_HALBERD = registerItem("golden_halberd", new HalberdItem(ToolMaterials.GOLD, 8, -3.0f, new FabricItemSettings().maxCount(1)));
+    public static final Item GOLDEN_HALBERD = registerItem("golden_halberd", new HalberdItem(ToolMaterials.GOLD, 8, -3.0f, new FabricItemSettings().maxCount(1)));
     public static final Item DIAMOND_HALBERD = registerItem("diamond_halberd", new HalberdItem(ToolMaterials.DIAMOND, 5, -3.0f, new FabricItemSettings().maxCount(1)));
     public static final Item NETHERITE_HALBERD = registerItem("netherite_halberd", new HalberdItem(ToolMaterials.NETHERITE, 5, -3.0f, new FabricItemSettings().maxCount(1).fireproof()));
     public static final Item WOODEN_LONGSWORD = registerItem("wooden_longsword", new LongswordItem(ToolMaterials.WOOD, 3, -2.7f, new FabricItemSettings().maxCount(1)));

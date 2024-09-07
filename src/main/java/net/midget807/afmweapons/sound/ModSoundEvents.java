@@ -8,7 +8,8 @@ import net.minecraft.sound.SoundEvents;
 
 public class ModSoundEvents {
     public static final SoundEvent SAD_TROMBONE = registerSoundEvent("sad_trombone");
-    public static final SoundEvent LONGSWORD_BLOCK = registerSoundEvent("longsword_block");
+    public static final SoundEvent LONGSWORD_BLOCK_NORMAL = registerSoundEvent("longsword_block_normal");
+    public static final SoundEvent LONGSWORD_BLOCK_NETHERITE = registerSoundEvent("longsword_block_netherite");
     public static SoundEvent registerSoundEvent(String name) {
         return Registry.register(Registries.SOUND_EVENT, AFMWMain.id(name), SoundEvent.of(AFMWMain.id(name)));
     }
