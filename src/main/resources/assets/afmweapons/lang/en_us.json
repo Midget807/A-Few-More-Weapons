@@ -38,6 +38,17 @@
   "item.afmweapons.netherite_longsword" : "Netherite Longsword",
   "item.afmweapons.longsword.desc" : "Can block attacks",
 
+  "item.afmweapons.iron_lance" : "Iron Lance",
+  "item.afmweapons.golden_lance" : "Golden Lance",
+  "item.afmweapons.diamond_lance" : "Diamond Lance",
+  "item.afmweapons.netherite_lance" : "Netherite Lance",
+  "item.afmweapons.lance.desc": "Deals double damage when riding a horse",
+  "item.afmweapons.lance.attack_multiplier.head": "When riding Horse:",
+  "item.afmweapons.lance.attack_multiplier.4": "+4 Attack Damage",
+  "item.afmweapons.lance.attack_multiplier.6": "+6 Attack Damage",
+  "item.afmweapons.lance.attack_multiplier.7": "+7 Attack Damage",
+  "item.afmweapons.lance.attack_multiplier.8": "+8 Attack Damage",
+
   "item.afmweapons.custom_arrow_loadable": "Cannot load in Crossbow",
   "item.afmweapons.frost_arrow": "Frost Arrow",
   "item.afmweapons.frost_arrow.desc": "Freezes water and slows enemies temporarily",
@@ -60,4 +71,5 @@
   "container.afmweapons.fletching.add_addition_tooltip": "Add Item",
   "sound.afmweapons.sad_trombone": "Womp Womp",
   "sound.afmweapons.longsword_block": "Longsword blocks"
+
 }

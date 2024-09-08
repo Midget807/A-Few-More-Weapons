@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.midget807.afmweapons.datagen.ModBlockTagProvider;
+import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -19,9 +21,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.Vanishable;
+import net.minecraft.screen.ScreenTexts;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
 public class LanceItem extends ToolItem implements Vanishable {
@@ -38,10 +45,6 @@ public class LanceItem extends ToolItem implements Vanishable {
         builder.put(ReachEntityAttributes.ATTACK_RANGE, new EntityAttributeModifier(ATTACK_REACH_MODIFIER_ID, "Weapon modifier", 1, EntityAttributeModifier.Operation.ADDITION));
         builder.put(ReachEntityAttributes.REACH, new EntityAttributeModifier(REACH_MODIFIER_ID, "Weapon Modifier", (double) 1.75, EntityAttributeModifier.Operation.ADDITION));
         this.attributeModifiers = builder.build();
-    }
-
-    public void setAttackDamage(float attackDamage) {
-        this.attackDamage = attackDamage;
     }
 
     @Override
@@ -68,6 +71,22 @@ public class LanceItem extends ToolItem implements Vanishable {
         return true;
     }
 
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.translatable("item.afmweapons.lance.desc").formatted(Formatting.GRAY));
+        tooltip.add(ScreenTexts.EMPTY);
+        tooltip.add(Text.translatable("item.afmweapons.lance.attack_multiplier.head").formatted(Formatting.GRAY));
+        if (stack.isOf(ModItems.IRON_LANCE)) {
+            tooltip.add(Text.translatable("item.afmweapons.lance.attack_multiplier.6").formatted(Formatting.BLUE));
+        } else if (stack.isOf(ModItems.GOLDEN_LANCE)) {
+            tooltip.add(Text.translatable("item.afmweapons.lance.attack_multiplier.4").formatted(Formatting.BLUE));
+        } else if (stack.isOf(ModItems.DIAMOND_LANCE)) {
+            tooltip.add(Text.translatable("item.afmweapons.lance.attack_multiplier.7").formatted(Formatting.BLUE));
+        } else {
+            tooltip.add(Text.translatable("item.afmweapons.lance.attack_multiplier.8").formatted(Formatting.BLUE));
+        }
+        super.appendTooltip(stack, world, tooltip, context);
+    }
 
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {

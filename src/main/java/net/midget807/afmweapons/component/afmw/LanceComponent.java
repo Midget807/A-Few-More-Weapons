@@ -23,8 +23,8 @@ import java.util.UUID;
 public class LanceComponent implements AutoSyncedComponent, CommonTickingComponent {
     private final PlayerEntity player;
     private boolean ridingHorse = false;
-    private final EntityAttributeModifier ATTACK_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(UUID.fromString("4f9dbf1b-99c7-4578-ba1c-bf05e573d82c"), "Weapon modifier", 2, EntityAttributeModifier.Operation.ADDITION);
-    protected static final UUID ATTACK_SPEED_MODIFIER_ID = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
+    private final EntityAttributeModifier ATTACK_ATTRIBUTE_MODIFIER = new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 2, EntityAttributeModifier.Operation.MULTIPLY_BASE);
+    protected static final UUID ATTACK_DAMAGE_MODIFIER_ID = UUID.fromString("4f9dbf1b-99c7-4578-ba1c-bf05e573d82c");
 
     public LanceComponent(PlayerEntity player) {
         this.player = player;
@@ -70,7 +70,6 @@ public class LanceComponent implements AutoSyncedComponent, CommonTickingCompone
         if (!player.hasVehicle() && isRidingHorse()) {
             this.setRidingHorse(false);
         }
-        player.sendMessage(Text.literal("Attack Attribute Damage: " + player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)), true);
         EntityAttributeInstance attackDamageInstance = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
         if (this.isRidingHorse()) {
             if (attackDamageInstance != null && !attackDamageInstance.hasModifier(ATTACK_ATTRIBUTE_MODIFIER)) {
@@ -78,7 +77,7 @@ public class LanceComponent implements AutoSyncedComponent, CommonTickingCompone
             }
         } else {
             if (attackDamageInstance != null && attackDamageInstance.hasModifier(ATTACK_ATTRIBUTE_MODIFIER)) {
-                attackDamageInstance.removeModifier(UUID.fromString("4f9dbf1b-99c7-4578-ba1c-bf05e573d82c"));
+                attackDamageInstance.removeModifier(ATTACK_DAMAGE_MODIFIER_ID);
             }
         }
     }

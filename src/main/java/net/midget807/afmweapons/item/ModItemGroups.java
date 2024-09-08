@@ -41,6 +41,11 @@ public class ModItemGroups {
                 entries.add(ModItems.DIAMOND_LONGSWORD);
                 entries.add(ModItems.NETHERITE_LONGSWORD);
 
+                entries.add(ModItems.IRON_LANCE);
+                entries.add(ModItems.GOLDEN_LANCE);
+                entries.add(ModItems.DIAMOND_LANCE);
+                entries.add(ModItems.NETHERITE_LANCE);
+
                 entries.add(ModItems.FRYING_PAN);
                 entries.add(ModItems.FRIED_EGG);
                 /*
