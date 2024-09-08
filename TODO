@@ -1,8 +1,7 @@
 //TODO Merge Nausea and Darkness client effects to custom Concussed Effect - Nausea complete
 //TODO revamp fletching table -> makes custom arrows -> guided arrow (magic + eye of ender + empty = 1) flies slowly and targets nearby enemy;
-//TODO finish lances
+//TODO model and texture lances
 //TODO make echo arrow work and have changing model based on pulse -> copy tipped arrow color methods
-//TODO make custom held items render as gui item in item frames
 
 
 no lance
