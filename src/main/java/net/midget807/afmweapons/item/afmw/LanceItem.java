@@ -40,6 +40,10 @@ public class LanceItem extends ToolItem implements Vanishable {
         this.attributeModifiers = builder.build();
     }
 
+    public void setAttackDamage(float attackDamage) {
+        this.attackDamage = attackDamage;
+    }
+
     @Override
     public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
         return !miner.isCreative();

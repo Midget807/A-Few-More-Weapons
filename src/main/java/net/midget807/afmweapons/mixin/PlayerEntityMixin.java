@@ -159,6 +159,16 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     }
 
-
+    @Inject(method = "tickRiding", at = @At("HEAD"))
+    private void afmw$ridingHorse(CallbackInfo ci) {
+        LanceComponent lanceComponent = LanceComponent.get((PlayerEntity) this.getVehicle().getFirstPassenger());
+        if (this.getVehicle() instanceof HorseEntity) {
+            if (this.getMainHandStack().isIn(ModItemTagProvider.LANCES)) {
+                lanceComponent.setRidingHorse(true);
+            }
+        } else if (lanceComponent.isRidingHorse()) {
+            lanceComponent.setRidingHorse(false);
+        }
+    }
 
 }
