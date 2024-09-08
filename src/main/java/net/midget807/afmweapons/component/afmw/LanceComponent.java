@@ -70,7 +70,7 @@ public class LanceComponent implements AutoSyncedComponent, CommonTickingCompone
         if (!player.hasVehicle() && isRidingHorse()) {
             this.setRidingHorse(false);
         }
-        player.sendMessage(Text.literal("Attack Damage: " + player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)), true);
+        player.sendMessage(Text.literal("Attack Attribute Damage: " + player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)), true);
         EntityAttributeInstance attackDamageInstance = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
         if (this.isRidingHorse()) {
             if (attackDamageInstance != null && !attackDamageInstance.hasModifier(ATTACK_ATTRIBUTE_MODIFIER)) {
