@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "afmweapons:wooden_claymore",
+    "afmweapons:stone_claymore",
+    "afmweapons:iron_claymore",
+    "afmweapons:golden_claymore",
+    "afmweapons:diamond_claymore",
+    "afmweapons:netherite_claymore"
+  ]
+}
