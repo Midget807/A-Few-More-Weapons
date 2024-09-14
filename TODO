@@ -2,8 +2,9 @@
 //TODO revamp fletching table -> makes custom arrows -> guided arrow (magic + eye of ender + empty = 1) flies slowly and targets nearby enemy;
 //TODO model and texture lances
 //TODO make echo arrow work and have changing model based on pulse -> copy tipped arrow color methods
-
-
+//TODO make netherite horse armor
+//TODO test echo pulse particle
+//TODO add custom holding and swinging for claymores
 
 === Version Desc for Alpha Dev 1.20.2 ===
 
