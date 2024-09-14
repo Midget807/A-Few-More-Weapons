@@ -1,6 +1,7 @@
 package net.midget807.afmweapons.mixin.client;
 
 import net.midget807.afmweapons.AFMWMain;
+import net.midget807.afmweapons.component.afmw.ClaymoreComponent;
 import net.midget807.afmweapons.component.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.ModItems;
@@ -32,6 +33,8 @@ public class ItemRendererMixin {
     @Inject(method = "renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;Lnet/minecraft/world/World;III)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemRenderer;getModel(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;I)Lnet/minecraft/client/render/model/BakedModel;"))
     private void amarite$storeEntity(LivingEntity entity, ItemStack item, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, World world, int light, int overlay, int seed, CallbackInfo ci) {
         if (item.isIn(ModItemTagProvider.LONGSWORDS) && entity instanceof PlayerEntity player) {
+            ItemRendererMixin.entity = player;
+        } else if (item.isIn(ModItemTagProvider.CLAYMORES) && entity instanceof PlayerEntity player) {
             ItemRendererMixin.entity = player;
         } else if (item.isOf(ModItems.FRYING_PAN) && entity instanceof PlayerEntity player) {
             ItemRendererMixin.entity = player;
@@ -139,6 +142,8 @@ public class ItemRendererMixin {
             }
 
         }
+
+        //Frying Pan
         if (stack.isOf(ModItems.FRYING_PAN) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND && !stack.isInFrame()) {
             if (entity != null) {
                 if (entity.isUsingItem() && entity.getStackInHand(Hand.OFF_HAND).isOf(Items.EGG)) {
@@ -150,6 +155,85 @@ public class ItemRendererMixin {
                 return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "frying_pan_handheld", "inventory"));
             }
         }
+
+        //Claymores
+        // TODO: 11/09/2024 Make sure all components are ClaymoreComponent and all models are linked properly
+        if (stack.isOf(ModItems.WOODEN_CLAYMORE) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND && !stack.isInFrame()) {
+            if (entity != null) {
+                LongswordComponent longswordComponent = LongswordComponent.get(ItemRendererMixin.entity);
+                if (longswordComponent.isBlocking()) {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "wooden_longsword_blocking", "inventory"));
+                } else {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "wooden_longsword_handheld", "inventory"));
+                }
+            } else {
+                return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "wooden_longsword_handheld", "inventory"));
+            }
+        }
+        if (stack.isOf(ModItems.STONE_CLAYMORE) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND && !stack.isInFrame()) {
+            if (entity != null) {
+                LongswordComponent longswordComponent = LongswordComponent.get(ItemRendererMixin.entity);
+                if (longswordComponent.isBlocking()) {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "stone_longsword_blocking", "inventory"));
+                } else {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "stone_longsword_handheld", "inventory"));
+                }
+            } else {
+                return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "stone_longsword_handheld", "inventory"));
+            }
+        }
+        if (stack.isOf(ModItems.IRON_CLAYMORE) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND && !stack.isInFrame()) {
+            if (entity != null) {
+                LongswordComponent longswordComponent = LongswordComponent.get(ItemRendererMixin.entity);
+                if (longswordComponent.isBlocking()) {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "iron_longsword_blocking", "inventory"));
+                } else {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "iron_longsword_handheld", "inventory"));
+                }
+            } else {
+                return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "iron_longsword_handheld", "inventory"));
+            }
+        }
+        if (stack.isOf(ModItems.GOLDEN_CLAYMORE) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND && !stack.isInFrame()) {
+            if (entity != null) {
+                LongswordComponent longswordComponent = LongswordComponent.get(ItemRendererMixin.entity);
+                if (longswordComponent.isBlocking()) {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "golden_longsword_blocking", "inventory"));
+                } else {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "golden_longsword_handheld", "inventory"));
+                }
+            } else {
+                return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "golden_longsword_handheld", "inventory"));
+            }
+        }
+        if (stack.isOf(ModItems.DIAMOND_CLAYMORE) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND && !stack.isInFrame()) {
+            if (entity != null) {
+                LongswordComponent longswordComponent = LongswordComponent.get(ItemRendererMixin.entity);
+                if (longswordComponent.isBlocking()) {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "diamond_longsword_blocking", "inventory"));
+                } else {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "diamond_longsword_handheld", "inventory"));
+                }
+            } else {
+                return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "diamond_longsword_handheld", "inventory"));
+            }
+        }
+        if (stack.isOf(ModItems.NETHERITE_CLAYMORE) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND && !stack.isInFrame()) {
+
+            if (entity != null) {
+                ClaymoreComponent claymoreComponent = ClaymoreComponent.get(ItemRendererMixin.entity);
+                if (claymoreComponent.isBlocking()) {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_longsword_blocking", "inventory"));
+                } else {
+                    return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_longsword_handheld", "inventory"));
+                }
+            } else {
+                return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_longsword_handheld", "inventory"));
+            }
+
+        }
+
         return value;
     }
+
 }

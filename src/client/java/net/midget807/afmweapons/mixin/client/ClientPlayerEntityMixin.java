@@ -40,7 +40,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
     @WrapOperation(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"))
     private boolean amarite$noMovementSlowWhenSwordBlocking(ClientPlayerEntity player, Operation<Boolean> original) {
-        return original.call(player) && !player.getActiveItem().isIn(ModItemTagProvider.LONGSWORDS);
+        return original.call(player) && (!player.getActiveItem().isIn(ModItemTagProvider.LONGSWORDS) || !player.getActiveItem().isIn(ModItemTagProvider.CLAYMORES));
     }
     // ================================
 

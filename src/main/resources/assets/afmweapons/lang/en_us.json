@@ -38,6 +38,8 @@
   "item.afmweapons.netherite_longsword" : "Netherite Longsword",
   "item.afmweapons.longsword.desc" : "Can block attacks",
 
+  "item.afmweapons.claymore.desc": "Can block and parry attacks",
+
   "item.afmweapons.iron_lance" : "Iron Lance",
   "item.afmweapons.golden_lance" : "Golden Lance",
   "item.afmweapons.diamond_lance" : "Diamond Lance",

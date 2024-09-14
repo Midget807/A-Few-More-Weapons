@@ -8,6 +8,7 @@
     "EggItemMixin",
     "EnchantmentHelperMixin",
     "FletchingTableBlockMixin",
+    "HorseArmorItemMixin",
     "PlayerEntityMixin",
     "TridentEntityMixin"
   ],

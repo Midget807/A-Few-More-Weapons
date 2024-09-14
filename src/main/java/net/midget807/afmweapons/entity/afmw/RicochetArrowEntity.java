@@ -65,7 +65,6 @@ public class RicochetArrowEntity extends PersistentProjectileEntity {
         }
         Direction direction = blockHitResult.getSide();
         Vec3d vec3d = this.getVelocity();
-        this.sendMessage(Text.literal("Bounces: " + bounces));
         if (bounces == 0) {
             this.shouldSpawnParticle = false;
             super.onBlockHit(blockHitResult);

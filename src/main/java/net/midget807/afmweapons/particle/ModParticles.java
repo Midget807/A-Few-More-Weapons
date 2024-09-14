@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModParticles {
-    public static final DefaultParticleType ECHO_ARROW_PULSE_PARTICLE_TYPE = registerDefaultParticleType("echo_arrow_pulse", FabricParticleTypes.simple());
+    public static final ParticleType<EchoArrowPulseParticleEffect> ECHO_ARROW_PULSE_PARTICLE_TYPE = registerParticleType("echo_arrow_pulse", true, EchoArrowPulseParticleEffect.FACTORY, type -> EchoArrowPulseParticleEffect.CODEC);
 
     public static <T extends ParticleEffect> ParticleType<T> registerParticleType(String name, boolean alwaysShow, ParticleEffect.Factory<T> factory, final Function<ParticleType<T>, Codec<T>> codecGetter) {
         return Registry.register(Registries.PARTICLE_TYPE, AFMWMain.id(name), new ParticleType<T>(alwaysShow, factory) {

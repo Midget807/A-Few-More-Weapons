@@ -1,5 +1,6 @@
 package net.midget807.afmweapons.mixin.client;
 
+import net.midget807.afmweapons.component.afmw.ClaymoreComponent;
 import net.midget807.afmweapons.component.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.ModItems;
@@ -29,8 +30,9 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     private static void amarite$customPoses(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         ItemStack main = player.getMainHandStack();
         LongswordComponent longswordComponent = LongswordComponent.get(player);
-        if (main.isIn(ModItemTagProvider.LONGSWORDS) || main.isIn(ModItemTagProvider.HALBERDS)) {
-            boolean blocking = longswordComponent.isBlocking();
+        ClaymoreComponent claymoreComponent = ClaymoreComponent.get(player);
+        if (main.isIn(ModItemTagProvider.LONGSWORDS) || main.isIn(ModItemTagProvider.HALBERDS) || main.isIn(ModItemTagProvider.CLAYMORES)) {
+            boolean blocking = longswordComponent.isBlocking() || claymoreComponent.isBlocking();
             if (hand == Hand.MAIN_HAND) {
                 if (blocking) {
                     cir.setReturnValue(BipedEntityModel.ArmPose.BOW_AND_ARROW);

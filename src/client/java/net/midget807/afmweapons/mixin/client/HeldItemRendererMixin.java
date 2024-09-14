@@ -38,7 +38,7 @@ public class HeldItemRendererMixin {
     private void amarite$longswordPickup(Hand hand, CallbackInfo ci) {
         if (MinecraftClient.getInstance().player != null) {
             ItemStack stack = MinecraftClient.getInstance().player.getStackInHand(hand);
-            if (stack.isIn(ModItemTagProvider.LONGSWORDS) || stack.isIn(ModItemTagProvider.HALBERDS)) {
+            if (stack.isIn(ModItemTagProvider.LONGSWORDS) || stack.isIn(ModItemTagProvider.HALBERDS) || stack.isIn(ModItemTagProvider.CLAYMORES)) {
                 ci.cancel();
             }
         }

@@ -48,5 +48,22 @@ public abstract class ModelLoaderMixin {
         this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "frying_pan_handheld", "inventory"));
         this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "frying_pan_handheld_throwing", "inventory"));
 
+        // TODO: 11/09/2024 Fix all for claymores
+        /*
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "wooden_longsword_blocking", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "wooden_longsword_handheld", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "stone_longsword_blocking", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "stone_longsword_handheld", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "iron_longsword_blocking", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "iron_longsword_handheld", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "golden_longsword_blocking", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "golden_longsword_handheld", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "diamond_longsword_blocking", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "diamond_longsword_handheld", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_longsword_blocking", "inventory"));
+        this.addModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_longsword_handheld", "inventory"));
+
+         */
+
     }
 }

@@ -19,6 +19,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public static final TagKey<Item> LONGSWORDS = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("longswords"));
     public static final TagKey<Item> HALBERDS = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("halberds"));
     public static final TagKey<Item> LANCES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("lances"));
+    public static final TagKey<Item> CLAYMORES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("claymores"));
     public static final TagKey<Item> TRIPLE_SHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("triple_shot_projectiles"));
     public static final TagKey<Item> AFMW_BOW_PROJECTILES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("bow_projectiles"));
     public static final TagKey<Item> AFMW_ARROWS = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("afmw_arrows"));
@@ -49,6 +50,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_LANCE)
                 .add(ModItems.GOLDEN_LANCE)
                 .add(ModItems.DIAMOND_LANCE);
+
+        this.getOrCreateTagBuilder(CLAYMORES)
+                .add(ModItems.WOODEN_CLAYMORE)
+                .add(ModItems.STONE_CLAYMORE)
+                .add(ModItems.IRON_CLAYMORE)
+                .add(ModItems.GOLDEN_CLAYMORE)
+                .add(ModItems.DIAMOND_CLAYMORE)
+                .add(ModItems.NETHERITE_CLAYMORE);
 
         this.getOrCreateTagBuilder(TRIPLE_SHOT_PROJECTILES)
                 .add(Items.ARROW)
