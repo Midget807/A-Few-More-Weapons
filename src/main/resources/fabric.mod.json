@@ -3,15 +3,15 @@
 	"id": "afmweapons",
 	"version": "${version}",
 	"name": "A Few More Weapons",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Spices up vanilla combat",
 	"authors": [
-		"Me!"
+		"Midget807"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/afmweapons/icon.png",
 	"environment": "*",
 	"accessWidener": "afmweapons.accesswidener",
