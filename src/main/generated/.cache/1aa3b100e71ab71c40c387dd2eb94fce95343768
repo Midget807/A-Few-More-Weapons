@@ -1,4 +1,4 @@
-// 1.20.2	2024-09-11T22:26:05.8708089	A Few More Weapons/Recipes
+// 1.20.2	2024-11-15T19:48:24.1721681	A Few More Weapons/Recipes
 4c81fcc524af12fb98fdfc798c15c62f601a992f data\afmweapons\advancements\recipes\misc\baked_dragon_egg_from_blasting_toasted_dragon_egg.json
 525db1ec1dba416894665259e7c7168c18a14f3c data\afmweapons\recipes\spectral_arrow.json
 abce1fce0e2cb09c5d7666555ad1daf6ffa415fe data\afmweapons\recipes\diamond_halberd.json
@@ -7,8 +7,8 @@ fe86f9965da1ea61b4ece150291137afe6b8f886 data\afmweapons\recipes\iron_longsword.
 7ef182dd4ed512c8205eae98e44423c17a467770 data\afmweapons\recipes\pole.json
 b12cbcdb2ed569d1ff5a57fef3197a1f5ad3dc10 data\afmweapons\recipes\iron_halberd.json
 0bccef6a0b5935e63fc2800407a4d32d41649893 data\afmweapons\recipes\frying_pan.json
-953dac8df925281562a4055b9628290d1fd5e4c2 data\afmweapons\advancements\recipes\combat\wooden_longsword.json
 6d1d8521aacffb6140d6f7f466297dee7ca6a6cc data\afmweapons\recipes\wooden_longsword.json
+953dac8df925281562a4055b9628290d1fd5e4c2 data\afmweapons\advancements\recipes\combat\wooden_longsword.json
 9bc15e69d031961449c427d95493d10b351b7def data\afmweapons\advancements\recipes\combat\golden_longsword.json
 bffd154871d532d86f75b1cc80ec931c44636e33 data\afmweapons\advancements\recipes\misc\pole.json
 cce5edb90d130ba865174f81478dee8052552774 data\afmweapons\recipes\explosive_arrow.json

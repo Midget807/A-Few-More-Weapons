@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.midget807.afmweapons.entity.ModEntities;
+import net.midget807.afmweapons.entity.afmw.GuidedArrowEntity;
 import net.midget807.afmweapons.particle.EchoArrowPulseParticle;
 import net.midget807.afmweapons.particle.ModParticles;
 import net.midget807.afmweapons.rendering.*;
@@ -26,6 +27,7 @@ public class AFMWClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntities.WARP_ARROW_ENTITY_TYPE, WarpArrowEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntities.MAGIC_ARROW_ENTITY_TYPE, MagicArrowEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntities.ECHO_ARROW_ENTITY_TYPE, EchoArrowEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntities.GUIDED_ARROW_ENTITY_TYPE, GuidedArrowEntityRenderer::new);
 		ModModelPredicateProviderRegistry.registerModModelPredicatesProviders();
 		HandledScreens.register(ModScreenHandlers.FLETCHING_TABLE_SCREEN_HANDLER, FletchingScreen::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.ECHO_ARROW_PULSE_PARTICLE_TYPE, EchoArrowPulseParticle.Factory::new);

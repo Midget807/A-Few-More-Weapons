@@ -13,6 +13,7 @@ import net.midget807.afmweapons.sound.ModSoundEvents;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -20,7 +21,10 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.passive.HorseEntity;
+import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.world.ServerWorld;
@@ -52,11 +56,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract boolean isPlayer();
 
-    @Shadow @Final public PlayerScreenHandler playerScreenHandler;
-
-    @Shadow public abstract ActionResult interact(Entity entity, Hand hand);
-
     @Shadow public abstract void remove(RemovalReason reason);
+
+    @Shadow public abstract ItemCooldownManager getItemCooldownManager();
 
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
     protected void afmw$halberdDisableShield(LivingEntity attacker, CallbackInfo ci) {
@@ -74,7 +76,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     // === Credit: From Amarite mod ===
     @WrapOperation(method = "applyDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;modifyAppliedDamage(Lnet/minecraft/entity/damage/DamageSource;F)F"))
     private float afmw$swordsBlock(PlayerEntity entity, DamageSource source, float amount, Operation<Float> original) {
-        float base = (float)original.call(entity, source, amount);
+        float base = (Float) original.call(entity, source, amount);
         LongswordComponent longswordComponent = LongswordComponent.get(entity);
         ClaymoreComponent claymoreComponent = ClaymoreComponent.get(entity);
         if (entity.getMainHandStack().isIn(ModItemTagProvider.LONGSWORDS)) {

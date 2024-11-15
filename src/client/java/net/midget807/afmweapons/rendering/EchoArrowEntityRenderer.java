@@ -15,6 +15,6 @@ public class EchoArrowEntityRenderer extends ProjectileEntityRenderer<EchoArrowE
 
     @Override
     public Identifier getTexture(EchoArrowEntity entity) {
-        return entity.isPulsing ? PULSING_TEXTURE : DEFAULT_TEXTURE;
+        return DEFAULT_TEXTURE;
     }
 }

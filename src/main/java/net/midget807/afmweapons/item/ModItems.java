@@ -47,6 +47,7 @@ public class ModItems {
     public static final Item WARP_ARROW = registerItem("warp_arrow", new WarpArrowItem(new FabricItemSettings()));
     public static final Item MAGIC_ARROW = registerItem("magic_arrow", new MagicArrowItem(new FabricItemSettings()));
     public static final Item ECHO_ARROW = registerItem("echo_arrow", new EchoArrowItem(new FabricItemSettings()));
+    public static final Item GUIDED_ARROW = registerItem("guided_arrow", new GuidedArrowItem(new FabricItemSettings().maxCount(16)));
 
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, AFMWMain.id(name), item);

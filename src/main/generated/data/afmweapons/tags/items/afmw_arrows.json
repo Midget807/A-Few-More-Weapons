@@ -6,6 +6,7 @@
     "afmweapons:ricochet_arrow",
     "afmweapons:warp_arrow",
     "afmweapons:magic_arrow",
-    "afmweapons:echo_arrow"
+    "afmweapons:echo_arrow",
+    "afmweapons:guided_arrow"
   ]
 }

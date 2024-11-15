@@ -95,6 +95,10 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
             EntityHitResult entityHitResult = ((EntityHitResult) hitResult);
             this.onEntityHit(entityHitResult);
         }
+        if (hitResult.getType() == HitResult.Type.BLOCK) {
+            BlockHitResult blockHitResult = ((BlockHitResult) hitResult);
+            this.onBlockHit(blockHitResult);
+        }
     }
 
     @Override
@@ -108,14 +112,13 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
         }
         this.setVelocity(this.getVelocity().multiply(1.0));
     }
-    /*
-    @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-    }
 
     @Override
-    protected void tryCheckBlockCollision() {
-    }*/
+    protected void onBlockHit(BlockHitResult blockHitResult) {
+        Vec3d vec3d = this.getVelocity();
+        this.inGround = false;
+        this.setVelocity(vec3d);
+    }
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
@@ -139,7 +142,7 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         if (this.flightDuration != 0) {
-            nbt.putInt("FlightDuration", flightDuration);
+            nbt.putInt("FlightDuration", this.flightDuration);
         }
     }
 }

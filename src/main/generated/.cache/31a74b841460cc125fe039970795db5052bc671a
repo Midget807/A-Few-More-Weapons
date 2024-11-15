@@ -1,11 +1,11 @@
-// 1.20.2	2024-09-11T22:26:05.8763037	A Few More Weapons/Model Definitions
+// 1.20.2	2024-11-15T19:48:24.1751581	A Few More Weapons/Model Definitions
 5ab81954fa93bb0b511a7b77184992976f4258bf assets\afmweapons\models\item\stone_halberd.json
 65e1151f7635863c0a1f500fdb314caa37597d99 assets\afmweapons\models\item\magic_arrow.json
 9eb9b128519b132b9cd67b79ad9ce8ec2d61ed34 assets\afmweapons\models\item\diamond_halberd.json
 2cc88d75d574b21790d6c1307d0bd53652c2d28c assets\afmweapons\models\item\warp_arrow.json
 dcb79a709427c78ba7ea6cd2b436ecbd0dd295f0 assets\afmweapons\models\item\fried_egg.json
-1a752d6048293854cadbaaed7b885ac7078d7481 assets\afmweapons\models\item\echo_arrow.json
 00fbed02ee7dfca9cfcc63e507987a26cf23d61a assets\afmweapons\models\item\golden_halberd.json
+1a752d6048293854cadbaaed7b885ac7078d7481 assets\afmweapons\models\item\echo_arrow.json
 916e1b36adbf165181e534a9c9468d6f2aaee826 assets\afmweapons\blockstates\toasted_dragon_egg.json
 ad46b327198b3639a84904f9d460cfdc5534e14f assets\afmweapons\models\item\stone_longsword.json
 ee520081d26441b974586f0a13861e2afb7b8d1f assets\afmweapons\models\item\netherite_halberd.json

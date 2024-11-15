@@ -14,6 +14,8 @@ public abstract class HorseArmorItemMixin extends Item {
     }
     @ModifyReturnValue(method = "getBonus", at = @At("RETURN"))
     private int afmw$buffArmor(int original) {
-        return (int) (original * 1.5);
+        return (int) (original * 2.0);
     }
+
+
 }

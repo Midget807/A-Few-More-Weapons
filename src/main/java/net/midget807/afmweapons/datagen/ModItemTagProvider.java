@@ -70,7 +70,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.RICOCHET_ARROW)
                 .add(ModItems.WARP_ARROW)
                 .add(ModItems.MAGIC_ARROW)
-                .add(ModItems.ECHO_ARROW);
+                .add(ModItems.ECHO_ARROW)
+                .add(ModItems.GUIDED_ARROW);
 
         this.getOrCreateTagBuilder(AFMW_BOW_PROJECTILES)
                 .add(Items.ARROW)

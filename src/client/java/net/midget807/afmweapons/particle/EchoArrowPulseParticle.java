@@ -23,7 +23,7 @@ public class EchoArrowPulseParticle extends ExplosionLargeParticle {
     protected EchoArrowPulseParticle(ClientWorld world, double x, double y, double z, double d, SpriteProvider spriteProvider) {
         super(world, x, y, z, d, spriteProvider);
         this.maxAge = 24;
-        this.scale = 20.0f;
+        this.scale = 2.0f;
         this.gravityStrength = 0.0f;
         this.velocityX = 0.0f;
         this.velocityY = 0.0f;
@@ -44,8 +44,12 @@ public class EchoArrowPulseParticle extends ExplosionLargeParticle {
     public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
         this.alpha = 1.0f - MathHelper.clamp(((float) this.age + tickDelta) / (float) this.maxAge, 0.0f, 1.0f);
         this.buildGeometry(vertexConsumer, camera, tickDelta, (quaternion) -> {
-            quaternion.mul(new Quaternionf().rotateX(0.0f));
-            quaternion.mul(new Quaternionf().rotateYXZ((float) -Math.PI, 0.0f, 0.0f));
+            quaternion.mul(new Quaternionf().rotateX((float) -Math.PI * 0.5f));
+            quaternion.mul(new Quaternionf().rotateY((float) -Math.PI));
+        });
+        this.buildGeometry(vertexConsumer, camera, tickDelta, (quaternion) -> {
+            quaternion.mul(new Quaternionf().rotateX((float) Math.PI * 0.5f));
+            quaternion.mul(new Quaternionf().rotateY((float) Math.PI));
         });
     }
 

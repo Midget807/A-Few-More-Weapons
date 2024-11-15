@@ -103,36 +103,45 @@ public class ArrowUtil {
         return stack;
     }
 
-    public static final String ECHO_ARROW_AGE_KEY = "GroundAge";
+    public static final String ECHO_ARROW_MAX_PULSE_KEY = "MaxPulses";
     public static final String ECHO_ARROW_PULSING_KEY = "Pulsing";
-    public static int getEchoArrowAge(ItemStack stack) {
-        return getEchoArrowAgeNbt(stack.getNbt());
+    public static int getEchoArrowMaxPulses(ItemStack stack) {
+        return getEchoArrowMaxPulsesNbt(stack.getNbt());
     }
 
-    public static int getEchoArrowAgeNbt(NbtCompound nbtCompound) {
+    public static int getEchoArrowMaxPulsesNbt(NbtCompound nbtCompound) {
         if (nbtCompound == null) {
             return 0;
         }
-        return nbtCompound.getInt(ECHO_ARROW_AGE_KEY);
+        return nbtCompound.getInt(ECHO_ARROW_MAX_PULSE_KEY);
     }
-
-    public static boolean getEchoArrowShouldPulse(ItemStack stack) {
-        return getEchoArrowShouldPulseNbt(stack.getNbt());
-    }
-
-    public static boolean getEchoArrowShouldPulseNbt(NbtCompound nbtCompound) {
-        if (nbtCompound == null) {
-            return false;
-        }
-        return nbtCompound.getBoolean(ECHO_ARROW_PULSING_KEY);
-    }
-    public static ItemStack setEchoArrow(ItemStack stack, int age, boolean pulsing) {
-        if (age == 0) {
-            stack.removeSubNbt(ECHO_ARROW_AGE_KEY);
+    public static ItemStack setEchoArrow(ItemStack stack, int pulses) {
+        if (pulses == 0) {
+            stack.removeSubNbt(ECHO_ARROW_MAX_PULSE_KEY);
         } else {
-            stack.getOrCreateNbt().putInt(ECHO_ARROW_AGE_KEY, age);
+            stack.getOrCreateNbt().putInt(ECHO_ARROW_MAX_PULSE_KEY, pulses);
         }
-        stack.getOrCreateNbt().putBoolean(ECHO_ARROW_PULSING_KEY, pulsing);
+        return stack;
+    }
+
+    public static final String GUIDED_ARROW_FLIGHT_TIME_KEY = "FlightDuration";
+    public static int getGuidedArrowFlightTime(ItemStack stack) {
+        return getGuidedArrowFlightTimeNbt(stack.getNbt());
+    }
+
+    public static int getGuidedArrowFlightTimeNbt(NbtCompound nbtCompound) {
+        if (nbtCompound == null) {
+            return 0;
+        } else {
+            return nbtCompound.getInt(GUIDED_ARROW_FLIGHT_TIME_KEY);
+        }
+    }
+    public static ItemStack setGuidedArrow(ItemStack stack, int flightTime) {
+        if (flightTime == 0) {
+            stack.removeSubNbt(GUIDED_ARROW_FLIGHT_TIME_KEY);
+        } else {
+            stack.getOrCreateNbt().putInt(GUIDED_ARROW_FLIGHT_TIME_KEY, flightTime);
+        }
         return stack;
     }
 }

@@ -36,6 +36,6 @@ public class EchoArrowItem extends ArrowItem {
 
     @Override
     public ItemStack getDefaultStack() {
-        return ArrowUtil.setEchoArrow(super.getDefaultStack(), 12 * 20, false);
+        return ArrowUtil.setEchoArrow(super.getDefaultStack(), 3);
     }
 }

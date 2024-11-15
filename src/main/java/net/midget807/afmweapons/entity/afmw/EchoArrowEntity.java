@@ -2,6 +2,7 @@ package net.midget807.afmweapons.entity.afmw;
 
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
+import net.midget807.afmweapons.particle.ModParticles;
 import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -18,10 +19,9 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class EchoArrowEntity extends PersistentProjectileEntity {
-    private int groundAge;
-    public boolean isPulsing;
-    public boolean canPulse = false;
-    public int modelAge;
+    private static final int ECHO_RADIUS = 16;
+    private static int MAX_PULSE_TIME = 0;
+    public int maxPulses;
     public EchoArrowEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -34,68 +34,67 @@ public class EchoArrowEntity extends PersistentProjectileEntity {
         super(ModEntities.ECHO_ARROW_ENTITY_TYPE, owner, world);
     }
     public void initFromStack (ItemStack stack) {
-        this.groundAge = ArrowUtil.getEchoArrowAge(stack);
-        this.canPulse = false;
-        this.isPulsing = ArrowUtil.getEchoArrowShouldPulse(stack);
-
+        this.maxPulses = ArrowUtil.getEchoArrowMaxPulses(stack);
+        MAX_PULSE_TIME = maxPulses * (40 + 40); //number of pulses * (effect duration + effect-less duration)
     }
 
     @Override
     protected ItemStack asItemStack() {
         ItemStack itemStack = new ItemStack(ModItems.ECHO_ARROW);
-        ArrowUtil.setEchoArrow(itemStack, this.groundAge, this.isPulsing);
+        ArrowUtil.setEchoArrow(itemStack, this.maxPulses);
         return itemStack;
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.inGround && this.inGroundTime != 0 && this.inGroundTime >= (12 * 20)) {
-            this.getWorld().sendEntityStatus(this, (byte) 0);
-            this.canPulse = true;
-            if (this.getWorld().isClient) {
-                //client shit
-                this.spawnParticles(2);
+        if (this.getWorld().isClient) {
+            //client
+            if (!inGround) {
+                spawnParticles(2);
+            } else if (this.inGroundTime < MAX_PULSE_TIME) {
+                if (this.inGroundTime % (4 * 20) == 0) {
+                        this.runPulseParticle();
+                }
             }
         } else {
-            this.canPulse = false;
-        }
-        if (!this.getWorld().isClient) {
-            //server shit
-            this.groundAge++; // test
-            if (this.canPulse) {
-                runPulse();
+            //server
+            if (this.inGroundTime <= MAX_PULSE_TIME && inGround) {
+                if (this.inGroundTime % (4 * 20) == 0) {
+                    this.runPulse();
+                }
             }
         }
+    }
+
+    private void runPulseParticle() {
+        this.getWorld().addParticle(ModParticles.ECHO_ARROW_PULSE_PARTICLE_TYPE, true, this.getX(), this.getY(), this.getZ(), 0, 0,0);
     }
 
     private void spawnParticles(int amount) {
         for (int i = 0; i < amount; ++i) {
-            this.getWorld().addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getX(), this.getY(), this.getZ(), 1, 1, 1);
+            this.getWorld().addParticle(ParticleTypes.SCULK_CHARGE_POP, this.getX(), this.getY(), this.getZ(), 0, -0.1, 0);
         }
     }
 
     private void runPulse() {
-        if (this.groundAge % (4 * 20) == 0) {
-            this.isPulsing = true;
-        }
-        if (this.isPulsing) {
-            List<LivingEntity> entities = this.getWorld().getEntitiesByClass(LivingEntity.class, new Box(this.getBlockPos().add(16, 16, 16)), EntityPredicates.VALID_ENTITY);
+            List<LivingEntity> entities = this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(ECHO_RADIUS), EntityPredicates.VALID_ENTITY);
             for (LivingEntity livingEntity : entities) {
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 2));
+                if (livingEntity != this.getOwner()) {
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 2 * 20));
+                }
             }
-            if (this.getWorld().isClient) {
-                spawnParticles(10);
-            }
-            this.isPulsing = false;
-        }
     }
-
-    // TODO: 17/08/2024 MAKE THIS SHIT WORK + THE PARTICLES 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
-        if (!this.canPulse) {
-            super.onPlayerCollision(player);
+        if (this.getWorld().isClient || !this.inGround && !this.isNoClip() || this.shake > 0) {
+            return;
+        }
+        if (this.tryPickup(player)) {
+            if (!player.isCreative()) {
+                player.sendPickup(this, 1);
+            }
+            this.discard();
         }
     }
 }
