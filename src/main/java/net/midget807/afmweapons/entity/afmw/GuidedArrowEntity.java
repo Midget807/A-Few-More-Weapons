@@ -132,10 +132,7 @@ public class GuidedArrowEntity extends PersistentProjectileEntity {
 
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);/*
-        if (nbt.contains("Target")) {
-            this.targetUuid = nbt.getUuid("Target");
-        }*/
+        super.readCustomDataFromNbt(nbt);
         if (nbt.contains("FlightDuration", NbtElement.NUMBER_TYPE)) {
             this.flightDuration = ArrowUtil.getGuidedArrowFlightTimeNbt(nbt);
         }
