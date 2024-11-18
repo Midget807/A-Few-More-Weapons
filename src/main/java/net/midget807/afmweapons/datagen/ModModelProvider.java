@@ -7,6 +7,7 @@ import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
+import net.minecraft.item.Items;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -21,6 +22,9 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+        itemModelGenerator.register(ModItems.DEBUGGER, Items.STICK, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ITEMGROUP_ICON, Models.GENERATED);
+
         itemModelGenerator.register(ModItems.POLE, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.WOODEN_HALBERD, Models.GENERATED);

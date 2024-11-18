@@ -23,7 +23,7 @@ import java.util.Set;
 public class ModItemGroups {
     public static final ItemGroup AFMW_GROUP = registerItemGroup("main", FabricItemGroup.builder()
             .displayName(Text.translatable("itemgroup.afmweapons.main"))
-            .icon(() -> new ItemStack(ModItems.NETHERITE_HALBERD))
+            .icon(() -> new ItemStack(ModItems.NETHERITE_LONGSWORD))
             .entries((displayContext, entries) -> {
                 entries.add(ModItems.POLE);
 
@@ -41,10 +41,10 @@ public class ModItemGroups {
                 entries.add(ModItems.DIAMOND_LONGSWORD);
                 entries.add(ModItems.NETHERITE_LONGSWORD);
 
-                entries.add(ModItems.IRON_LANCE);
-                entries.add(ModItems.GOLDEN_LANCE);
-                entries.add(ModItems.DIAMOND_LANCE);
-                entries.add(ModItems.NETHERITE_LANCE);
+                //entries.add(ModItems.IRON_LANCE);
+                //entries.add(ModItems.GOLDEN_LANCE);
+                //entries.add(ModItems.DIAMOND_LANCE);
+                //entries.add(ModItems.NETHERITE_LANCE);
 
                 entries.add(ModItems.FRYING_PAN);
                 entries.add(ModItems.FRIED_EGG);
@@ -62,7 +62,7 @@ public class ModItemGroups {
                 entries.add(ModItems.WARP_ARROW);
                 entries.add(ModItems.MAGIC_ARROW.getDefaultStack());
                 entries.add(ModItems.ECHO_ARROW.getDefaultStack());
-                entries.add(ModItems.GUIDED_ARROW.getDefaultStack());
+                //entries.add(ModItems.GUIDED_ARROW.getDefaultStack());
             }).build());
 
     private static void addAFMWEnchantedBooks(ItemGroup.Entries entries, RegistryWrapper.Impl<Enchantment> wrapper, Set<EnchantmentTarget> set, ItemGroup.StackVisibility stackVisibility) {

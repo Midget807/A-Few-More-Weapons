@@ -13,6 +13,7 @@ import net.minecraft.registry.Registry;
 
 public class ModItems {
     public static final Item DEBUGGER = registerItem("debugger", new DebugItem(new FabricItemSettings().maxCount(1)));
+    public static final Item ITEMGROUP_ICON = registerItem("itemgroup_icon", new Item(new FabricItemSettings()));
 
 
     public static final Item POLE = registerItem("pole", new Item(new FabricItemSettings()));
