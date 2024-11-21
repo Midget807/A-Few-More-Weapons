@@ -4,6 +4,6 @@ import net.midget807.afmweapons.AFMWMain;
 import net.minecraft.util.Identifier;
 
 public class ModMessages {
-    public static final Identifier ITEM_SYNC = AFMWMain.id("item_sync");
+    public static final Identifier SPAWN_BLOCK_SMASH_PARTICLE = AFMWMain.id("spawn_block_smash_particle");
 
 }

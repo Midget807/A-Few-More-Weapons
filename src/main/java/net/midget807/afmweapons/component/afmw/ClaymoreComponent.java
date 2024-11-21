@@ -2,35 +2,51 @@ package net.midget807.afmweapons.component.afmw;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.midget807.afmweapons.component.ModComponents;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
-import net.midget807.afmweapons.item.ModItems;
-import net.midget807.afmweapons.item.afmw.ClaymoreItem;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.midget807.afmweapons.enchantment.ModEnchantments;
+import net.midget807.afmweapons.network.ModMessages;
+import net.midget807.afmweapons.particle.ModParticles;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.enchantment.ProtectionEnchantment;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.decoration.AbstractDecorationEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.*;
+import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.List;
 
 public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComponent {
-    // TODO: 9/09/2024 Add deflection enchantment to increase the timeframe for a parry
+    private static final Vector3f ROTATION_VECTOR = new Vector3f(0.0f, 1.0f, 0.0f).normalize();
+    private static final Vector3f TRANSFORMATION_VECTOR = new Vector3f(1.0f, 0.0f, 0.0f).normalize().mul(2.5f);
     private final PlayerEntity player;
-    private boolean blocking = false;
-    public boolean hasBlocked = false;
-    public int parryCharge = 0;
-    private boolean hasParried = false;
-    public static final int PARRY_MAX_CHARGE = 400; //player.getMainHandStack.getEnchantment level for deflection > 0 ? 400 : 200
-    public static final int PARRY_TICK_COST = 40;
-    public static final int PARRY_COLOR = 0x5555FF;
-    public static final Vec3i PARRY_BAR_COLOR = new Vec3i(85, 85, 255);
-    public float parryDamage;
-    public float damageBlocked;
+    public static final int CHARGE_COLOR = 0xB5B5B5;
+
+    public static final Vec3i CHARGE_BAR_COLOR = new Vec3i(181, 181, 181);
+    public static final int SMASH_COLOR = 0x5555FF;
+    public static final Vec3i SMASH_BAR_COLOR = new Vec3i(85, 85, 255);
+    public static final int MAX_CHARGE = 20 * 3;
+    public static final int SMASH_TIMEFRAME_COST = MAX_CHARGE / 10; //MAX_CHARGE / however long the timeframe should be in ticks
+    private int charge = 0;
+    private boolean charging;
 
     public ClaymoreComponent(PlayerEntity player) {
         this.player = player;
@@ -41,141 +57,87 @@ public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComp
     public void sync() {
         ModComponents.CLAYMORE_COMPONENT.sync(this.player);
     }
-    public float getParryDamage() {
-        return parryDamage;
+
+    public boolean isCharging() {
+        return this.charging;
     }
 
-    public void setParryDamage() {
-        this.parryDamage = Math.min((float) (this.player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) + getDamageBlocked()), (float) (this.player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 2));;
-    }
-
-    public void setDamageBlocked(float amount) {
-        this.damageBlocked = amount;
-        this.setParryDamage();
-    }
-
-    public float getDamageBlocked() {
-        return damageBlocked;
-    }
-
-    public boolean isBlocking() {
-        if (!this.player.getWorld().isClient && (!this.player.getMainHandStack().isIn(ModItemTagProvider.CLAYMORES) || !this.player.isUsingItem())) {
-            this.setBlocking(false);
-            this.sync();
-        }
-        return blocking;
-    }
-
-    public void setBlocking(boolean blocking) {
-        this.blocking = blocking;
-    }
-
-    public boolean isHasBlocked() {
-        return hasBlocked;
-    }
-
-    public void setHasBlocked(boolean hasBlocked) {
-        this.hasBlocked = hasBlocked;
-    }
-
-    public boolean isHasParried() {
-        return hasParried;
-    }
-
-    public void setHasParried(boolean hasParried) {
-        this.hasParried = hasParried;
-    }
-
-    public boolean canParry() {
-        return this.parryCharge > 0 && hasBlocked;
-    }
-    public float getParryPercent() {
-        return (float) this.parryCharge / PARRY_MAX_CHARGE;
-    }
-
-    public void setParryCharge(int parryCharge) {
-        this.parryCharge = parryCharge;
-        this.sync();
-    }
-
-    /*
-    * Is used to differentiate which ability the Amarite sword should use based on its enchantments
-    * */
-    public boolean canUseWhichAbility() {
-        ItemStack stack = this.player.getMainHandStack();
-        return this.canParry();
-    }
-    public void useAbility() {
-        ItemStack stack = this.player.getMainHandStack();
-        if (this.canParry()) {
-            this.useParry();
-        }
-    }
-    //=====
-
-    private void useParry() {
-        if (this.canParry()) {
-            this.sync();
-        }
-    }
-    public int getChargeTint(ItemStack stack) {
-        Vec3i color;
-        float percent;
-        //wrap in if for enchantment
-        color = PARRY_BAR_COLOR;
-        percent = Math.min(this.getParryPercent(), 1.0f);
-        //===
-        percent = Math.max(0.0f, percent);
-        int r = (int) (255.0f - percent * (float) (255 - color.getX()));
-        int g = (int) (255.0f - percent * (float) (255 - color.getY()));
-        int b = (int) (255.0f - percent * (float) (255 - color.getZ()));
-        return MathHelper.packRgb(r, g, b);
+    public void setCharging(boolean charging) {
+        this.charging = charging;
     }
 
     @Override
     public void tick() {
         ItemStack stack = this.player.getMainHandStack();
-        boolean isClaymore = this.player.isAlive() && !this.player.isDead() && !this.player.isRemoved() && stack.isIn(ModItemTagProvider.CLAYMORES);
-        if (
-                this.player.getItemCooldownManager().isCoolingDown(ModItems.WOODEN_CLAYMORE) ||
-                this.player.getItemCooldownManager().isCoolingDown(ModItems.STONE_CLAYMORE) ||
-                this.player.getItemCooldownManager().isCoolingDown(ModItems.IRON_CLAYMORE) ||
-                this.player.getItemCooldownManager().isCoolingDown(ModItems.GOLDEN_CLAYMORE) ||
-                this.player.getItemCooldownManager().isCoolingDown(ModItems.DIAMOND_CLAYMORE) ||
-                this.player.getItemCooldownManager().isCoolingDown(ModItems.NETHERITE_CLAYMORE)
-        ) {
-            this.setBlocking(false);
-            this.sync();
-        }
-        if (!this.isHasParried() && parryCharge <= 0 && this.hasBlocked) {
-            this.setHasParried(false);
-            this.parryCharge = -40;
-            this.setHasBlocked(false);
-            for (int i = 0; i <= 5; i++) {
-                this.player.getItemCooldownManager().set(
-                        List.of(
-                                ModItems.WOODEN_CLAYMORE,
-                                ModItems.STONE_CLAYMORE,
-                                ModItems.IRON_CLAYMORE,
-                                ModItems.GOLDEN_CLAYMORE,
-                                ModItems.DIAMOND_CLAYMORE,
-                                ModItems.NETHERITE_CLAYMORE
-                        ).get(i), 25
-                );
+        boolean isLongsword = this.player.isAlive() && !this.player.isDead() && !this.player.isRemoved() && stack.isIn(ModItemTagProvider.LONGSWORDS);
+        boolean hasVindictive = EnchantmentHelper.getLevel(ModEnchantments.VINDICTIVE, stack) > 0;
+        if (this.isCharging()) {
+            if (this.charge < MAX_CHARGE) {
+                ++this.charge;
+                if (this.charge == MAX_CHARGE) {
+                    this.sync();
+                }
             }
-            this.sync();
-        }
-        if (this.parryCharge >= 0) {
-            this.parryCharge -= PARRY_TICK_COST;
-        }
-        if (stack.getItem() instanceof ClaymoreItem) {
-            ClaymoreItem.parryChargePercent = (float) MathHelper.clamp(this.getParryPercent(), 0.0, 1.0);
-            this.sync();
+        } else {
+            if (this.charge <= 0 || !isLongsword || hasVindictive /*TODO check if this condition is needed*/) {
+                this.charge = 0;
+                this.sync();
+                return;
+            }
+            this.charge -= SMASH_TIMEFRAME_COST;
         }
     }
 
     @Override
     public void serverTick() {
+        boolean hasKnockBack = EnchantmentHelper.getLevel(Enchantments.KNOCKBACK, this.player.getMainHandStack()) > 0;
+        boolean handSwung = this.player.handSwinging;
+        if (this.canSmash() && charge > 0 && handSwung) {
+            HitResult hitResult = this.player.raycast(3.0d, 0.0f, false);
+            if (hitResult.getType() == HitResult.Type.BLOCK) {
+                BlockHitResult blockHitResult = (BlockHitResult) hitResult;
+                BlockPos blockPos = blockHitResult.getBlockPos();
+                BlockPos blockPos2 = blockPos.offset(blockHitResult.getSide());
+                Box box = new Box(blockPos2.getX() - 2.5, 0, blockPos2.getZ() - 2.5, blockPos2.getX() + 2.5, 1, blockPos2.getZ() + 2.5);
+                List<Entity> entities = this.player.getWorld().getOtherEntities(this.player, box);
+                for (Entity target : entities) {
+                    if (!(target instanceof AbstractDecorationEntity)) {
+                        if (target instanceof TameableEntity tameableEntity) {
+                            if (tameableEntity.isTamed() && !(tameableEntity.getOwner() == this.player)) {
+                                target.damage(this.player.getDamageSources().playerAttack(this.player), 6.0f);
+                                setBlockSmashVelocity(target);
+                            }
+                        } else {
+                            target.damage(this.player.getDamageSources().playerAttack(this.player), 6.0f);
+                            setBlockSmashVelocity(target);
+                        }
+                    }
+                }
+                spawnBlockSmashParticle(this.player.getWorld(), blockPos2, 2.5f);
+            } else if (hitResult.getType() == HitResult.Type.ENTITY && hasKnockBack) {
+                EntityHitResult entityHitResult = (EntityHitResult) hitResult;
+                Entity target = entityHitResult.getEntity();
+                BlockPos targetPos = target.getBlockPos();
+                Box box = new Box(targetPos).expand(1, 0, 1);
+                List<Entity> entities = this.player.getWorld().getOtherEntities(this.player, box);
+                for (Entity entity : entities) {
+                    if (!(entity instanceof AbstractDecorationEntity)) {
+                        if (entity instanceof TameableEntity tameableEntity) {
+                            if (tameableEntity.isTamed() && !(tameableEntity.getOwner() == this.player)) {
+                                entity.damage(this.player.getDamageSources().playerAttack(this.player), 3.0f * EnchantmentHelper.getLevel(Enchantments.KNOCKBACK, this.player.getMainHandStack()));
+                                setEntitySmashVelocity(entity, this.player);
+                            }
+                        } else {
+                            entity.damage(this.player.getDamageSources().playerAttack(this.player), 3.0f * EnchantmentHelper.getLevel(Enchantments.KNOCKBACK, this.player.getMainHandStack()));
+                            setEntitySmashVelocity(entity, this.player);
+                        }
+                    }
+                } if (this.player.getWorld().isClient) {
+                    spawnEntitySmashParticle(this.player.getWorld(), targetPos);
+                }
+            }
+        }
+
         this.tick();
     }
 
@@ -183,16 +145,60 @@ public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComp
     public void clientTick() {
         this.tick();
     }
+    private void setBlockSmashVelocity(Entity target) {
+        Vec3d vec3d = new Vec3d(0.0, 1.5, 0.0);
+        target.setVelocity(target.getVelocity().add(vec3d));
+    }
+    private void setEntitySmashVelocity(Entity target, PlayerEntity player) {
+        Vec3d playerPos = player.getPos();
+        double modP2T = Math.sqrt(target.squaredDistanceTo(playerPos)) / 4.0d; //4.0d == power * 2.0f
+        if (modP2T <= 1) {
+            double xVec = target.getX() - player.getX();
+            double yVec = target.getEyeY() - player.getEyeY();
+            double zVec = target.getZ() - player.getZ();
+            double modVecDiff = Math.sqrt(xVec * xVec + yVec * yVec + zVec * zVec);
+            if (modVecDiff != 0.0) {
+                xVec /= modVecDiff;
+                yVec /= modVecDiff;
+                zVec /= modVecDiff;
+                double exposure = Explosion.getExposure(playerPos, target);
+                double modP2TExposure = (1.0 - modP2T) * exposure;
+                double kbResBl;
+                if (target instanceof LivingEntity livingEntity) {
+                    kbResBl = ProtectionEnchantment.transformExplosionKnockback(livingEntity, modP2TExposure);
+                } else {
+                    kbResBl = modP2TExposure;
+                }
+                xVec *= kbResBl;
+                yVec *= kbResBl;
+                zVec *= kbResBl;
+                Vec3d smashVec = new Vec3d(xVec, yVec, zVec);
+                target.setVelocity(target.getVelocity().add(smashVec));
+            }
+        }
+    }
+    private void spawnBlockSmashParticle(World world, BlockPos offsetPos, float radius) {
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeBlockPos(offsetPos);
+        buf.writeFloat(radius);
+        ServerPlayNetworking.send((ServerPlayerEntity) world.getPlayers(), ModMessages.SPAWN_BLOCK_SMASH_PARTICLE, buf);
+    }
+    private void spawnEntitySmashParticle(World world, BlockPos entityPos) {
+        world.addParticle(ModParticles.ENTITY_SMASH_PARTICLE, entityPos.getX(), entityPos.getY(), entityPos.getZ(), 0.0f, 0.0f, 0.0f);
+    }
+    public boolean canSmash() {
+        return this.charge == MAX_CHARGE;
+    }
 
     @Override
     public void readFromNbt(NbtCompound tag) {
-        this.blocking = tag.getBoolean("isBlocking");
-        this.parryCharge = tag.getInt("parryCharge");
+        this.charging = tag.getBoolean("isCharging");
+        this.charge = tag.getInt("charge");
     }
 
     @Override
     public void writeToNbt(NbtCompound tag) {
-        tag.putBoolean("isBlocking", this.blocking);
-        tag.putInt("parryCharge", this.parryCharge);
+        tag.putBoolean("isCharging", this.charging);
+        tag.putInt("charge", this.charge);
     }
 }

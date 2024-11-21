@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -22,16 +21,13 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 
 public class GuidedArrowEntity extends PersistentProjectileEntity {
     private int flightDuration;
     @Nullable
     private Entity target;
-    @Nullable
-    private UUID targetUuid;
+
     public GuidedArrowEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -79,21 +75,23 @@ public class GuidedArrowEntity extends PersistentProjectileEntity {
     }
 
     private void getClosestValidTarget() { // TODO: 15/11/2024 Make work
-        Vec3d rotVec = this.getRotationVector();
-        Box box = new Box(
-                this.getX() - 2, this.getY() - 2, this.getZ() - 2,
-                this.getX() + 2, this.getY() + 2, this.getZ() + 2
-        );
-        List<LivingEntity> entities = this.getWorld().getEntitiesByClass(LivingEntity.class, box, (livingEntity) -> {
-            return livingEntity.canHit() && livingEntity != this.getOwner() && (!(livingEntity instanceof TameableEntity) || !((TameableEntity) livingEntity).isTamed());
-        });
-        double maxAngle = 0.3;
-        for (Entity target : entities) {
-            Vec3d distVec = target.getPos().subtract(this.getPos());
-            double dotProduct = distVec.normalize().dotProduct(rotVec);
-            if (dotProduct > maxAngle) {
-                this.target = target;
-                maxAngle = dotProduct;
+        if (this.getOwner() != null) {
+            Vec3d rotVec = this.getRotationVector(this.getOwner().getYaw(), this.getOwner().getPitch());
+            Box box = new Box(
+                    this.getX() - 2, this.getY() - 2, this.getZ() - 2,
+                    this.getX() + 2, this.getY() + 2, this.getZ() + 2
+            );
+            List<LivingEntity> entities = this.getWorld().getEntitiesByClass(LivingEntity.class, box, (livingEntity) -> {
+                return livingEntity.canHit() && livingEntity != this.getOwner() && (!(livingEntity instanceof TameableEntity) || !((TameableEntity) livingEntity).isTamed());
+            });
+            double maxAngle = 0.3;
+            for (Entity target : entities) {
+                Vec3d distVec = target.getPos().subtract(this.getPos());
+                double dotProduct = distVec.normalize().dotProduct(rotVec);
+                if (dotProduct > maxAngle) {
+                    this.target = target;
+                    maxAngle = dotProduct;
+                }
             }
         }
     }
@@ -121,10 +119,7 @@ public class GuidedArrowEntity extends PersistentProjectileEntity {
 
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);/*
-        if (this.target != null) {
-            nbt.putUuid("Target", this.target.getUuid());
-        }*/
+        super.writeCustomDataToNbt(nbt);
         if (flightDuration != 0) {
             nbt.putInt("FlightDuration", this.flightDuration);
         }

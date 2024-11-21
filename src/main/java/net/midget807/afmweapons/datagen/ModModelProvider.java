@@ -50,6 +50,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.MAGIC_ARROW, Models.GENERATED);
         itemModelGenerator.register(ModItems.RICOCHET_ARROW, Models.GENERATED);
         itemModelGenerator.register(ModItems.ECHO_ARROW, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GUIDED_ARROW, Models.GENERATED);
 
     }
 }

@@ -7,6 +7,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 public class ModParticles {
+    public static final DefaultParticleType ENTITY_SMASH_PARTICLE =
+            registerParticle("entity_smash", true);
     public static final DefaultParticleType ECHO_ARROW_PULSE_PARTICLE_TYPE =
             registerParticle("echo_arrow_pulse", true);
 

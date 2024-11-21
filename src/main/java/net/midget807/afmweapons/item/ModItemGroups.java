@@ -23,7 +23,7 @@ import java.util.Set;
 public class ModItemGroups {
     public static final ItemGroup AFMW_GROUP = registerItemGroup("main", FabricItemGroup.builder()
             .displayName(Text.translatable("itemgroup.afmweapons.main"))
-            .icon(() -> new ItemStack(ModItems.NETHERITE_LONGSWORD))
+            .icon(() -> new ItemStack(ModItems.ITEMGROUP_ICON))
             .entries((displayContext, entries) -> {
                 entries.add(ModItems.POLE);
 

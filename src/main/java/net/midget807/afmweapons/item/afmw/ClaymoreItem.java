@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class ClaymoreItem extends SwordItem {
-    public static float parryChargePercent;
+    public static float parryChargePercent = ClaymoreComponent.MAX_CHARGE;
     protected static final UUID ATTACK_REACH_MODIFIER_ID = UUID.fromString("66dbd500-02d6-46a9-b510-699af6ac0936");
     protected static final UUID REACH_MODIFIER_ID = UUID.fromString("e7509cce-5ee6-4bb2-97e7-39a01aa58913");
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
@@ -46,7 +46,7 @@ public class ClaymoreItem extends SwordItem {
             return TypedActionResult.fail(handStack);
         } else {
             user.setCurrentHand(hand);
-            ClaymoreComponent.get(user).setBlocking(true);
+            ClaymoreComponent.get(user).setCharging(true);
             return TypedActionResult.consume(handStack);
         }
     }
@@ -54,14 +54,14 @@ public class ClaymoreItem extends SwordItem {
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (user instanceof PlayerEntity player) {
-            ClaymoreComponent.get(player).setBlocking(false);
+            ClaymoreComponent.get(player).setCharging(false);
         }
         super.onStoppedUsing(stack, world, user, remainingUseTicks);
     }
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return Integer.MAX_VALUE;
+        return 72000;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ClaymoreItem extends SwordItem {
 
     @Override
     public int getItemBarColor(ItemStack stack) {
-        return ClaymoreComponent.PARRY_COLOR;
+        return ClaymoreComponent.SMASH_COLOR;
     }
 
     @Override
