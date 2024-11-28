@@ -2,9 +2,9 @@ package net.midget807.afmweapons.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.midget807.afmweapons.component.afmw.ClaymoreComponent;
-import net.midget807.afmweapons.component.afmw.LanceComponent;
-import net.midget807.afmweapons.component.afmw.LongswordComponent;
+import net.midget807.afmweapons.cca.afmw.ClaymoreComponent;
+import net.midget807.afmweapons.cca.afmw.LanceComponent;
+import net.midget807.afmweapons.cca.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.item.afmw.ClaymoreItem;
@@ -13,7 +13,6 @@ import net.midget807.afmweapons.sound.ModSoundEvents;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -23,19 +22,12 @@ import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -59,17 +51,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract void remove(RemovalReason reason);
 
     @Shadow public abstract ItemCooldownManager getItemCooldownManager();
+    @Shadow public abstract void takeShieldHit(LivingEntity attacker);
 
     @Inject(method = "takeShieldHit", at = @At("HEAD"))
     protected void afmw$halberdDisableShield(LivingEntity attacker, CallbackInfo ci) {
         if (attacker.getMainHandStack().getItem() instanceof HalberdItem) {
             this.disableShield(true);
-        }
-        if (attacker.getMainHandStack().getItem() instanceof ClaymoreItem && attacker.isPlayer()) {
-            ClaymoreComponent claymoreComponent = ClaymoreComponent.get((PlayerEntity) attacker);
-            if (claymoreComponent.canParry()) {
-                this.disableShield(true);
-            }
         }
     }
 
