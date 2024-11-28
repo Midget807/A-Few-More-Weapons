@@ -32,7 +32,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         LongswordComponent longswordComponent = LongswordComponent.get(player);
         ClaymoreComponent claymoreComponent = ClaymoreComponent.get(player);
         if (main.isIn(ModItemTagProvider.LONGSWORDS) || main.isIn(ModItemTagProvider.HALBERDS) || main.isIn(ModItemTagProvider.CLAYMORES)) {
-            boolean blocking = longswordComponent.isBlocking() || claymoreComponent.isBlocking();
+            boolean blocking = longswordComponent.isBlocking();
             if (hand == Hand.MAIN_HAND) {
                 if (blocking) {
                     cir.setReturnValue(BipedEntityModel.ArmPose.BOW_AND_ARROW);

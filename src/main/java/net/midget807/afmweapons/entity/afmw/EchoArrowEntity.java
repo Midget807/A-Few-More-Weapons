@@ -59,7 +59,7 @@ public class EchoArrowEntity extends PersistentProjectileEntity {
             }
         } else {
             //server
-            if (this.inGroundTime <= MAX_PULSE_TIME && inGround) {
+            if (this.inGroundTime < MAX_PULSE_TIME && inGround) {
                 if (this.inGroundTime % (4 * 20) == 0) {
                     this.runPulse();
                 }

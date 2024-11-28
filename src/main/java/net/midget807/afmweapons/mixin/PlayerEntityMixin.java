@@ -65,12 +65,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (attacker.getMainHandStack().getItem() instanceof HalberdItem) {
             this.disableShield(true);
         }
-        if (attacker.getMainHandStack().getItem() instanceof ClaymoreItem && attacker.isPlayer()) {
-            ClaymoreComponent claymoreComponent = ClaymoreComponent.get((PlayerEntity) attacker);
-            if (claymoreComponent.canParry()) {
-                this.disableShield(true);
-            }
-        }
     }
 
     // === Credit: From Amarite mod ===
@@ -132,43 +126,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                     }
                 }
             }
-        } else if (entity.getMainHandStack().isIn(ModItemTagProvider.CLAYMORES)) {
-            if (!source.isIn(DamageTypeTags.BYPASSES_SHIELD)) {
-                if (claymoreComponent.isBlocking()) {
-                    Vec3d damagePos = source.getPosition();
-                    Vec3d rotVec;
-                    Vec3d difference;
-                    double angle;
-                    ServerWorld serverWorld;
-                    World world;
-                    if (damagePos != null) {
-                        rotVec = this.getRotationVector();
-                        difference = damagePos.relativize(this.getEyePos()).normalize();
-                        angle = difference.dotProduct(rotVec);
-                        if (angle < -0.8 || angle > 0.8) {
-                            return base;
-                        }
-                        if (angle < -0.35) {
-                            world = this.getEntityWorld();
-                            if (world instanceof ServerWorld) {
-                                serverWorld = (ServerWorld) world;
-                                if (entity.getMainHandStack().isOf(ModItems.WOODEN_LONGSWORD)) {// TODO: 9/09/2024 use same sound but maybe deeper and change lang
-                                    serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NORMAL, SoundCategory.HOSTILE, 1.0F, 1.5F + this.getEntityWorld().random.nextFloat() * 0.4F);
-                                } else if (entity.getMainHandStack().isOf(ModItems.NETHERITE_CLAYMORE)) {
-                                    serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NETHERITE, SoundCategory.HOSTILE, 0.5F, 0.5F + this.getEntityWorld().random.nextFloat() * 0.2F);
-                                } else {
-                                    serverWorld.playSoundFromEntity((PlayerEntity) null, this, ModSoundEvents.LONGSWORD_BLOCK_NORMAL, SoundCategory.HOSTILE, 1.0F, 3.0F + this.getEntityWorld().random.nextFloat() * 0.4F);
-                                }
-                            }
-                            claymoreComponent.setParryCharge(400);
-                            claymoreComponent.setHasBlocked(true);
-                            claymoreComponent.setDamageBlocked(base);
-                            claymoreComponent.sync();
-                            return 0.0f;
-                        }
-                    }
-                }
-            }
         }
         return base;
     }
@@ -209,17 +166,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     //Claymore ==================================
-    @WrapOperation(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getAttributeValue(Lnet/minecraft/entity/attribute/EntityAttribute;)D"))
-    private double afmw$parryDamage(PlayerEntity player, EntityAttribute entityAttribute, Operation<Double> original) {
-        ClaymoreComponent claymoreComponent = ClaymoreComponent.get(player);
-        if (claymoreComponent.isHasBlocked() && claymoreComponent.canParry()) {
-            claymoreComponent.setHasParried(true);
-            claymoreComponent.setHasBlocked(false);
-            claymoreComponent.sync();
-            return claymoreComponent.getParryDamage();
-        } else {
-            return original.call(player, entityAttribute);
-        }
-    }
+
 
 }

@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class ClaymoreItem extends SwordItem {
-    public static float parryChargePercent = ClaymoreComponent.MAX_CHARGE;
+    public static float parryChargePercent = (float) 1 / ClaymoreComponent.MAX_CHARGE;
     protected static final UUID ATTACK_REACH_MODIFIER_ID = UUID.fromString("66dbd500-02d6-46a9-b510-699af6ac0936");
     protected static final UUID REACH_MODIFIER_ID = UUID.fromString("e7509cce-5ee6-4bb2-97e7-39a01aa58913");
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
