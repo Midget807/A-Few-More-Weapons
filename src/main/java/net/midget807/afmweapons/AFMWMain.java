@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 public class AFMWMain implements ModInitializer {
 	public static Identifier id(String path) {
-		return new Identifier(AFMWMain.Mod_ID, path);
+		return Identifier.of(Mod_ID, path);
 	}
 	public static final String Mod_ID = "afmweapons";
     public static final Logger LOGGER = LoggerFactory.getLogger("afmweapons");

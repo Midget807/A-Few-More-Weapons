@@ -66,7 +66,7 @@ dependencies {
 	include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
 	//Reach Entity Attribute
-	include modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
+	//include modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
 
 	//EMI
 	modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
