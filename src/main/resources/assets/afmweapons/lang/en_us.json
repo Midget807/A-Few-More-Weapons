@@ -30,6 +30,7 @@
   "item.afmweapons.golden_halberd" : "Golden Halberd",
   "item.afmweapons.diamond_halberd" : "Diamond Halberd",
   "item.afmweapons.netherite_halberd" : "Netherite Halberd",
+  "item.afmweapons.halberd.desc" : "Does 100% sweeping damage, but cannot crit",
 
   "item.afmweapons.wooden_longsword" : "Wooden Longsword",
   "item.afmweapons.stone_longsword" : "Stone Longsword",

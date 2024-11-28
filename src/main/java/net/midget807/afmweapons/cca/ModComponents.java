@@ -1,15 +1,16 @@
-package net.midget807.afmweapons.component;
+package net.midget807.afmweapons.cca;
 
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
-import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+
 import net.midget807.afmweapons.AFMWMain;
-import net.midget807.afmweapons.component.afmw.ClaymoreComponent;
-import net.midget807.afmweapons.component.afmw.LanceComponent;
-import net.midget807.afmweapons.component.afmw.LongswordComponent;
+import net.midget807.afmweapons.cca.afmw.ClaymoreComponent;
+import net.midget807.afmweapons.cca.afmw.LanceComponent;
+import net.midget807.afmweapons.cca.afmw.LongswordComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import org.ladysnake.cca.api.v3.component.ComponentKey;
+import org.ladysnake.cca.api.v3.component.ComponentRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
+import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 
 public final class ModComponents implements EntityComponentInitializer {
 

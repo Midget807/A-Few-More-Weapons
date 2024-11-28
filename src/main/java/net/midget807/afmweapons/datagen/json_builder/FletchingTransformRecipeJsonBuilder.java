@@ -5,7 +5,6 @@ import net.midget807.afmweapons.recipe.afmw.FletchingTransformRecipe;
 import net.minecraft.advancement.*;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
@@ -45,7 +44,7 @@ public class FletchingTransformRecipeJsonBuilder {
         return this;
     }
     public void offerTo(RecipeExporter exporter, String recipeId) {
-        this.offerTo(exporter, new Identifier(recipeId));
+        this.offerTo(exporter, Identifier.of(recipeId));
     }
     public void offerTo(RecipeExporter exporter, Identifier recipeId) {
         this.validate(recipeId);

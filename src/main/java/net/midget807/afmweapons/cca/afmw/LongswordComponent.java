@@ -1,13 +1,14 @@
-package net.midget807.afmweapons.component.afmw;
+package net.midget807.afmweapons.cca.afmw;
 
-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import net.midget807.afmweapons.AFMWMain;
-import net.midget807.afmweapons.component.ModComponents;
+
+import net.midget807.afmweapons.cca.ModComponents;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import org.jetbrains.annotations.NotNull;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 public class LongswordComponent implements AutoSyncedComponent {
 
@@ -39,14 +40,14 @@ public class LongswordComponent implements AutoSyncedComponent {
         this.sync();
     }
 
+
     @Override
-    public void readFromNbt(NbtCompound tag) {
+    public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         this.blocking = tag.getBoolean("isBlocking");
     }
 
     @Override
-    public void writeToNbt(NbtCompound tag) {
+    public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         tag.putBoolean("isBlocking", this.blocking);
-
     }
 }

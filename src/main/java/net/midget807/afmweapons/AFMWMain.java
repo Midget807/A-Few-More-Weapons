@@ -3,14 +3,17 @@ package net.midget807.afmweapons;
 import net.fabricmc.api.ModInitializer;
 import net.midget807.afmweapons.block.ModBlocks;
 import net.midget807.afmweapons.block.entity.ModBlockEntities;
+import net.midget807.afmweapons.enchantment.ModEnchantmentEffects;
 import net.midget807.afmweapons.effect.ModEffects;
 import net.midget807.afmweapons.enchantment.ModEnchantments;
 import net.midget807.afmweapons.entity.ModDamageTypes;
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.event.ModEvents;
+import net.midget807.afmweapons.item.ModFoodComponents;
 import net.midget807.afmweapons.item.ModItemGroups;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.particle.ModParticles;
+import net.midget807.afmweapons.rea.ReachEntityAttributes;
 import net.midget807.afmweapons.recipe.ModRecipes;
 import net.midget807.afmweapons.screen.ModScreenHandlers;
 import net.midget807.afmweapons.sound.ModSoundEvents;
@@ -32,6 +35,7 @@ public class AFMWMain implements ModInitializer {
 		ModItems.registerModItems();
 		ModItemGroups.registerModItemGroups();
 		ModEnchantments.registerModEnchantments();
+		ModEnchantmentEffects.registerModEnchantmentEffect();
 		ModEffects.registerModEffects();
 		ModEntities.registerModEntities();
 		ModDamageTypes.registerModDamageTypes();
@@ -42,5 +46,7 @@ public class AFMWMain implements ModInitializer {
 		ModParticles.registerModParticles();
 		ModEvents.registerModEvents();
 		ModSoundEvents.registerModSoundEvents();
+		ModFoodComponents.registerModFoodComponents();
+		ReachEntityAttributes.registerAFMWEntityAttribute();
 	}
 }

@@ -17,7 +17,6 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;

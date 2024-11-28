@@ -23,6 +23,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public static final TagKey<Item> TRIPLE_SHOT_PROJECTILES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("triple_shot_projectiles"));
     public static final TagKey<Item> AFMW_BOW_PROJECTILES = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("bow_projectiles"));
     public static final TagKey<Item> AFMW_ARROWS = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("afmw_arrows"));
+
+
+    public static final TagKey<Item> FRYING_PAN_ENCHANTABLE = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("frying_pan_enchantable"));
+    public static final TagKey<Item> LONGSWORD_ENCHANTABLE = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("longsword_enchantable"));
+    public static final TagKey<Item> CLAYMORE_ENCHANTABLE = TagKey.of(RegistryKeys.ITEM, AFMWMain.id("claymore_enchantable"));
     public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
     }
@@ -78,5 +83,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Items.TIPPED_ARROW)
                 .add(Items.SPECTRAL_ARROW)
                 .addTag(AFMW_ARROWS);
+
+        this.getOrCreateTagBuilder(FRYING_PAN_ENCHANTABLE)
+                .add(ModItems.FRYING_PAN);
+
+        this.getOrCreateTagBuilder(LONGSWORD_ENCHANTABLE)
+                .addTag(LONGSWORDS);
+
+        this.getOrCreateTagBuilder(CLAYMORE_ENCHANTABLE)
+                .addTag(CLAYMORES);
     }
 }

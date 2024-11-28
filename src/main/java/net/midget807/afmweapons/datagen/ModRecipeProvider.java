@@ -34,7 +34,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("S  ")
                 .input('S', Items.STICK)
                 .criterion(FabricRecipeProvider.hasItem(Items.STICK), FabricRecipeProvider.conditionsFromItem(Items.STICK))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.POLE)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.POLE)));
 
 
 
@@ -48,7 +48,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                 .criterion(hasItem(Items.WOODEN_SWORD), conditionsFromItem(Items.WOODEN_SWORD))
                 .criterion("has_planks", conditionsFromTag(ItemTags.PLANKS))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.WOODEN_LONGSWORD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.WOODEN_LONGSWORD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.STONE_LONGSWORD, 1)
                 .pattern("  I")
@@ -60,7 +60,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                 .criterion(hasItem(Items.STONE_SWORD), conditionsFromItem(Items.STONE_SWORD))
                 .criterion("has_cobblestone", conditionsFromTag(ItemTags.STONE_TOOL_MATERIALS))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.STONE_LONGSWORD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.STONE_LONGSWORD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.IRON_LONGSWORD, 1)
                 .pattern("  I")
@@ -72,7 +72,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                 .criterion(hasItem(Items.IRON_SWORD), conditionsFromItem(Items.IRON_SWORD))
                 .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.IRON_LONGSWORD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.IRON_LONGSWORD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.GOLDEN_LONGSWORD, 1)
                 .pattern("  I")
@@ -84,7 +84,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                 .criterion(hasItem(Items.GOLDEN_SWORD), conditionsFromItem(Items.GOLDEN_SWORD))
                 .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.GOLDEN_LONGSWORD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.GOLDEN_LONGSWORD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.DIAMOND_LONGSWORD, 1)
                 .pattern("  I")
@@ -96,7 +96,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                 .criterion(hasItem(Items.DIAMOND_SWORD), conditionsFromItem(Items.DIAMOND_SWORD))
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.DIAMOND_LONGSWORD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.DIAMOND_LONGSWORD)));
 
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.WOODEN_HALBERD, 1)
@@ -109,7 +109,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
                 .criterion(hasItem(Items.WOODEN_AXE), conditionsFromItem(Items.WOODEN_AXE))
                 .criterion("has_planks", conditionsFromTag(ItemTags.PLANKS))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.WOODEN_HALBERD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.WOODEN_HALBERD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.STONE_HALBERD, 1)
                 .pattern("II")
@@ -121,7 +121,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
                 .criterion(hasItem(Items.STONE_AXE), conditionsFromItem(Items.STONE_AXE))
                 .criterion("has_cobblestone", conditionsFromTag(ItemTags.STONE_TOOL_MATERIALS))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.STONE_HALBERD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.STONE_HALBERD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.IRON_HALBERD, 1)
                 .pattern("II")
@@ -133,7 +133,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
                 .criterion(hasItem(Items.IRON_AXE), conditionsFromItem(Items.IRON_AXE))
                 .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.IRON_HALBERD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.IRON_HALBERD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.GOLDEN_HALBERD, 1)
                 .pattern("II")
@@ -145,7 +145,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
                 .criterion(hasItem(Items.GOLDEN_AXE), conditionsFromItem(Items.GOLDEN_AXE))
                 .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.GOLDEN_HALBERD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.GOLDEN_HALBERD)));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.DIAMOND_HALBERD, 1)
                 .pattern("II")
@@ -157,7 +157,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModItems.POLE), conditionsFromItem(ModItems.POLE))
                 .criterion(hasItem(Items.DIAMOND_AXE), conditionsFromItem(Items.DIAMOND_AXE))
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.DIAMOND_HALBERD)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.DIAMOND_HALBERD)));
 
         offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_LONGSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD);
         offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_HALBERD, RecipeCategory.COMBAT, ModItems.NETHERITE_HALBERD);
@@ -172,7 +172,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
                 .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
-                .offerTo(exporter, new Identifier(getRecipeName(ModItems.FRYING_PAN)));
+                .offerTo(exporter, Identifier.of(getRecipeName(ModItems.FRYING_PAN)));
 
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.GLOWSTONE_DUST, RecipeCategory.COMBAT, Items.SPECTRAL_ARROW);
         offerOneAdditionFletchingRecipe(exporter, Items.ARROW, Items.ICE, RecipeCategory.COMBAT, ModItems.FROST_ARROW);

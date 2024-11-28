@@ -1,7 +1,7 @@
 package net.midget807.afmweapons.mixin.client;
 
-import net.midget807.afmweapons.component.afmw.ClaymoreComponent;
-import net.midget807.afmweapons.component.afmw.LongswordComponent;
+import net.midget807.afmweapons.cca.afmw.ClaymoreComponent;
+import net.midget807.afmweapons.cca.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.client.network.AbstractClientPlayerEntity;

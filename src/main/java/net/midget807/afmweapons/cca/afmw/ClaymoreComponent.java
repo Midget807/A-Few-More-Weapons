@@ -1,36 +1,42 @@
-package net.midget807.afmweapons.component.afmw;
+package net.midget807.afmweapons.cca.afmw;
 
-import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
+
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.midget807.afmweapons.component.ModComponents;
+import net.midget807.afmweapons.cca.ModComponents;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.enchantment.ModEnchantments;
 import net.midget807.afmweapons.network.ModMessages;
 import net.midget807.afmweapons.particle.ModParticles;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
+import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 
 import java.util.List;
 
@@ -69,8 +75,8 @@ public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComp
     @Override
     public void tick() {
         ItemStack stack = this.player.getMainHandStack();
-        boolean isLongsword = this.player.isAlive() && !this.player.isDead() && !this.player.isRemoved() && stack.isIn(ModItemTagProvider.LONGSWORDS);
-        boolean hasVindictive = EnchantmentHelper.getLevel(ModEnchantments.VINDICTIVE, stack) > 0;
+        boolean isClaymore = this.player.isAlive() && !this.player.isDead() && !this.player.isRemoved() && stack.isIn(ModItemTagProvider.CLAYMORES);
+        boolean hasVindictive = EnchantmentHelper.getLevel((RegistryEntry<Enchantment>) ModEnchantments.VINDICTIVE, stack) > 0;
         if (this.isCharging()) {
             if (this.charge < MAX_CHARGE) {
                 ++this.charge;
@@ -79,7 +85,7 @@ public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComp
                 }
             }
         } else {
-            if (this.charge <= 0 || !isLongsword || hasVindictive /*TODO check if this condition is needed*/) {
+            if (this.charge <= 0 || !isClaymore || hasVindictive /*TODO check if this condition is needed*/) {
                 this.charge = 0;
                 this.sync();
                 return;
@@ -90,7 +96,7 @@ public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComp
 
     @Override
     public void serverTick() {
-        boolean hasKnockBack = EnchantmentHelper.getLevel(Enchantments.KNOCKBACK, this.player.getMainHandStack()) > 0;
+        boolean hasKnockBack = EnchantmentHelper.getLevel((RegistryEntry<Enchantment>) Enchantments.KNOCKBACK, this.player.getMainHandStack()) > 0;
         boolean handSwung = this.player.handSwinging;
         if (this.canSmash() && charge > 0 && handSwung) {
             HitResult hitResult = this.player.raycast(3.0d, 0.0f, false);
@@ -124,11 +130,11 @@ public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComp
                     if (!(entity instanceof AbstractDecorationEntity)) {
                         if (entity instanceof TameableEntity tameableEntity) {
                             if (tameableEntity.isTamed() && !(tameableEntity.getOwner() == this.player)) {
-                                entity.damage(this.player.getDamageSources().playerAttack(this.player), 3.0f * EnchantmentHelper.getLevel(Enchantments.KNOCKBACK, this.player.getMainHandStack()));
+                                entity.damage(this.player.getDamageSources().playerAttack(this.player), 3.0f);
                                 setEntitySmashVelocity(entity, this.player);
                             }
                         } else {
-                            entity.damage(this.player.getDamageSources().playerAttack(this.player), 3.0f * EnchantmentHelper.getLevel(Enchantments.KNOCKBACK, this.player.getMainHandStack()));
+                            entity.damage(this.player.getDamageSources().playerAttack(this.player), 3.0f);
                             setEntitySmashVelocity(entity, this.player);
                         }
                     }
@@ -165,7 +171,7 @@ public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComp
                 double modP2TExposure = (1.0 - modP2T) * exposure;
                 double kbResBl;
                 if (target instanceof LivingEntity livingEntity) {
-                    kbResBl = ProtectionEnchantment.transformExplosionKnockback(livingEntity, modP2TExposure);
+                    kbResBl = (1.0 - livingEntity.getAttributeValue(EntityAttributes.GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE));
                 } else {
                     kbResBl = modP2TExposure;
                 }
@@ -191,13 +197,13 @@ public class ClaymoreComponent implements AutoSyncedComponent, CommonTickingComp
     }
 
     @Override
-    public void readFromNbt(NbtCompound tag) {
+    public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         this.charging = tag.getBoolean("isCharging");
         this.charge = tag.getInt("charge");
     }
 
     @Override
-    public void writeToNbt(NbtCompound tag) {
+    public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
         tag.putBoolean("isCharging", this.charging);
         tag.putInt("charge", this.charge);
     }

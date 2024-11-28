@@ -1,8 +1,8 @@
 package net.midget807.afmweapons.mixin.client;
 
 import net.midget807.afmweapons.AFMWMain;
-import net.midget807.afmweapons.component.afmw.ClaymoreComponent;
-import net.midget807.afmweapons.component.afmw.LongswordComponent;
+import net.midget807.afmweapons.cca.afmw.ClaymoreComponent;
+import net.midget807.afmweapons.cca.afmw.LongswordComponent;
 import net.midget807.afmweapons.datagen.ModItemTagProvider;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -16,7 +16,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
-import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -157,7 +156,7 @@ public class ItemRendererMixin {
         }
 
         //Claymores
-        // TODO: 11/09/2024 Make sure all components are ClaymoreComponent and all models are linked properly
+        /*// TODO: 11/09/2024 Make sure all components are ClaymoreComponent and all models are linked properly
         if (stack.isOf(ModItems.WOODEN_CLAYMORE) && renderMode != ModelTransformationMode.GUI && renderMode != ModelTransformationMode.GROUND && !stack.isInFrame()) {
             if (entity != null) {
                 LongswordComponent longswordComponent = LongswordComponent.get(ItemRendererMixin.entity);
@@ -231,7 +230,7 @@ public class ItemRendererMixin {
                 return ((ItemRendererAccessor) this).afmw$getModels().getModelManager().getModel(new ModelIdentifier(AFMWMain.Mod_ID, "netherite_longsword_handheld", "inventory"));
             }
 
-        }
+        }*/
 
         return value;
     }

@@ -1,26 +1,23 @@
 package net.midget807.afmweapons.item.afmw;
 
-import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.midget807.afmweapons.datagen.ModBlockTagProvider;
 import net.midget807.afmweapons.item.ModItems;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.EntityType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.ToolComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.Vanishable;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -29,22 +26,44 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.UUID;
 
-public class LanceItem extends ToolItem implements Vanishable {
-    protected static final UUID ATTACK_REACH_MODIFIER_ID = UUID.fromString("92360ea7-f4eb-417d-8605-c442cb705829");
-    protected static final UUID REACH_MODIFIER_ID = UUID.fromString("f5503a0e-83aa-4e8d-948e-dd97481833cc");
-    public float attackDamage;
-    private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
-    public LanceItem(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
-        super(material, settings);
-        this.attackDamage = attackDamage + material.getAttackDamage();
-        ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon Modifier", (double) this.attackDamage, EntityAttributeModifier.Operation.ADDITION));
-        builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon Modifier", (double) attackSpeed, EntityAttributeModifier.Operation.ADDITION));
-        builder.put(ReachEntityAttributes.ATTACK_RANGE, new EntityAttributeModifier(ATTACK_REACH_MODIFIER_ID, "Weapon modifier", 1, EntityAttributeModifier.Operation.ADDITION));
-        builder.put(ReachEntityAttributes.REACH, new EntityAttributeModifier(REACH_MODIFIER_ID, "Weapon Modifier", (double) 1.75, EntityAttributeModifier.Operation.ADDITION));
-        this.attributeModifiers = builder.build();
+public class LanceItem extends ToolItem {
+    public LanceItem(ToolMaterial material, Settings settings) {
+        super(material, settings.component(DataComponentTypes.TOOL, createToolComponent()));
+    }
+
+    private static ToolComponent createToolComponent() {
+        return new ToolComponent(
+                List.of(ToolComponent.Rule.of(ModBlockTagProvider.LANCE_EFFICIENT, 15.0f)), 1.0f, 2
+        );
+    }
+    public static AttributeModifiersComponent createAttributeModifier(ToolMaterial material, int baseAttackDamage, float attackSpeed, float reach, float attackRange) {
+        return AttributeModifiersComponent.builder()
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                        new EntityAttributeModifier(
+                                BASE_ATTACK_DAMAGE_MODIFIER_ID, (baseAttackDamage + material.getAttackDamage()), EntityAttributeModifier.Operation.ADD_VALUE
+                        ),
+                        AttributeModifierSlot.MAINHAND
+                )
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED,
+                        new EntityAttributeModifier(
+                                BASE_ATTACK_DAMAGE_MODIFIER_ID, attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE
+                        ),
+                        AttributeModifierSlot.MAINHAND
+                )
+                .add(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE,
+                        new EntityAttributeModifier(
+                                ModItems.REACH_MODIFIER_ID, reach, EntityAttributeModifier.Operation.ADD_VALUE
+                        ),
+                        AttributeModifierSlot.MAINHAND
+                )
+                .add(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
+                        new EntityAttributeModifier(
+                                ModItems.ATTACK_RANGE_MODIFIER_ID, attackRange, EntityAttributeModifier.Operation.ADD_VALUE
+                        ),
+                        AttributeModifierSlot.MAINHAND
+                )
+                .build();
     }
 
     @Override
@@ -53,26 +72,24 @@ public class LanceItem extends ToolItem implements Vanishable {
     }
 
     @Override
-    public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-        return state.isIn(ModBlockTagProvider.LANCE_EFFICIENT) ? 15.0f : 0.0f;
-    }
-
-    @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.damage(1, attacker, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
         return true;
     }
 
     @Override
+    public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        stack.damage(1, attacker, EquipmentSlot.MAINHAND);
+    }
+    @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        if (state.getHardness(world, pos) != 0.0f) {
-            stack.damage(2, miner, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+        if (state.getHardness(world, pos) != 0.0 && !state.isIn(ModBlockTagProvider.LANCE_EFFICIENT)) {
+            stack.damage(2, miner, EquipmentSlot.MAINHAND);
         }
         return true;
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("item.afmweapons.lance.desc").formatted(Formatting.GRAY));
         tooltip.add(ScreenTexts.EMPTY);
         tooltip.add(Text.translatable("item.afmweapons.lance.attack_multiplier.head").formatted(Formatting.GRAY));
@@ -85,14 +102,6 @@ public class LanceItem extends ToolItem implements Vanishable {
         } else {
             tooltip.add(Text.translatable("item.afmweapons.lance.attack_multiplier.8").formatted(Formatting.BLUE));
         }
-        super.appendTooltip(stack, world, tooltip, context);
-    }
-
-    @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-        if (slot == EquipmentSlot.MAINHAND) {
-            return this.attributeModifiers;
-        }
-        return super.getAttributeModifiers(slot);
+        super.appendTooltip(stack, context, tooltip, type);
     }
 }
