@@ -1,5 +1,7 @@
 package net.midget807.afmweapons.item.afmw.arrow;
 
+import net.midget807.afmweapons.component.ModComponents;
+import net.midget807.afmweapons.component.afmw.MagicArrowComponent;
 import net.midget807.afmweapons.entity.afmw.MagicArrowEntity;
 import net.midget807.afmweapons.util.ArrowUtil;
 import net.minecraft.client.item.TooltipContext;
@@ -25,6 +27,7 @@ public class MagicArrowItem extends ArrowItem {
         MagicArrowEntity magicArrowEntity = new MagicArrowEntity(world, shooter);
         magicArrowEntity.initFromStack(stack);
         magicArrowEntity.setPierceLevel((byte) 1000);
+        ModComponents.MAGIC_ARROW_COMPONENT.maybeGet(magicArrowEntity).ifPresent(MagicArrowComponent::sync);
         return magicArrowEntity;
     }
 

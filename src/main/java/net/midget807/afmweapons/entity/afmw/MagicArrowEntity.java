@@ -1,5 +1,6 @@
 package net.midget807.afmweapons.entity.afmw;
 
+import net.midget807.afmweapons.component.ModComponents;
 import net.midget807.afmweapons.entity.ModEntities;
 import net.midget807.afmweapons.item.ModItems;
 import net.midget807.afmweapons.util.ArrowUtil;
@@ -21,7 +22,9 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 import java.util.List;
 
@@ -108,11 +111,44 @@ public class MagicArrowEntity extends PersistentProjectileEntity {
         }
         this.setVelocity(this.getVelocity().multiply(1.0));
     }
-    /*
+
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
-    }
+        ModComponents.MAGIC_ARROW_COMPONENT.maybeGet(this).ifPresent((magicArrowComponent -> {
+            BlockState state = this.getWorld().getBlockState(blockHitResult.getBlockPos());
+            state.onProjectileHit(this.getWorld(), state, blockHitResult, this);
+            double distance = 0.0;
+            Vec3d start = this.getPos();
+            Vec3d end;
+            for (end = start.add(this.getVelocity().multiply(0.125).normalize()); distance < 4.0; end.add(this.getVelocity().multiply(0.125).normalize())) {
+                HitResult hitResult = this.getWorld().raycast(new RaycastContext(start, end, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+                if (hitResult.getType() == HitResult.Type.MISS) {
+                    break;
+                }
+                distance = this.getPos().distanceTo(hitResult.getPos());
+                start = end;
+            }
+            if (distance <= 3.1) {
+                if (!this.getWorld().isClient) {
+                    Vec3d target = this.getPos().add(this.getVelocity());
+                    EntityHitResult entityHitResult = this.getEntityCollision(this.getPos(), target.add(this.getVelocity()));
+                    if (entityHitResult != null) {
+                        this.onEntityHit(entityHitResult);
+                    }
+                    this.getWorld().emitGameEvent(GameEvent.TELEPORT, this.getPos(), GameEvent.Emitter.of(this));
+                    this.teleport(end.getX(), end.getY(), end.getZ());
+                } else {
+                    for (int i = 0; i < 6; ++i) {
+                        this.getWorld().addParticle(ParticleTypes.GLOW, blockHitResult.getPos().getX() + MathHelper.nextDouble(this.random, (-this.getWidth() / 2.0f), (this.getWidth() / 2.0f)), blockHitResult.getPos().getY() + MathHelper.nextDouble(this.random, (-this.getWidth() / 2.0f), (this.getWidth() / 2.0f)), blockHitResult.getPos().getZ() + MathHelper.nextDouble(this.random, (-this.getWidth() / 2.0f), (this.getWidth() / 2.0f)), 0.0, 0.0, 0.0);
+                        this.getWorld().addParticle(ParticleTypes.GLOW, end.getX() + MathHelper.nextDouble(this.random, (-this.getWidth() / 2.0f), (this.getWidth() / 2.0f)), end.getY() + MathHelper.nextDouble(this.random, (-this.getWidth() / 2.0f), (this.getWidth() / 2.0f)), end.getZ() + MathHelper.nextDouble(this.random, (-this.getWidth() / 2.0f), (this.getWidth() / 2.0f)), 0.0, 0.0, 0.0);
+                    }
+                }
 
+            }
+        }));
+        super.onBlockHit(blockHitResult);
+    }
+    /*
     @Override
     protected void tryCheckBlockCollision() {
     }*/
