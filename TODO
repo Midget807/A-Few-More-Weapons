@@ -1,7 +1,6 @@
 //TODO Merge Nausea and Darkness client effects to custom Concussed Effect - Nausea complete
 //TODO revamp fletching table -> makes custom arrows -> guided arrow (magic + eye of ender + empty = 1) flies slowly and targets nearby enemy;
 //TODO model and texture lances
-//TODO make echo arrow work and have changing model based on pulse -> copy tipped arrow color methods
 //TODO make netherite horse armor
 //TODO add custom holding and swinging for claymores
 //TODO make claymores do smash attack on use charge -> make the left click thing work and not have a timeframe shit
