@@ -1,0 +1,63 @@
+{
+  "itemgroup.afmweapons.main": "A Few More Weapons",
+
+  "tag.item.afmweapons.halberds": "Halberds",
+  "tag.item.afmweapons.longswords": "Longswords",
+  "tag.item.afmweapons.lances": "Lances",
+  "tag.item.afmweapons.triple_shot_projectiles": "Triple Shot Projectiles",
+  "tag.item.afmweapons.bow_projectiles": "AFMW Bow Projectiles",
+  "tag.item.afmweapons.afmw_arrows": "AFMW Arrows",
+  "emi.category.afmweapons.fletching_station": "Fletching",
+
+  "effect.afmweapons.sizzle" : "Sizzle",
+  "effect.afmweapons.concuss" : "Concuss",
+
+  "enchantment.afmweapons.triple_shot" : "Triple Shot",
+  "enchantment.afmweapons.triple_shot.desc" : "Load up to 3 arrows and shoot them in succession before reloading",
+  "enchantment.afmweapons.concuss" : "Concuss",
+  "enchantment.afmweapons.concuss.desc" : "Concusses enemies",
+
+  "item.afmweapons.pole" : "Pole",
+  "item.afmweapons.fried_egg" : "Fried Egg",
+
+  "item.afmweapons.frying_pan" : "Frying Pan",
+  "item.afmweapons.frying_pan.desc" : "Can fry and sling eggs",
+
+  "item.afmweapons.wooden_halberd" : "Wooden Halberd",
+  "item.afmweapons.stone_halberd" : "Stone Halberd",
+  "item.afmweapons.iron_halberd" : "Iron Halberd",
+  "item.afmweapons.golden_halberd" : "Golden Halberd",
+  "item.afmweapons.diamond_halberd" : "Diamond Halberd",
+  "item.afmweapons.netherite_halberd" : "Netherite Halberd",
+
+  "item.afmweapons.wooden_longsword" : "Wooden Longsword",
+  "item.afmweapons.stone_longsword" : "Stone Longsword",
+  "item.afmweapons.iron_longsword" : "Iron Longsword",
+  "item.afmweapons.golden_longsword" : "Golden Longsword",
+  "item.afmweapons.diamond_longsword" : "Diamond Longsword",
+  "item.afmweapons.netherite_longsword" : "Netherite Longsword",
+  "item.afmweapons.longsword.desc" : "Can block attacks",
+
+  "item.afmweapons.custom_arrow_loadable": "Cannot load in Crossbow",
+  "item.afmweapons.frost_arrow": "Frost Arrow",
+  "item.afmweapons.frost_arrow.desc": "Freezes water and slows enemies temporarily",
+  "item.afmweapons.explosive_arrow": "Explosive Arrow",
+  "item.afmweapons.explosive_arrow.desc": "Explodes on impact",
+  "item.afmweapons.ricochet_arrow": "Ricochet Arrow",
+  "item.afmweapons.ricochet_arrow.desc": "Bounces off blocks twice before landing",
+  "item.afmweapons.warp_arrow": "Warp Arrow",
+  "item.afmweapons.warp_arrow.desc": "Teleports the player upon landing",
+  "item.afmweapons.magic_arrow": "Magic Arrow",
+  "item.afmweapons.magic_arrow.desc": "Flies through blocks for a short period of time. Ignores gravity and pierces mobs",
+  "item.afmweapons.echo_arrow": "Echo Arrow",
+  "item.afmweapons.echo_arrow.desc": "Pulses in a block periodically, revealing nearby entities in a 16 block radius",
+  "item.afmweapons.guided_arrow": "Guided Arrow",
+  "item.afmweapons.guided_arrow.desc": "Flies slowly, seeking out any nearby entity",
+
+  "screen.afmweapons.fletching_table": "Craft Arrows",
+  "container.afmweapons.fletching.missing_arrow_tooltip": "Add Arrow",
+  "container.afmweapons.fletching.error_tooltip": "Arrow can't be crafted this way",
+  "container.afmweapons.fletching.add_addition_tooltip": "Add Item",
+  "sound.afmweapons.sad_trombone": "Womp Womp",
+  "sound.afmweapons.longsword_block": "Longsword blocks"
+}

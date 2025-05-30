@@ -1,0 +1,10 @@
+accessWidener v2 named
+accessible field net/minecraft/entity/projectile/ProjectileEntity shot Z
+accessible field net/minecraft/entity/projectile/ProjectileEntity leftOwner Z
+accessible field net/minecraft/entity/projectile/PersistentProjectileEntity inBlockState Lnet/minecraft/block/BlockState;
+accessible method net/minecraft/entity/projectile/ProjectileEntity shouldLeaveOwner ()Z
+accessible method net/minecraft/entity/projectile/PersistentProjectileEntity shouldFall ()Z
+accessible method net/minecraft/entity/projectile/PersistentProjectileEntity fall ()V
+accessible field net/minecraft/entity/projectile/PersistentProjectileEntity punch I
+accessible field net/minecraft/entity/projectile/PersistentProjectileEntity sound Lnet/minecraft/sound/SoundEvent;
+accessible field net/minecraft/entity/projectile/PersistentProjectileEntity damage D

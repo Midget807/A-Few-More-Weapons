@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:diamond_axe"
+    },
+    "I": {
+      "item": "minecraft:diamond"
+    },
+    "P": {
+      "item": "afmweapons:pole"
+    }
+  },
+  "pattern": [
+    "II",
+    "IA",
+    "P "
+  ],
+  "result": {
+    "item": "afmweapons:diamond_halberd"
+  },
+  "show_notification": true
+}

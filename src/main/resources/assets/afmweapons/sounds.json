@@ -1,0 +1,24 @@
+{
+  "sad_trombone": {
+    "subtitle": "sound.afmweapons.sad_trombone",
+    "sounds": [
+      "afmweapons:sad_trombone"
+    ]
+  },
+  "longsword_block_normal": {
+    "subtitle": "sound.afmweapons.longsword_block",
+    "sounds": [
+      "afmweapons:shield_block_1",
+      "afmweapons:shield_block_2",
+      "afmweapons:shield_block_3",
+      "afmweapons:shield_block_4",
+      "afmweapons:shield_block_5"
+    ]
+  },
+  "longsword_block_netherite": {
+    "subtitle": "sound.afmweapons.longsword_block",
+    "sounds": [
+      "afmweapons:anvil_place"
+    ]
+  }
+}

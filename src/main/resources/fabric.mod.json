@@ -1,0 +1,54 @@
+{
+	"schemaVersion": 1,
+	"id": "afmweapons",
+	"version": "${version}",
+	"name": "A Few More Weapons",
+	"description": "Adds a few more combat features to Minecraft",
+	"authors": [
+		"Midget807",
+		"Adumbruh"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/afmweapons/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.midget807.afmweapons.AFMWMain"
+		],
+		"client": [
+			"net.midget807.afmweapons.AFMWClient"
+		],
+		"fabric-datagen": [
+			"net.midget807.afmweapons.AFMWDataGenerator"
+		],
+		"emi": [
+			"net.midget807.afmweapons.emi.AFMWEmiPlugin"
+		],
+		"cardinal-components": [
+			"net.midget807.afmweapons.cca.ModComponents"
+		]
+	},
+	"custom": {
+		"cardinal-components": [
+			"afmweapons:longsword_component",
+			"afmweapons:lance_component"
+		]
+	},
+	"mixins": [
+		"afmweapons.mixins.json"
+	],
+	"accessWidener": "afmweapons.accesswidener",
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

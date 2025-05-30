@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "afmweapons:netherite_halberd",
+    "afmweapons:wooden_halberd",
+    "afmweapons:stone_halberd",
+    "afmweapons:iron_halberd",
+    "afmweapons:golden_halberd",
+    "afmweapons:diamond_halberd"
+  ]
+}

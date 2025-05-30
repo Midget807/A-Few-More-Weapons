@@ -1,0 +1,15 @@
+{
+  "type": "afmweapons:fletching_transform",
+  "addition_1": {
+    "item": "minecraft:slime_ball"
+  },
+  "addition_2": {
+    "item": "minecraft:slime_ball"
+  },
+  "arrow": {
+    "item": "minecraft:arrow"
+  },
+  "result": {
+    "item": "afmweapons:ricochet_arrow"
+  }
+}

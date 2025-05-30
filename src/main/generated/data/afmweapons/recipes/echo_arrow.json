@@ -1,0 +1,13 @@
+{
+  "type": "afmweapons:fletching_transform",
+  "addition_1": {
+    "item": "minecraft:echo_shard"
+  },
+  "addition_2": [],
+  "arrow": {
+    "item": "minecraft:spectral_arrow"
+  },
+  "result": {
+    "item": "afmweapons:echo_arrow"
+  }
+}

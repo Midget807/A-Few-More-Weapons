@@ -1,0 +1,6 @@
+{
+  "parent": "afmweapons:item/32x32generated",
+  "textures": {
+    "layer0": "afmweapons:item/wooden_longsword_handheld"
+  }
+}

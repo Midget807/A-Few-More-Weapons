@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "afmweapons:netherite_lance",
+    "afmweapons:iron_lance",
+    "afmweapons:golden_lance",
+    "afmweapons:diamond_lance"
+  ]
+}

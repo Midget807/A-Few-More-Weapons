@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "afmweapons:frost_arrow",
+    "afmweapons:explosive_arrow",
+    "afmweapons:ricochet_arrow",
+    "afmweapons:warp_arrow",
+    "afmweapons:magic_arrow",
+    "afmweapons:echo_arrow"
+  ]
+}

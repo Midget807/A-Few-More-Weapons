@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:impermeable",
+      "required": false
+    },
+    "minecraft:frosted_ice",
+    "minecraft:ice"
+  ]
+}

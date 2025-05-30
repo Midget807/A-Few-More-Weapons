@@ -1,0 +1,13 @@
+{
+  "type": "afmweapons:fletching_transform",
+  "addition_1": {
+    "item": "minecraft:glowstone_dust"
+  },
+  "addition_2": [],
+  "arrow": {
+    "item": "minecraft:arrow"
+  },
+  "result": {
+    "item": "minecraft:spectral_arrow"
+  }
+}
